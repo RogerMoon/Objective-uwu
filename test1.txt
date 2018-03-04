@@ -1,0 +1,10 @@
+PROG{
+	VAR NUM nombre
+
+	MAIN{
+
+		DRAW(TRUE)
+		KAMEF = 10
+
+	}
+}
