@@ -1,10 +1,10 @@
 PROG{
-	VAR NUM nombre
+	
 
 	FUNC NUM move(NUM x, FLOT y, FLOT z){
-		VAR NUM nombre
-		VAR NUM nombre
-		VAR NUM nombre
+		VAR NUM nombre1move
+		VAR NUM nombre2move
+		VAR NUM nombre3move
 
 		IF(A>B){
 			move(a,b,c,d)
@@ -19,9 +19,9 @@ PROG{
 	}
 
 		FUNC FLOT up(NUM x, FLOT y, FLOT z){
-		VAR NUM nombre
-		VAR NUM nombre
-		VAR NUM nombre
+		VAR NUM nombre4up
+		VAR NUM nombre5up
+		VAR NUM nombre6up
 
 		IF(A>B){
 			move(a,b,c,d)

@@ -6,13 +6,78 @@ aprobado = True
 
 dir_func = {}
 
+pOper = []
+pType = []
+pilaO = []
+quad = []
+cont = 0
+
 actual_scope = 'global'
 
+dir_func[actual_scope] = { 'type' : 'void', 'scope' : {}}
 
-cars = {'A':{'speed':70,
-        'color':2},
-        'B':{'speed':60,
-        'color':3}}
+def semantic_check(lOP_type,rOP_type,oper):
+    if lOP_type in sem_cube:
+        if rOP_type in sem_cube[lOP_type]:
+            if oper in sem_cube[lOP_type][rOP_type]:
+                return sem_cube[lOP_type][rOP_type][oper]
+    return 'error'
+
+sem_cube = {'NUM' : 	{ 'NUM' : { '+': 'NUM',
+                                    '-': 'NUM',
+                                    '/': 'FLOT',
+                                    '*': 'NUM',
+                                    '%': 'NUM',
+                                    '<': 'BOOL',
+                                    '>': 'BOOL',
+                                    '<=': 'BOOL',
+                                    '>=': 'BOOL',
+                                    '!=': 'BOOL',
+                                    '==': 'BOOL',
+                                    '=': 'NUM'},
+                          'FLOT': {'+': 'FLOT',
+                                    '-': 'FLOT',
+                                    '/': 'FLOT',
+                                    '*': 'FLOT',
+                                    '%': 'FLOT',
+                                    '<': 'BOOL',
+                                    '>': 'BOOL',
+                                    '<=': 'BOOL',
+                                    '>=': 'BOOL',
+                                    '!=': 'BOOL',
+                                    '==': 'BOOL',
+                                    '=': 'int'}},
+                 'FLOT' : {'NUM' : {'+': 'FLOT',
+                                    '-': 'FLOT',
+                                    '/': 'FLOT',
+                                    '*': 'FLOT',
+                                    '%': 'FLOT',
+                                    '<': 'BOOL',
+                                    '>': 'BOOL',
+                                    '<=': 'BOOL',
+                                    '>=': 'BOOL',
+                                    '!=': 'BOOL',
+                                    '==': 'BOOL',
+                                     '=': 'FLOT'},
+                          'FLOT': {'+': 'FLOT',
+                                    '-': 'FLOT',
+                                    '/': 'FLOT',
+                                    '*': 'FLOT',
+                                    '%': 'FLOT',
+                                    '<': 'BOOL',
+                                    '>': 'BOOL',
+                                    '<=': 'BOOL',
+                                    '>=': 'BOOL',
+                                    '!=': 'BOOL',
+                                    '==': 'BOOL',
+                                    '=': 'FLOT'}},
+                 'BOOL' : {'BOOL' : {'AND' : 'BOOL',
+                                     'OR' : 'BOOL',
+                                     '=' : 'BOOL'}}}
+
+
+
+
 
 reserved = {
 	  'PROG' : 'PR_program',
@@ -113,7 +178,8 @@ lex.lex()
 
 def p_prog(p):
 	'prog : PR_program TO_LLAABRE declare mainBlock TO_LLACIERRA'
-	#dir_func = {'func': {'speed':70,'color':2}, 'vars':{'speed':70,'color':2}}
+	
+	print(dir_func.get('move'))
 	
 def p_val(p):
 	'''val : TO_PARABRE exp TO_PARCIERRA 
@@ -140,7 +206,9 @@ def p_decFunc(p):
 
 def p_var(p):
 	'var : PR_var tipo ID arrayCreate'
-	#dir_func[actual_scope]['scope'][p[2]] = {'type' : p[1]}
+	#print(actual_scope)
+	dir_func[actual_scope]['scope'][p[3]] = {'type' : p[2]}
+	#print(dir_func.get(actual_scope))
 	
 
 
@@ -171,11 +239,17 @@ def p_assignTo(p):
 
 
 def p_func(p):
-	'func : PR_function decideType ID TO_PARABRE params TO_PARCIERRA TO_LLAABRE decVar bloque TO_LLACIERRA'
+	'func : func1 func2'
+
+
+def p_func1(p):
+	'func1 : PR_function decideType ID TO_PARABRE params TO_PARCIERRA TO_LLAABRE'
+	global actual_scope
 	actual_scope = p[3]
 	dir_func[p[3]] = { 'type' : p[2], 'scope' : {}}
-	print(dir_func.get(p[3]))
-	# dirProced['RedRobin'] = {'func': {}, 'vars': {}, 'obj': {}, 'parent': ''}
+
+def p_func2(p):
+	'func2 : decVar bloque TO_LLACIERRA'
 
 def p_decideType(p):
 	'''decideType : tipo 
@@ -193,7 +267,7 @@ def p_moreParams(p):
 
 def p_mainBlock(p):
 	'mainBlock : PR_main TO_LLAABRE bloque TO_LLACIERRA'
-	actual_scope = p[3]
+	actual_scope = 'main'
 	dir_func[p[3]] = {'type' : 'void', 'scope' : {}}
 	#print(dir_func.get('move'))
 
