@@ -1,0 +1,44 @@
+PROG{
+	VAR NUM nombre
+
+	FUNC NUM move(NUM x, FLOT y, FLOT z){
+		VAR NUM nombre
+		VAR NUM nombre
+		VAR NUM nombre
+
+		IF(A>B){
+			move(a,b,c,d)
+			LOOP(4+1){
+				A=1
+				#uwu
+			}
+			#uwu
+		}
+		RET rogerMoon
+		#uwu
+	}
+
+		FUNC FLOT up(NUM x, FLOT y, FLOT z){
+		VAR NUM nombre
+		VAR NUM nombre
+		VAR NUM nombre
+
+		IF(A>B){
+			move(a,b,c,d)
+			LOOP(4+1){
+				A=1
+				#uwu
+			}
+			#uwu
+		}
+		RET rogerMoon
+		#uwu
+	}
+
+	MAIN{
+
+		move(7,6,4,hola)
+		KAMEF = 10
+		#uwu
+	}
+}

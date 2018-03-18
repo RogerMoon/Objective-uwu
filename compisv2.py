@@ -4,6 +4,16 @@ import sys
 
 aprobado = True
 
+dir_func = {}
+
+actual_scope = 'global'
+
+
+cars = {'A':{'speed':70,
+        'color':2},
+        'B':{'speed':60,
+        'color':3}}
+
 reserved = {
 	  'PROG' : 'PR_program',
 	  'VAR' : 'PR_var',
@@ -50,7 +60,7 @@ tokens = [
 	'OP_MAYORQUE', 'OP_MAYOROIGUAL',
 	'TO_PARABRE', 'TO_PARCIERRA', 'TO_LLAABRE', 'TO_LLACIERRA', 
 	'TO_CORABRE', 'TO_CORCIERRA',
-	'TO_DIGIT', 'TO_NUM', 'TO_FLOT', 'ID', 'TO_COMA'
+	'TO_DIGIT', 'TO_NUM', 'TO_FLOT', 'ID', 'TO_COMA', 'TO_UWU'
 
 ]
 #tokens
@@ -76,6 +86,7 @@ t_TO_DIGIT = r'[0-9]'
 t_TO_NUM = r'[0-9]+'
 t_TO_FLOT = r'[0-9]+\.[0-9]+'
 t_TO_COMA = r'\,'
+t_TO_UWU = r'\#\u\w\u'
 
 
 tokens = tokens + list(reserved.values())
@@ -89,18 +100,21 @@ def t_ID(t):
 t_ignore = ' \t\n'
 
 def t_error(t):
+	
+
     global aprobado
     aprobado = False
     print("Caracter ilegal '%s'" % t.value[0])
     t.lexer.skip(1)
-    print("entre aqui")
+
 
 # Construye el lexer
 lex.lex()
 
 def p_prog(p):
 	'prog : PR_program TO_LLAABRE declare mainBlock TO_LLACIERRA'
-
+	#dir_func = {'func': {'speed':70,'color':2}, 'vars':{'speed':70,'color':2}}
+	
 def p_val(p):
 	'''val : TO_PARABRE exp TO_PARCIERRA 
 			| TO_NUM
@@ -110,10 +124,15 @@ def p_val(p):
 
 def p_declare(p):
 	'declare : decVar decFunc'
+	
+
 
 def p_decVar(p):
 	''' decVar : var decVar 
 				| empty'''
+			
+
+
 
 def p_decFunc(p):
 	''' decFunc : func decFunc 
@@ -121,6 +140,9 @@ def p_decFunc(p):
 
 def p_var(p):
 	'var : PR_var tipo ID arrayCreate'
+	#dir_func[actual_scope]['scope'][p[2]] = {'type' : p[1]}
+	
+
 
 def p_arrayCreate(p):
 	'''arrayCreate : TO_CORABRE TO_NUM TO_CORCIERRA 
@@ -135,6 +157,7 @@ def p_tipo(p):
 	'''tipo : PR_num 
 			| PR_flot
 			| PR_bool '''
+	p[0] = p[1]
 
 def p_assign(p):
 	'assign : assignTo OP_IGUAL megaExp'
@@ -149,10 +172,15 @@ def p_assignTo(p):
 
 def p_func(p):
 	'func : PR_function decideType ID TO_PARABRE params TO_PARCIERRA TO_LLAABRE decVar bloque TO_LLACIERRA'
+	actual_scope = p[3]
+	dir_func[p[3]] = { 'type' : p[2], 'scope' : {}}
+	print(dir_func.get(p[3]))
+	# dirProced['RedRobin'] = {'func': {}, 'vars': {}, 'obj': {}, 'parent': ''}
 
 def p_decideType(p):
 	'''decideType : tipo 
 				  | PR_void'''
+	p[0] = p[1]
 
 
 def p_params(p):
@@ -165,6 +193,9 @@ def p_moreParams(p):
 
 def p_mainBlock(p):
 	'mainBlock : PR_main TO_LLAABRE bloque TO_LLACIERRA'
+	actual_scope = p[3]
+	dir_func[p[3]] = {'type' : 'void', 'scope' : {}}
+	#print(dir_func.get('move'))
 
 def p_opLogico(p):
 	'''opLogico : PR_interseccion 
@@ -185,7 +216,7 @@ def p_opRelacional(p):
 
 def p_bloque(p):
 	'''bloque : estructura bloque 
-			  | empty'''
+			  | TO_UWU'''
 
 def p_estructura(p):
 	'''estructura : assign 
@@ -287,13 +318,24 @@ def p_error(p):
     sys.exit()
 
 
+
+
+
 parser = yacc.yacc()
+
+# for x in dir_func:
+#     print (x)
+#     for y in dir_func[x]:
+#         print (y,':',dir_func[x][y])
+
+
+
 
 archivo = sys.argv[1]
 f = open(archivo, 'r')
 s = f.read()
-print(aprobado)
 parser.parse(s)
+
 
 if aprobado == True:
     print("Archivo aprobado")
