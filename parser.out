@@ -1,0 +1,4023 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    PR_end
+    TO_DIGIT
+    PR_home
+
+Grammar
+
+Rule 0     S' -> prog
+Rule 1     prog -> PR_program TO_LLAABRE declare mainBlock TO_LLACIERRA
+Rule 2     val -> TO_PARABRE exp TO_PARCIERRA
+Rule 3     val -> TO_NUM
+Rule 4     val -> TO_FLOT
+Rule 5     val -> bool
+Rule 6     val -> ID
+Rule 7     declare -> decVar decFunc
+Rule 8     decVar -> var decVar
+Rule 9     decVar -> empty
+Rule 10    decFunc -> func decFunc
+Rule 11    decFunc -> empty
+Rule 12    var -> PR_var tipo ID arrayCreate
+Rule 13    arrayCreate -> TO_CORABRE TO_NUM TO_CORCIERRA
+Rule 14    arrayCreate -> TO_CORABRE TO_NUM TO_CORCIERRA TO_CORABRE TO_NUM TO_CORCIERRA
+Rule 15    arrayCreate -> empty
+Rule 16    arrayIndex -> TO_CORABRE exp TO_CORCIERRA
+Rule 17    arrayIndex -> TO_CORABRE exp TO_CORCIERRA TO_CORABRE exp TO_CORCIERRA
+Rule 18    arrayIndex -> empty
+Rule 19    tipo -> PR_num
+Rule 20    tipo -> PR_flot
+Rule 21    tipo -> PR_bool
+Rule 22    assign -> assignTo OP_IGUAL megaExp
+Rule 23    assignTo -> ID arrayIndex
+Rule 24    assignTo -> PR_kameForw
+Rule 25    assignTo -> PR_kameBack
+Rule 26    assignTo -> PR_kameRot
+Rule 27    func -> PR_function decideType ID TO_PARABRE params TO_PARCIERRA TO_LLAABRE decVar bloque TO_LLACIERRA
+Rule 28    decideType -> tipo
+Rule 29    decideType -> PR_void
+Rule 30    params -> tipo ID moreParams
+Rule 31    params -> empty
+Rule 32    moreParams -> TO_COMA tipo ID moreParams
+Rule 33    moreParams -> empty
+Rule 34    mainBlock -> PR_main TO_LLAABRE bloque TO_LLACIERRA
+Rule 35    opLogico -> PR_interseccion
+Rule 36    opLogico -> PR_union
+Rule 37    loop -> PR_loop TO_PARABRE exp TO_PARCIERRA TO_LLAABRE bloque TO_LLACIERRA
+Rule 38    opRelacional -> OP_DOBLEIGUAL
+Rule 39    opRelacional -> OP_DIFDE
+Rule 40    opRelacional -> OP_MENORQUE
+Rule 41    opRelacional -> OP_MENOROIGUAL
+Rule 42    opRelacional -> OP_MAYORQUE
+Rule 43    opRelacional -> OP_MAYOROIGUAL
+Rule 44    bloque -> estructura bloque
+Rule 45    bloque -> empty
+Rule 46    estructura -> assign
+Rule 47    estructura -> loop
+Rule 48    estructura -> comparacion
+Rule 49    estructura -> return
+Rule 50    estructura -> funcCall
+Rule 51    estructura -> decVar
+Rule 52    funcCall -> ID TO_PARABRE paramVals TO_PARCIERRA
+Rule 53    funcCall -> PR_draw TO_PARABRE megaExp TO_PARCIERRA
+Rule 54    funcCall -> PR_circle TO_PARABRE exp TO_PARCIERRA
+Rule 55    funcCall -> PR_square TO_PARABRE exp TO_PARCIERRA
+Rule 56    funcCall -> PR_size TO_PARABRE exp TO_PARCIERRA
+Rule 57    funcCall -> PR_color TO_PARABRE colorChoice TO_PARCIERRA
+Rule 58    bool -> PR_true
+Rule 59    bool -> PR_false
+Rule 60    colorChoice -> PR_red
+Rule 61    colorChoice -> PR_green
+Rule 62    colorChoice -> PR_blue
+Rule 63    colorChoice -> PR_violet
+Rule 64    colorChoice -> PR_orange
+Rule 65    colorChoice -> PR_yellow
+Rule 66    colorChoice -> PR_white
+Rule 67    colorChoice -> PR_black
+Rule 68    paramVals -> val moreParamVals
+Rule 69    paramVals -> empty
+Rule 70    moreParamVals -> TO_COMA val moreParamVals
+Rule 71    moreParamVals -> empty
+Rule 72    return -> PR_return megaExp
+Rule 73    comparacion -> PR_if TO_PARABRE megaExp TO_PARCIERRA TO_LLAABRE bloque TO_LLACIERRA maybeElse
+Rule 74    maybeElse -> PR_else TO_LLAABRE bloque TO_LLACIERRA
+Rule 75    maybeElse -> empty
+Rule 76    megaExp -> maybeNot superExp anotherMega
+Rule 77    maybeNot -> PR_negacion
+Rule 78    maybeNot -> empty
+Rule 79    anotherMega -> opLogico megaExp
+Rule 80    anotherMega -> empty
+Rule 81    superExp -> exp maybeRel
+Rule 82    maybeRel -> opRelacional exp
+Rule 83    maybeRel -> empty
+Rule 84    exp -> term anotherExp
+Rule 85    anotherExp -> OP_MAS exp
+Rule 86    anotherExp -> OP_MENOS exp
+Rule 87    anotherExp -> empty
+Rule 88    term -> fact anotherTerm
+Rule 89    anotherTerm -> OP_MULT term
+Rule 90    anotherTerm -> OP_DIV term
+Rule 91    anotherTerm -> OP_RESID term
+Rule 92    anotherTerm -> empty
+Rule 93    fact -> TO_PARABRE megaExp TO_PARCIERRA
+Rule 94    fact -> ID arrayIndex
+Rule 95    fact -> val
+Rule 96    empty -> <empty>
+
+Terminals, with rules where they appear
+
+ID                   : 6 12 23 27 30 32 52 94
+OP_DIFDE             : 39
+OP_DIV               : 90
+OP_DOBLEIGUAL        : 38
+OP_IGUAL             : 22
+OP_MAS               : 85
+OP_MAYOROIGUAL       : 43
+OP_MAYORQUE          : 42
+OP_MENOROIGUAL       : 41
+OP_MENORQUE          : 40
+OP_MENOS             : 86
+OP_MULT              : 89
+OP_RESID             : 91
+PR_black             : 67
+PR_blue              : 62
+PR_bool              : 21
+PR_circle            : 54
+PR_color             : 57
+PR_draw              : 53
+PR_else              : 74
+PR_end               : 
+PR_false             : 59
+PR_flot              : 20
+PR_function          : 27
+PR_green             : 61
+PR_home              : 
+PR_if                : 73
+PR_interseccion      : 35
+PR_kameBack          : 25
+PR_kameForw          : 24
+PR_kameRot           : 26
+PR_loop              : 37
+PR_main              : 34
+PR_negacion          : 77
+PR_num               : 19
+PR_orange            : 64
+PR_program           : 1
+PR_red               : 60
+PR_return            : 72
+PR_size              : 56
+PR_square            : 55
+PR_true              : 58
+PR_union             : 36
+PR_var               : 12
+PR_violet            : 63
+PR_void              : 29
+PR_white             : 66
+PR_yellow            : 65
+TO_COMA              : 32 70
+TO_CORABRE           : 13 14 14 16 17 17
+TO_CORCIERRA         : 13 14 14 16 17 17
+TO_DIGIT             : 
+TO_FLOT              : 4
+TO_LLAABRE           : 1 27 34 37 73 74
+TO_LLACIERRA         : 1 27 34 37 73 74
+TO_NUM               : 3 13 14 14
+TO_PARABRE           : 2 27 37 52 53 54 55 56 57 73 93
+TO_PARCIERRA         : 2 27 37 52 53 54 55 56 57 73 93
+error                : 
+
+Nonterminals, with rules where they appear
+
+anotherExp           : 84
+anotherMega          : 76
+anotherTerm          : 88
+arrayCreate          : 12
+arrayIndex           : 23 94
+assign               : 46
+assignTo             : 22
+bloque               : 27 34 37 44 73 74
+bool                 : 5
+colorChoice          : 57
+comparacion          : 48
+decFunc              : 7 10
+decVar               : 7 8 27 51
+decideType           : 27
+declare              : 1
+empty                : 9 11 15 18 31 33 45 69 71 75 78 80 83 87 92
+estructura           : 44
+exp                  : 2 16 17 17 37 54 55 56 81 82 85 86
+fact                 : 88
+func                 : 10
+funcCall             : 50
+loop                 : 47
+mainBlock            : 1
+maybeElse            : 73
+maybeNot             : 76
+maybeRel             : 81
+megaExp              : 22 53 72 73 79 93
+moreParamVals        : 68 70
+moreParams           : 30 32
+opLogico             : 79
+opRelacional         : 82
+paramVals            : 52
+params               : 27
+prog                 : 0
+return               : 49
+superExp             : 76
+term                 : 84 89 90 91
+tipo                 : 12 28 30 32
+val                  : 68 70 95
+var                  : 8
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . prog
+    (1) prog -> . PR_program TO_LLAABRE declare mainBlock TO_LLACIERRA
+
+    PR_program      shift and go to state 1
+
+    prog                           shift and go to state 2
+
+state 1
+
+    (1) prog -> PR_program . TO_LLAABRE declare mainBlock TO_LLACIERRA
+
+    TO_LLAABRE      shift and go to state 3
+
+
+state 2
+
+    (0) S' -> prog .
+
+
+
+state 3
+
+    (1) prog -> PR_program TO_LLAABRE . declare mainBlock TO_LLACIERRA
+    (7) declare -> . decVar decFunc
+    (8) decVar -> . var decVar
+    (9) decVar -> . empty
+    (12) var -> . PR_var tipo ID arrayCreate
+    (96) empty -> .
+
+    PR_var          shift and go to state 5
+    PR_function     reduce using rule 96 (empty -> .)
+    PR_main         reduce using rule 96 (empty -> .)
+
+    decVar                         shift and go to state 4
+    declare                        shift and go to state 7
+    var                            shift and go to state 6
+    empty                          shift and go to state 8
+
+state 4
+
+    (7) declare -> decVar . decFunc
+    (10) decFunc -> . func decFunc
+    (11) decFunc -> . empty
+    (27) func -> . PR_function decideType ID TO_PARABRE params TO_PARCIERRA TO_LLAABRE decVar bloque TO_LLACIERRA
+    (96) empty -> .
+
+    PR_function     shift and go to state 9
+    PR_main         reduce using rule 96 (empty -> .)
+
+    func                           shift and go to state 10
+    decFunc                        shift and go to state 11
+    empty                          shift and go to state 12
+
+state 5
+
+    (12) var -> PR_var . tipo ID arrayCreate
+    (19) tipo -> . PR_num
+    (20) tipo -> . PR_flot
+    (21) tipo -> . PR_bool
+
+    PR_num          shift and go to state 13
+    PR_flot         shift and go to state 16
+    PR_bool         shift and go to state 15
+
+    tipo                           shift and go to state 14
+
+state 6
+
+    (8) decVar -> var . decVar
+    (8) decVar -> . var decVar
+    (9) decVar -> . empty
+    (12) var -> . PR_var tipo ID arrayCreate
+    (96) empty -> .
+
+  ! shift/reduce conflict for PR_var resolved as shift
+    PR_var          shift and go to state 5
+    PR_function     reduce using rule 96 (empty -> .)
+    PR_main         reduce using rule 96 (empty -> .)
+    PR_loop         reduce using rule 96 (empty -> .)
+    PR_if           reduce using rule 96 (empty -> .)
+    PR_return       reduce using rule 96 (empty -> .)
+    ID              reduce using rule 96 (empty -> .)
+    PR_draw         reduce using rule 96 (empty -> .)
+    PR_circle       reduce using rule 96 (empty -> .)
+    PR_square       reduce using rule 96 (empty -> .)
+    PR_size         reduce using rule 96 (empty -> .)
+    PR_color        reduce using rule 96 (empty -> .)
+    PR_kameForw     reduce using rule 96 (empty -> .)
+    PR_kameBack     reduce using rule 96 (empty -> .)
+    PR_kameRot      reduce using rule 96 (empty -> .)
+    TO_LLACIERRA    reduce using rule 96 (empty -> .)
+
+  ! PR_var          [ reduce using rule 96 (empty -> .) ]
+
+    var                            shift and go to state 6
+    decVar                         shift and go to state 17
+    empty                          shift and go to state 8
+
+state 7
+
+    (1) prog -> PR_program TO_LLAABRE declare . mainBlock TO_LLACIERRA
+    (34) mainBlock -> . PR_main TO_LLAABRE bloque TO_LLACIERRA
+
+    PR_main         shift and go to state 19
+
+    mainBlock                      shift and go to state 18
+
+state 8
+
+    (9) decVar -> empty .
+
+    PR_loop         reduce using rule 9 (decVar -> empty .)
+    PR_if           reduce using rule 9 (decVar -> empty .)
+    PR_return       reduce using rule 9 (decVar -> empty .)
+    ID              reduce using rule 9 (decVar -> empty .)
+    PR_draw         reduce using rule 9 (decVar -> empty .)
+    PR_circle       reduce using rule 9 (decVar -> empty .)
+    PR_square       reduce using rule 9 (decVar -> empty .)
+    PR_size         reduce using rule 9 (decVar -> empty .)
+    PR_color        reduce using rule 9 (decVar -> empty .)
+    PR_kameForw     reduce using rule 9 (decVar -> empty .)
+    PR_kameBack     reduce using rule 9 (decVar -> empty .)
+    PR_kameRot      reduce using rule 9 (decVar -> empty .)
+    PR_var          reduce using rule 9 (decVar -> empty .)
+    TO_LLACIERRA    reduce using rule 9 (decVar -> empty .)
+    PR_function     reduce using rule 9 (decVar -> empty .)
+    PR_main         reduce using rule 9 (decVar -> empty .)
+
+
+state 9
+
+    (27) func -> PR_function . decideType ID TO_PARABRE params TO_PARCIERRA TO_LLAABRE decVar bloque TO_LLACIERRA
+    (28) decideType -> . tipo
+    (29) decideType -> . PR_void
+    (19) tipo -> . PR_num
+    (20) tipo -> . PR_flot
+    (21) tipo -> . PR_bool
+
+    PR_void         shift and go to state 20
+    PR_num          shift and go to state 13
+    PR_flot         shift and go to state 16
+    PR_bool         shift and go to state 15
+
+    decideType                     shift and go to state 22
+    tipo                           shift and go to state 21
+
+state 10
+
+    (10) decFunc -> func . decFunc
+    (10) decFunc -> . func decFunc
+    (11) decFunc -> . empty
+    (27) func -> . PR_function decideType ID TO_PARABRE params TO_PARCIERRA TO_LLAABRE decVar bloque TO_LLACIERRA
+    (96) empty -> .
+
+    PR_function     shift and go to state 9
+    PR_main         reduce using rule 96 (empty -> .)
+
+    func                           shift and go to state 10
+    decFunc                        shift and go to state 23
+    empty                          shift and go to state 12
+
+state 11
+
+    (7) declare -> decVar decFunc .
+
+    PR_main         reduce using rule 7 (declare -> decVar decFunc .)
+
+
+state 12
+
+    (11) decFunc -> empty .
+
+    PR_main         reduce using rule 11 (decFunc -> empty .)
+
+
+state 13
+
+    (19) tipo -> PR_num .
+
+    ID              reduce using rule 19 (tipo -> PR_num .)
+
+
+state 14
+
+    (12) var -> PR_var tipo . ID arrayCreate
+
+    ID              shift and go to state 24
+
+
+state 15
+
+    (21) tipo -> PR_bool .
+
+    ID              reduce using rule 21 (tipo -> PR_bool .)
+
+
+state 16
+
+    (20) tipo -> PR_flot .
+
+    ID              reduce using rule 20 (tipo -> PR_flot .)
+
+
+state 17
+
+    (8) decVar -> var decVar .
+
+    PR_loop         reduce using rule 8 (decVar -> var decVar .)
+    PR_if           reduce using rule 8 (decVar -> var decVar .)
+    PR_return       reduce using rule 8 (decVar -> var decVar .)
+    ID              reduce using rule 8 (decVar -> var decVar .)
+    PR_draw         reduce using rule 8 (decVar -> var decVar .)
+    PR_circle       reduce using rule 8 (decVar -> var decVar .)
+    PR_square       reduce using rule 8 (decVar -> var decVar .)
+    PR_size         reduce using rule 8 (decVar -> var decVar .)
+    PR_color        reduce using rule 8 (decVar -> var decVar .)
+    PR_kameForw     reduce using rule 8 (decVar -> var decVar .)
+    PR_kameBack     reduce using rule 8 (decVar -> var decVar .)
+    PR_kameRot      reduce using rule 8 (decVar -> var decVar .)
+    PR_var          reduce using rule 8 (decVar -> var decVar .)
+    TO_LLACIERRA    reduce using rule 8 (decVar -> var decVar .)
+    PR_function     reduce using rule 8 (decVar -> var decVar .)
+    PR_main         reduce using rule 8 (decVar -> var decVar .)
+
+
+state 18
+
+    (1) prog -> PR_program TO_LLAABRE declare mainBlock . TO_LLACIERRA
+
+    TO_LLACIERRA    shift and go to state 25
+
+
+state 19
+
+    (34) mainBlock -> PR_main . TO_LLAABRE bloque TO_LLACIERRA
+
+    TO_LLAABRE      shift and go to state 26
+
+
+state 20
+
+    (29) decideType -> PR_void .
+
+    ID              reduce using rule 29 (decideType -> PR_void .)
+
+
+state 21
+
+    (28) decideType -> tipo .
+
+    ID              reduce using rule 28 (decideType -> tipo .)
+
+
+state 22
+
+    (27) func -> PR_function decideType . ID TO_PARABRE params TO_PARCIERRA TO_LLAABRE decVar bloque TO_LLACIERRA
+
+    ID              shift and go to state 27
+
+
+state 23
+
+    (10) decFunc -> func decFunc .
+
+    PR_main         reduce using rule 10 (decFunc -> func decFunc .)
+
+
+state 24
+
+    (12) var -> PR_var tipo ID . arrayCreate
+    (13) arrayCreate -> . TO_CORABRE TO_NUM TO_CORCIERRA
+    (14) arrayCreate -> . TO_CORABRE TO_NUM TO_CORCIERRA TO_CORABRE TO_NUM TO_CORCIERRA
+    (15) arrayCreate -> . empty
+    (96) empty -> .
+
+    TO_CORABRE      shift and go to state 28
+    PR_var          reduce using rule 96 (empty -> .)
+    PR_function     reduce using rule 96 (empty -> .)
+    PR_main         reduce using rule 96 (empty -> .)
+    PR_loop         reduce using rule 96 (empty -> .)
+    PR_if           reduce using rule 96 (empty -> .)
+    PR_return       reduce using rule 96 (empty -> .)
+    ID              reduce using rule 96 (empty -> .)
+    PR_draw         reduce using rule 96 (empty -> .)
+    PR_circle       reduce using rule 96 (empty -> .)
+    PR_square       reduce using rule 96 (empty -> .)
+    PR_size         reduce using rule 96 (empty -> .)
+    PR_color        reduce using rule 96 (empty -> .)
+    PR_kameForw     reduce using rule 96 (empty -> .)
+    PR_kameBack     reduce using rule 96 (empty -> .)
+    PR_kameRot      reduce using rule 96 (empty -> .)
+    TO_LLACIERRA    reduce using rule 96 (empty -> .)
+
+    arrayCreate                    shift and go to state 29
+    empty                          shift and go to state 30
+
+state 25
+
+    (1) prog -> PR_program TO_LLAABRE declare mainBlock TO_LLACIERRA .
+
+    $end            reduce using rule 1 (prog -> PR_program TO_LLAABRE declare mainBlock TO_LLACIERRA .)
+
+
+state 26
+
+    (34) mainBlock -> PR_main TO_LLAABRE . bloque TO_LLACIERRA
+    (44) bloque -> . estructura bloque
+    (45) bloque -> . empty
+    (46) estructura -> . assign
+    (47) estructura -> . loop
+    (48) estructura -> . comparacion
+    (49) estructura -> . return
+    (50) estructura -> . funcCall
+    (51) estructura -> . decVar
+    (96) empty -> .
+    (22) assign -> . assignTo OP_IGUAL megaExp
+    (37) loop -> . PR_loop TO_PARABRE exp TO_PARCIERRA TO_LLAABRE bloque TO_LLACIERRA
+    (73) comparacion -> . PR_if TO_PARABRE megaExp TO_PARCIERRA TO_LLAABRE bloque TO_LLACIERRA maybeElse
+    (72) return -> . PR_return megaExp
+    (52) funcCall -> . ID TO_PARABRE paramVals TO_PARCIERRA
+    (53) funcCall -> . PR_draw TO_PARABRE megaExp TO_PARCIERRA
+    (54) funcCall -> . PR_circle TO_PARABRE exp TO_PARCIERRA
+    (55) funcCall -> . PR_square TO_PARABRE exp TO_PARCIERRA
+    (56) funcCall -> . PR_size TO_PARABRE exp TO_PARCIERRA
+    (57) funcCall -> . PR_color TO_PARABRE colorChoice TO_PARCIERRA
+    (8) decVar -> . var decVar
+    (9) decVar -> . empty
+    (23) assignTo -> . ID arrayIndex
+    (24) assignTo -> . PR_kameForw
+    (25) assignTo -> . PR_kameBack
+    (26) assignTo -> . PR_kameRot
+    (12) var -> . PR_var tipo ID arrayCreate
+
+  ! shift/reduce conflict for PR_loop resolved as shift
+  ! shift/reduce conflict for PR_if resolved as shift
+  ! shift/reduce conflict for PR_return resolved as shift
+  ! shift/reduce conflict for ID resolved as shift
+  ! shift/reduce conflict for PR_draw resolved as shift
+  ! shift/reduce conflict for PR_circle resolved as shift
+  ! shift/reduce conflict for PR_square resolved as shift
+  ! shift/reduce conflict for PR_size resolved as shift
+  ! shift/reduce conflict for PR_color resolved as shift
+  ! shift/reduce conflict for PR_kameForw resolved as shift
+  ! shift/reduce conflict for PR_kameBack resolved as shift
+  ! shift/reduce conflict for PR_kameRot resolved as shift
+  ! shift/reduce conflict for PR_var resolved as shift
+    TO_LLACIERRA    reduce using rule 96 (empty -> .)
+    PR_loop         shift and go to state 49
+    PR_if           shift and go to state 47
+    PR_return       shift and go to state 40
+    ID              shift and go to state 45
+    PR_draw         shift and go to state 32
+    PR_circle       shift and go to state 36
+    PR_square       shift and go to state 46
+    PR_size         shift and go to state 37
+    PR_color        shift and go to state 35
+    PR_kameForw     shift and go to state 43
+    PR_kameBack     shift and go to state 44
+    PR_kameRot      shift and go to state 38
+    PR_var          shift and go to state 5
+
+  ! PR_loop         [ reduce using rule 96 (empty -> .) ]
+  ! PR_if           [ reduce using rule 96 (empty -> .) ]
+  ! PR_return       [ reduce using rule 96 (empty -> .) ]
+  ! ID              [ reduce using rule 96 (empty -> .) ]
+  ! PR_draw         [ reduce using rule 96 (empty -> .) ]
+  ! PR_circle       [ reduce using rule 96 (empty -> .) ]
+  ! PR_square       [ reduce using rule 96 (empty -> .) ]
+  ! PR_size         [ reduce using rule 96 (empty -> .) ]
+  ! PR_color        [ reduce using rule 96 (empty -> .) ]
+  ! PR_kameForw     [ reduce using rule 96 (empty -> .) ]
+  ! PR_kameBack     [ reduce using rule 96 (empty -> .) ]
+  ! PR_kameRot      [ reduce using rule 96 (empty -> .) ]
+  ! PR_var          [ reduce using rule 96 (empty -> .) ]
+
+    return                         shift and go to state 42
+    decVar                         shift and go to state 34
+    funcCall                       shift and go to state 48
+    assignTo                       shift and go to state 31
+    estructura                     shift and go to state 39
+    empty                          shift and go to state 41
+    var                            shift and go to state 6
+    comparacion                    shift and go to state 50
+    bloque                         shift and go to state 33
+    assign                         shift and go to state 51
+    loop                           shift and go to state 52
+
+state 27
+
+    (27) func -> PR_function decideType ID . TO_PARABRE params TO_PARCIERRA TO_LLAABRE decVar bloque TO_LLACIERRA
+
+    TO_PARABRE      shift and go to state 53
+
+
+state 28
+
+    (13) arrayCreate -> TO_CORABRE . TO_NUM TO_CORCIERRA
+    (14) arrayCreate -> TO_CORABRE . TO_NUM TO_CORCIERRA TO_CORABRE TO_NUM TO_CORCIERRA
+
+    TO_NUM          shift and go to state 54
+
+
+state 29
+
+    (12) var -> PR_var tipo ID arrayCreate .
+
+    PR_var          reduce using rule 12 (var -> PR_var tipo ID arrayCreate .)
+    PR_loop         reduce using rule 12 (var -> PR_var tipo ID arrayCreate .)
+    PR_if           reduce using rule 12 (var -> PR_var tipo ID arrayCreate .)
+    PR_return       reduce using rule 12 (var -> PR_var tipo ID arrayCreate .)
+    ID              reduce using rule 12 (var -> PR_var tipo ID arrayCreate .)
+    PR_draw         reduce using rule 12 (var -> PR_var tipo ID arrayCreate .)
+    PR_circle       reduce using rule 12 (var -> PR_var tipo ID arrayCreate .)
+    PR_square       reduce using rule 12 (var -> PR_var tipo ID arrayCreate .)
+    PR_size         reduce using rule 12 (var -> PR_var tipo ID arrayCreate .)
+    PR_color        reduce using rule 12 (var -> PR_var tipo ID arrayCreate .)
+    PR_kameForw     reduce using rule 12 (var -> PR_var tipo ID arrayCreate .)
+    PR_kameBack     reduce using rule 12 (var -> PR_var tipo ID arrayCreate .)
+    PR_kameRot      reduce using rule 12 (var -> PR_var tipo ID arrayCreate .)
+    TO_LLACIERRA    reduce using rule 12 (var -> PR_var tipo ID arrayCreate .)
+    PR_function     reduce using rule 12 (var -> PR_var tipo ID arrayCreate .)
+    PR_main         reduce using rule 12 (var -> PR_var tipo ID arrayCreate .)
+
+
+state 30
+
+    (15) arrayCreate -> empty .
+
+    PR_var          reduce using rule 15 (arrayCreate -> empty .)
+    PR_function     reduce using rule 15 (arrayCreate -> empty .)
+    PR_main         reduce using rule 15 (arrayCreate -> empty .)
+    PR_loop         reduce using rule 15 (arrayCreate -> empty .)
+    PR_if           reduce using rule 15 (arrayCreate -> empty .)
+    PR_return       reduce using rule 15 (arrayCreate -> empty .)
+    ID              reduce using rule 15 (arrayCreate -> empty .)
+    PR_draw         reduce using rule 15 (arrayCreate -> empty .)
+    PR_circle       reduce using rule 15 (arrayCreate -> empty .)
+    PR_square       reduce using rule 15 (arrayCreate -> empty .)
+    PR_size         reduce using rule 15 (arrayCreate -> empty .)
+    PR_color        reduce using rule 15 (arrayCreate -> empty .)
+    PR_kameForw     reduce using rule 15 (arrayCreate -> empty .)
+    PR_kameBack     reduce using rule 15 (arrayCreate -> empty .)
+    PR_kameRot      reduce using rule 15 (arrayCreate -> empty .)
+    TO_LLACIERRA    reduce using rule 15 (arrayCreate -> empty .)
+
+
+state 31
+
+    (22) assign -> assignTo . OP_IGUAL megaExp
+
+    OP_IGUAL        shift and go to state 55
+
+
+state 32
+
+    (53) funcCall -> PR_draw . TO_PARABRE megaExp TO_PARCIERRA
+
+    TO_PARABRE      shift and go to state 56
+
+
+state 33
+
+    (34) mainBlock -> PR_main TO_LLAABRE bloque . TO_LLACIERRA
+
+    TO_LLACIERRA    shift and go to state 57
+
+
+state 34
+
+    (51) estructura -> decVar .
+
+    PR_loop         reduce using rule 51 (estructura -> decVar .)
+    PR_if           reduce using rule 51 (estructura -> decVar .)
+    PR_return       reduce using rule 51 (estructura -> decVar .)
+    ID              reduce using rule 51 (estructura -> decVar .)
+    PR_draw         reduce using rule 51 (estructura -> decVar .)
+    PR_circle       reduce using rule 51 (estructura -> decVar .)
+    PR_square       reduce using rule 51 (estructura -> decVar .)
+    PR_size         reduce using rule 51 (estructura -> decVar .)
+    PR_color        reduce using rule 51 (estructura -> decVar .)
+    PR_kameForw     reduce using rule 51 (estructura -> decVar .)
+    PR_kameBack     reduce using rule 51 (estructura -> decVar .)
+    PR_kameRot      reduce using rule 51 (estructura -> decVar .)
+    PR_var          reduce using rule 51 (estructura -> decVar .)
+    TO_LLACIERRA    reduce using rule 51 (estructura -> decVar .)
+
+
+state 35
+
+    (57) funcCall -> PR_color . TO_PARABRE colorChoice TO_PARCIERRA
+
+    TO_PARABRE      shift and go to state 58
+
+
+state 36
+
+    (54) funcCall -> PR_circle . TO_PARABRE exp TO_PARCIERRA
+
+    TO_PARABRE      shift and go to state 59
+
+
+state 37
+
+    (56) funcCall -> PR_size . TO_PARABRE exp TO_PARCIERRA
+
+    TO_PARABRE      shift and go to state 60
+
+
+state 38
+
+    (26) assignTo -> PR_kameRot .
+
+    OP_IGUAL        reduce using rule 26 (assignTo -> PR_kameRot .)
+
+
+state 39
+
+    (44) bloque -> estructura . bloque
+    (44) bloque -> . estructura bloque
+    (45) bloque -> . empty
+    (46) estructura -> . assign
+    (47) estructura -> . loop
+    (48) estructura -> . comparacion
+    (49) estructura -> . return
+    (50) estructura -> . funcCall
+    (51) estructura -> . decVar
+    (96) empty -> .
+    (22) assign -> . assignTo OP_IGUAL megaExp
+    (37) loop -> . PR_loop TO_PARABRE exp TO_PARCIERRA TO_LLAABRE bloque TO_LLACIERRA
+    (73) comparacion -> . PR_if TO_PARABRE megaExp TO_PARCIERRA TO_LLAABRE bloque TO_LLACIERRA maybeElse
+    (72) return -> . PR_return megaExp
+    (52) funcCall -> . ID TO_PARABRE paramVals TO_PARCIERRA
+    (53) funcCall -> . PR_draw TO_PARABRE megaExp TO_PARCIERRA
+    (54) funcCall -> . PR_circle TO_PARABRE exp TO_PARCIERRA
+    (55) funcCall -> . PR_square TO_PARABRE exp TO_PARCIERRA
+    (56) funcCall -> . PR_size TO_PARABRE exp TO_PARCIERRA
+    (57) funcCall -> . PR_color TO_PARABRE colorChoice TO_PARCIERRA
+    (8) decVar -> . var decVar
+    (9) decVar -> . empty
+    (23) assignTo -> . ID arrayIndex
+    (24) assignTo -> . PR_kameForw
+    (25) assignTo -> . PR_kameBack
+    (26) assignTo -> . PR_kameRot
+    (12) var -> . PR_var tipo ID arrayCreate
+
+  ! shift/reduce conflict for PR_loop resolved as shift
+  ! shift/reduce conflict for PR_if resolved as shift
+  ! shift/reduce conflict for PR_return resolved as shift
+  ! shift/reduce conflict for ID resolved as shift
+  ! shift/reduce conflict for PR_draw resolved as shift
+  ! shift/reduce conflict for PR_circle resolved as shift
+  ! shift/reduce conflict for PR_square resolved as shift
+  ! shift/reduce conflict for PR_size resolved as shift
+  ! shift/reduce conflict for PR_color resolved as shift
+  ! shift/reduce conflict for PR_kameForw resolved as shift
+  ! shift/reduce conflict for PR_kameBack resolved as shift
+  ! shift/reduce conflict for PR_kameRot resolved as shift
+  ! shift/reduce conflict for PR_var resolved as shift
+    TO_LLACIERRA    reduce using rule 96 (empty -> .)
+    PR_loop         shift and go to state 49
+    PR_if           shift and go to state 47
+    PR_return       shift and go to state 40
+    ID              shift and go to state 45
+    PR_draw         shift and go to state 32
+    PR_circle       shift and go to state 36
+    PR_square       shift and go to state 46
+    PR_size         shift and go to state 37
+    PR_color        shift and go to state 35
+    PR_kameForw     shift and go to state 43
+    PR_kameBack     shift and go to state 44
+    PR_kameRot      shift and go to state 38
+    PR_var          shift and go to state 5
+
+  ! PR_loop         [ reduce using rule 96 (empty -> .) ]
+  ! PR_if           [ reduce using rule 96 (empty -> .) ]
+  ! PR_return       [ reduce using rule 96 (empty -> .) ]
+  ! ID              [ reduce using rule 96 (empty -> .) ]
+  ! PR_draw         [ reduce using rule 96 (empty -> .) ]
+  ! PR_circle       [ reduce using rule 96 (empty -> .) ]
+  ! PR_square       [ reduce using rule 96 (empty -> .) ]
+  ! PR_size         [ reduce using rule 96 (empty -> .) ]
+  ! PR_color        [ reduce using rule 96 (empty -> .) ]
+  ! PR_kameForw     [ reduce using rule 96 (empty -> .) ]
+  ! PR_kameBack     [ reduce using rule 96 (empty -> .) ]
+  ! PR_kameRot      [ reduce using rule 96 (empty -> .) ]
+  ! PR_var          [ reduce using rule 96 (empty -> .) ]
+
+    return                         shift and go to state 42
+    decVar                         shift and go to state 34
+    funcCall                       shift and go to state 48
+    assignTo                       shift and go to state 31
+    estructura                     shift and go to state 39
+    empty                          shift and go to state 41
+    var                            shift and go to state 6
+    comparacion                    shift and go to state 50
+    bloque                         shift and go to state 61
+    assign                         shift and go to state 51
+    loop                           shift and go to state 52
+
+state 40
+
+    (72) return -> PR_return . megaExp
+    (76) megaExp -> . maybeNot superExp anotherMega
+    (77) maybeNot -> . PR_negacion
+    (78) maybeNot -> . empty
+    (96) empty -> .
+
+    PR_negacion     shift and go to state 64
+    TO_PARABRE      reduce using rule 96 (empty -> .)
+    ID              reduce using rule 96 (empty -> .)
+    TO_NUM          reduce using rule 96 (empty -> .)
+    TO_FLOT         reduce using rule 96 (empty -> .)
+    PR_true         reduce using rule 96 (empty -> .)
+    PR_false        reduce using rule 96 (empty -> .)
+
+    megaExp                        shift and go to state 63
+    empty                          shift and go to state 65
+    maybeNot                       shift and go to state 62
+
+state 41
+
+    (45) bloque -> empty .
+    (9) decVar -> empty .
+
+  ! reduce/reduce conflict for TO_LLACIERRA resolved using rule 9 (decVar -> empty .)
+    PR_loop         reduce using rule 9 (decVar -> empty .)
+    PR_if           reduce using rule 9 (decVar -> empty .)
+    PR_return       reduce using rule 9 (decVar -> empty .)
+    ID              reduce using rule 9 (decVar -> empty .)
+    PR_draw         reduce using rule 9 (decVar -> empty .)
+    PR_circle       reduce using rule 9 (decVar -> empty .)
+    PR_square       reduce using rule 9 (decVar -> empty .)
+    PR_size         reduce using rule 9 (decVar -> empty .)
+    PR_color        reduce using rule 9 (decVar -> empty .)
+    PR_kameForw     reduce using rule 9 (decVar -> empty .)
+    PR_kameBack     reduce using rule 9 (decVar -> empty .)
+    PR_kameRot      reduce using rule 9 (decVar -> empty .)
+    PR_var          reduce using rule 9 (decVar -> empty .)
+    TO_LLACIERRA    reduce using rule 9 (decVar -> empty .)
+
+  ! TO_LLACIERRA    [ reduce using rule 45 (bloque -> empty .) ]
+
+
+state 42
+
+    (49) estructura -> return .
+
+    PR_loop         reduce using rule 49 (estructura -> return .)
+    PR_if           reduce using rule 49 (estructura -> return .)
+    PR_return       reduce using rule 49 (estructura -> return .)
+    ID              reduce using rule 49 (estructura -> return .)
+    PR_draw         reduce using rule 49 (estructura -> return .)
+    PR_circle       reduce using rule 49 (estructura -> return .)
+    PR_square       reduce using rule 49 (estructura -> return .)
+    PR_size         reduce using rule 49 (estructura -> return .)
+    PR_color        reduce using rule 49 (estructura -> return .)
+    PR_kameForw     reduce using rule 49 (estructura -> return .)
+    PR_kameBack     reduce using rule 49 (estructura -> return .)
+    PR_kameRot      reduce using rule 49 (estructura -> return .)
+    PR_var          reduce using rule 49 (estructura -> return .)
+    TO_LLACIERRA    reduce using rule 49 (estructura -> return .)
+
+
+state 43
+
+    (24) assignTo -> PR_kameForw .
+
+    OP_IGUAL        reduce using rule 24 (assignTo -> PR_kameForw .)
+
+
+state 44
+
+    (25) assignTo -> PR_kameBack .
+
+    OP_IGUAL        reduce using rule 25 (assignTo -> PR_kameBack .)
+
+
+state 45
+
+    (52) funcCall -> ID . TO_PARABRE paramVals TO_PARCIERRA
+    (23) assignTo -> ID . arrayIndex
+    (16) arrayIndex -> . TO_CORABRE exp TO_CORCIERRA
+    (17) arrayIndex -> . TO_CORABRE exp TO_CORCIERRA TO_CORABRE exp TO_CORCIERRA
+    (18) arrayIndex -> . empty
+    (96) empty -> .
+
+    TO_PARABRE      shift and go to state 68
+    TO_CORABRE      shift and go to state 66
+    OP_IGUAL        reduce using rule 96 (empty -> .)
+
+    arrayIndex                     shift and go to state 67
+    empty                          shift and go to state 69
+
+state 46
+
+    (55) funcCall -> PR_square . TO_PARABRE exp TO_PARCIERRA
+
+    TO_PARABRE      shift and go to state 70
+
+
+state 47
+
+    (73) comparacion -> PR_if . TO_PARABRE megaExp TO_PARCIERRA TO_LLAABRE bloque TO_LLACIERRA maybeElse
+
+    TO_PARABRE      shift and go to state 71
+
+
+state 48
+
+    (50) estructura -> funcCall .
+
+    PR_loop         reduce using rule 50 (estructura -> funcCall .)
+    PR_if           reduce using rule 50 (estructura -> funcCall .)
+    PR_return       reduce using rule 50 (estructura -> funcCall .)
+    ID              reduce using rule 50 (estructura -> funcCall .)
+    PR_draw         reduce using rule 50 (estructura -> funcCall .)
+    PR_circle       reduce using rule 50 (estructura -> funcCall .)
+    PR_square       reduce using rule 50 (estructura -> funcCall .)
+    PR_size         reduce using rule 50 (estructura -> funcCall .)
+    PR_color        reduce using rule 50 (estructura -> funcCall .)
+    PR_kameForw     reduce using rule 50 (estructura -> funcCall .)
+    PR_kameBack     reduce using rule 50 (estructura -> funcCall .)
+    PR_kameRot      reduce using rule 50 (estructura -> funcCall .)
+    PR_var          reduce using rule 50 (estructura -> funcCall .)
+    TO_LLACIERRA    reduce using rule 50 (estructura -> funcCall .)
+
+
+state 49
+
+    (37) loop -> PR_loop . TO_PARABRE exp TO_PARCIERRA TO_LLAABRE bloque TO_LLACIERRA
+
+    TO_PARABRE      shift and go to state 72
+
+
+state 50
+
+    (48) estructura -> comparacion .
+
+    PR_loop         reduce using rule 48 (estructura -> comparacion .)
+    PR_if           reduce using rule 48 (estructura -> comparacion .)
+    PR_return       reduce using rule 48 (estructura -> comparacion .)
+    ID              reduce using rule 48 (estructura -> comparacion .)
+    PR_draw         reduce using rule 48 (estructura -> comparacion .)
+    PR_circle       reduce using rule 48 (estructura -> comparacion .)
+    PR_square       reduce using rule 48 (estructura -> comparacion .)
+    PR_size         reduce using rule 48 (estructura -> comparacion .)
+    PR_color        reduce using rule 48 (estructura -> comparacion .)
+    PR_kameForw     reduce using rule 48 (estructura -> comparacion .)
+    PR_kameBack     reduce using rule 48 (estructura -> comparacion .)
+    PR_kameRot      reduce using rule 48 (estructura -> comparacion .)
+    PR_var          reduce using rule 48 (estructura -> comparacion .)
+    TO_LLACIERRA    reduce using rule 48 (estructura -> comparacion .)
+
+
+state 51
+
+    (46) estructura -> assign .
+
+    PR_loop         reduce using rule 46 (estructura -> assign .)
+    PR_if           reduce using rule 46 (estructura -> assign .)
+    PR_return       reduce using rule 46 (estructura -> assign .)
+    ID              reduce using rule 46 (estructura -> assign .)
+    PR_draw         reduce using rule 46 (estructura -> assign .)
+    PR_circle       reduce using rule 46 (estructura -> assign .)
+    PR_square       reduce using rule 46 (estructura -> assign .)
+    PR_size         reduce using rule 46 (estructura -> assign .)
+    PR_color        reduce using rule 46 (estructura -> assign .)
+    PR_kameForw     reduce using rule 46 (estructura -> assign .)
+    PR_kameBack     reduce using rule 46 (estructura -> assign .)
+    PR_kameRot      reduce using rule 46 (estructura -> assign .)
+    PR_var          reduce using rule 46 (estructura -> assign .)
+    TO_LLACIERRA    reduce using rule 46 (estructura -> assign .)
+
+
+state 52
+
+    (47) estructura -> loop .
+
+    PR_loop         reduce using rule 47 (estructura -> loop .)
+    PR_if           reduce using rule 47 (estructura -> loop .)
+    PR_return       reduce using rule 47 (estructura -> loop .)
+    ID              reduce using rule 47 (estructura -> loop .)
+    PR_draw         reduce using rule 47 (estructura -> loop .)
+    PR_circle       reduce using rule 47 (estructura -> loop .)
+    PR_square       reduce using rule 47 (estructura -> loop .)
+    PR_size         reduce using rule 47 (estructura -> loop .)
+    PR_color        reduce using rule 47 (estructura -> loop .)
+    PR_kameForw     reduce using rule 47 (estructura -> loop .)
+    PR_kameBack     reduce using rule 47 (estructura -> loop .)
+    PR_kameRot      reduce using rule 47 (estructura -> loop .)
+    PR_var          reduce using rule 47 (estructura -> loop .)
+    TO_LLACIERRA    reduce using rule 47 (estructura -> loop .)
+
+
+state 53
+
+    (27) func -> PR_function decideType ID TO_PARABRE . params TO_PARCIERRA TO_LLAABRE decVar bloque TO_LLACIERRA
+    (30) params -> . tipo ID moreParams
+    (31) params -> . empty
+    (19) tipo -> . PR_num
+    (20) tipo -> . PR_flot
+    (21) tipo -> . PR_bool
+    (96) empty -> .
+
+    PR_num          shift and go to state 13
+    PR_flot         shift and go to state 16
+    PR_bool         shift and go to state 15
+    TO_PARCIERRA    reduce using rule 96 (empty -> .)
+
+    tipo                           shift and go to state 73
+    params                         shift and go to state 74
+    empty                          shift and go to state 75
+
+state 54
+
+    (13) arrayCreate -> TO_CORABRE TO_NUM . TO_CORCIERRA
+    (14) arrayCreate -> TO_CORABRE TO_NUM . TO_CORCIERRA TO_CORABRE TO_NUM TO_CORCIERRA
+
+    TO_CORCIERRA    shift and go to state 76
+
+
+state 55
+
+    (22) assign -> assignTo OP_IGUAL . megaExp
+    (76) megaExp -> . maybeNot superExp anotherMega
+    (77) maybeNot -> . PR_negacion
+    (78) maybeNot -> . empty
+    (96) empty -> .
+
+    PR_negacion     shift and go to state 64
+    TO_PARABRE      reduce using rule 96 (empty -> .)
+    ID              reduce using rule 96 (empty -> .)
+    TO_NUM          reduce using rule 96 (empty -> .)
+    TO_FLOT         reduce using rule 96 (empty -> .)
+    PR_true         reduce using rule 96 (empty -> .)
+    PR_false        reduce using rule 96 (empty -> .)
+
+    maybeNot                       shift and go to state 62
+    megaExp                        shift and go to state 77
+    empty                          shift and go to state 65
+
+state 56
+
+    (53) funcCall -> PR_draw TO_PARABRE . megaExp TO_PARCIERRA
+    (76) megaExp -> . maybeNot superExp anotherMega
+    (77) maybeNot -> . PR_negacion
+    (78) maybeNot -> . empty
+    (96) empty -> .
+
+    PR_negacion     shift and go to state 64
+    TO_PARABRE      reduce using rule 96 (empty -> .)
+    ID              reduce using rule 96 (empty -> .)
+    TO_NUM          reduce using rule 96 (empty -> .)
+    TO_FLOT         reduce using rule 96 (empty -> .)
+    PR_true         reduce using rule 96 (empty -> .)
+    PR_false        reduce using rule 96 (empty -> .)
+
+    megaExp                        shift and go to state 78
+    empty                          shift and go to state 65
+    maybeNot                       shift and go to state 62
+
+state 57
+
+    (34) mainBlock -> PR_main TO_LLAABRE bloque TO_LLACIERRA .
+
+    TO_LLACIERRA    reduce using rule 34 (mainBlock -> PR_main TO_LLAABRE bloque TO_LLACIERRA .)
+
+
+state 58
+
+    (57) funcCall -> PR_color TO_PARABRE . colorChoice TO_PARCIERRA
+    (60) colorChoice -> . PR_red
+    (61) colorChoice -> . PR_green
+    (62) colorChoice -> . PR_blue
+    (63) colorChoice -> . PR_violet
+    (64) colorChoice -> . PR_orange
+    (65) colorChoice -> . PR_yellow
+    (66) colorChoice -> . PR_white
+    (67) colorChoice -> . PR_black
+
+    PR_red          shift and go to state 82
+    PR_green        shift and go to state 86
+    PR_blue         shift and go to state 85
+    PR_violet       shift and go to state 83
+    PR_orange       shift and go to state 79
+    PR_yellow       shift and go to state 87
+    PR_white        shift and go to state 80
+    PR_black        shift and go to state 84
+
+    colorChoice                    shift and go to state 81
+
+state 59
+
+    (54) funcCall -> PR_circle TO_PARABRE . exp TO_PARCIERRA
+    (84) exp -> . term anotherExp
+    (88) term -> . fact anotherTerm
+    (93) fact -> . TO_PARABRE megaExp TO_PARCIERRA
+    (94) fact -> . ID arrayIndex
+    (95) fact -> . val
+    (2) val -> . TO_PARABRE exp TO_PARCIERRA
+    (3) val -> . TO_NUM
+    (4) val -> . TO_FLOT
+    (5) val -> . bool
+    (6) val -> . ID
+    (58) bool -> . PR_true
+    (59) bool -> . PR_false
+
+    TO_PARABRE      shift and go to state 95
+    ID              shift and go to state 97
+    TO_NUM          shift and go to state 93
+    TO_FLOT         shift and go to state 92
+    PR_true         shift and go to state 91
+    PR_false        shift and go to state 89
+
+    term                           shift and go to state 88
+    val                            shift and go to state 90
+    exp                            shift and go to state 94
+    bool                           shift and go to state 96
+    fact                           shift and go to state 98
+
+state 60
+
+    (56) funcCall -> PR_size TO_PARABRE . exp TO_PARCIERRA
+    (84) exp -> . term anotherExp
+    (88) term -> . fact anotherTerm
+    (93) fact -> . TO_PARABRE megaExp TO_PARCIERRA
+    (94) fact -> . ID arrayIndex
+    (95) fact -> . val
+    (2) val -> . TO_PARABRE exp TO_PARCIERRA
+    (3) val -> . TO_NUM
+    (4) val -> . TO_FLOT
+    (5) val -> . bool
+    (6) val -> . ID
+    (58) bool -> . PR_true
+    (59) bool -> . PR_false
+
+    TO_PARABRE      shift and go to state 95
+    ID              shift and go to state 97
+    TO_NUM          shift and go to state 93
+    TO_FLOT         shift and go to state 92
+    PR_true         shift and go to state 91
+    PR_false        shift and go to state 89
+
+    term                           shift and go to state 88
+    val                            shift and go to state 90
+    exp                            shift and go to state 99
+    bool                           shift and go to state 96
+    fact                           shift and go to state 98
+
+state 61
+
+    (44) bloque -> estructura bloque .
+
+    TO_LLACIERRA    reduce using rule 44 (bloque -> estructura bloque .)
+
+
+state 62
+
+    (76) megaExp -> maybeNot . superExp anotherMega
+    (81) superExp -> . exp maybeRel
+    (84) exp -> . term anotherExp
+    (88) term -> . fact anotherTerm
+    (93) fact -> . TO_PARABRE megaExp TO_PARCIERRA
+    (94) fact -> . ID arrayIndex
+    (95) fact -> . val
+    (2) val -> . TO_PARABRE exp TO_PARCIERRA
+    (3) val -> . TO_NUM
+    (4) val -> . TO_FLOT
+    (5) val -> . bool
+    (6) val -> . ID
+    (58) bool -> . PR_true
+    (59) bool -> . PR_false
+
+    TO_PARABRE      shift and go to state 95
+    ID              shift and go to state 97
+    TO_NUM          shift and go to state 93
+    TO_FLOT         shift and go to state 92
+    PR_true         shift and go to state 91
+    PR_false        shift and go to state 89
+
+    term                           shift and go to state 88
+    val                            shift and go to state 90
+    superExp                       shift and go to state 100
+    exp                            shift and go to state 101
+    bool                           shift and go to state 96
+    fact                           shift and go to state 98
+
+state 63
+
+    (72) return -> PR_return megaExp .
+
+    PR_loop         reduce using rule 72 (return -> PR_return megaExp .)
+    PR_if           reduce using rule 72 (return -> PR_return megaExp .)
+    PR_return       reduce using rule 72 (return -> PR_return megaExp .)
+    ID              reduce using rule 72 (return -> PR_return megaExp .)
+    PR_draw         reduce using rule 72 (return -> PR_return megaExp .)
+    PR_circle       reduce using rule 72 (return -> PR_return megaExp .)
+    PR_square       reduce using rule 72 (return -> PR_return megaExp .)
+    PR_size         reduce using rule 72 (return -> PR_return megaExp .)
+    PR_color        reduce using rule 72 (return -> PR_return megaExp .)
+    PR_kameForw     reduce using rule 72 (return -> PR_return megaExp .)
+    PR_kameBack     reduce using rule 72 (return -> PR_return megaExp .)
+    PR_kameRot      reduce using rule 72 (return -> PR_return megaExp .)
+    PR_var          reduce using rule 72 (return -> PR_return megaExp .)
+    TO_LLACIERRA    reduce using rule 72 (return -> PR_return megaExp .)
+
+
+state 64
+
+    (77) maybeNot -> PR_negacion .
+
+    TO_PARABRE      reduce using rule 77 (maybeNot -> PR_negacion .)
+    ID              reduce using rule 77 (maybeNot -> PR_negacion .)
+    TO_NUM          reduce using rule 77 (maybeNot -> PR_negacion .)
+    TO_FLOT         reduce using rule 77 (maybeNot -> PR_negacion .)
+    PR_true         reduce using rule 77 (maybeNot -> PR_negacion .)
+    PR_false        reduce using rule 77 (maybeNot -> PR_negacion .)
+
+
+state 65
+
+    (78) maybeNot -> empty .
+
+    TO_PARABRE      reduce using rule 78 (maybeNot -> empty .)
+    ID              reduce using rule 78 (maybeNot -> empty .)
+    TO_NUM          reduce using rule 78 (maybeNot -> empty .)
+    TO_FLOT         reduce using rule 78 (maybeNot -> empty .)
+    PR_true         reduce using rule 78 (maybeNot -> empty .)
+    PR_false        reduce using rule 78 (maybeNot -> empty .)
+
+
+state 66
+
+    (16) arrayIndex -> TO_CORABRE . exp TO_CORCIERRA
+    (17) arrayIndex -> TO_CORABRE . exp TO_CORCIERRA TO_CORABRE exp TO_CORCIERRA
+    (84) exp -> . term anotherExp
+    (88) term -> . fact anotherTerm
+    (93) fact -> . TO_PARABRE megaExp TO_PARCIERRA
+    (94) fact -> . ID arrayIndex
+    (95) fact -> . val
+    (2) val -> . TO_PARABRE exp TO_PARCIERRA
+    (3) val -> . TO_NUM
+    (4) val -> . TO_FLOT
+    (5) val -> . bool
+    (6) val -> . ID
+    (58) bool -> . PR_true
+    (59) bool -> . PR_false
+
+    TO_PARABRE      shift and go to state 95
+    ID              shift and go to state 97
+    TO_NUM          shift and go to state 93
+    TO_FLOT         shift and go to state 92
+    PR_true         shift and go to state 91
+    PR_false        shift and go to state 89
+
+    term                           shift and go to state 88
+    val                            shift and go to state 90
+    exp                            shift and go to state 102
+    bool                           shift and go to state 96
+    fact                           shift and go to state 98
+
+state 67
+
+    (23) assignTo -> ID arrayIndex .
+
+    OP_IGUAL        reduce using rule 23 (assignTo -> ID arrayIndex .)
+
+
+state 68
+
+    (52) funcCall -> ID TO_PARABRE . paramVals TO_PARCIERRA
+    (68) paramVals -> . val moreParamVals
+    (69) paramVals -> . empty
+    (2) val -> . TO_PARABRE exp TO_PARCIERRA
+    (3) val -> . TO_NUM
+    (4) val -> . TO_FLOT
+    (5) val -> . bool
+    (6) val -> . ID
+    (96) empty -> .
+    (58) bool -> . PR_true
+    (59) bool -> . PR_false
+
+    TO_PARABRE      shift and go to state 104
+    TO_NUM          shift and go to state 93
+    TO_FLOT         shift and go to state 92
+    ID              shift and go to state 106
+    TO_PARCIERRA    reduce using rule 96 (empty -> .)
+    PR_true         shift and go to state 91
+    PR_false        shift and go to state 89
+
+    val                            shift and go to state 103
+    bool                           shift and go to state 96
+    paramVals                      shift and go to state 105
+    empty                          shift and go to state 107
+
+state 69
+
+    (18) arrayIndex -> empty .
+
+    OP_IGUAL        reduce using rule 18 (arrayIndex -> empty .)
+    OP_MULT         reduce using rule 18 (arrayIndex -> empty .)
+    OP_DIV          reduce using rule 18 (arrayIndex -> empty .)
+    OP_RESID        reduce using rule 18 (arrayIndex -> empty .)
+    OP_MAS          reduce using rule 18 (arrayIndex -> empty .)
+    OP_MENOS        reduce using rule 18 (arrayIndex -> empty .)
+    TO_PARCIERRA    reduce using rule 18 (arrayIndex -> empty .)
+    OP_DOBLEIGUAL   reduce using rule 18 (arrayIndex -> empty .)
+    OP_DIFDE        reduce using rule 18 (arrayIndex -> empty .)
+    OP_MENORQUE     reduce using rule 18 (arrayIndex -> empty .)
+    OP_MENOROIGUAL  reduce using rule 18 (arrayIndex -> empty .)
+    OP_MAYORQUE     reduce using rule 18 (arrayIndex -> empty .)
+    OP_MAYOROIGUAL  reduce using rule 18 (arrayIndex -> empty .)
+    PR_interseccion reduce using rule 18 (arrayIndex -> empty .)
+    PR_union        reduce using rule 18 (arrayIndex -> empty .)
+    PR_loop         reduce using rule 18 (arrayIndex -> empty .)
+    PR_if           reduce using rule 18 (arrayIndex -> empty .)
+    PR_return       reduce using rule 18 (arrayIndex -> empty .)
+    ID              reduce using rule 18 (arrayIndex -> empty .)
+    PR_draw         reduce using rule 18 (arrayIndex -> empty .)
+    PR_circle       reduce using rule 18 (arrayIndex -> empty .)
+    PR_square       reduce using rule 18 (arrayIndex -> empty .)
+    PR_size         reduce using rule 18 (arrayIndex -> empty .)
+    PR_color        reduce using rule 18 (arrayIndex -> empty .)
+    PR_kameForw     reduce using rule 18 (arrayIndex -> empty .)
+    PR_kameBack     reduce using rule 18 (arrayIndex -> empty .)
+    PR_kameRot      reduce using rule 18 (arrayIndex -> empty .)
+    PR_var          reduce using rule 18 (arrayIndex -> empty .)
+    TO_LLACIERRA    reduce using rule 18 (arrayIndex -> empty .)
+    TO_CORCIERRA    reduce using rule 18 (arrayIndex -> empty .)
+
+
+state 70
+
+    (55) funcCall -> PR_square TO_PARABRE . exp TO_PARCIERRA
+    (84) exp -> . term anotherExp
+    (88) term -> . fact anotherTerm
+    (93) fact -> . TO_PARABRE megaExp TO_PARCIERRA
+    (94) fact -> . ID arrayIndex
+    (95) fact -> . val
+    (2) val -> . TO_PARABRE exp TO_PARCIERRA
+    (3) val -> . TO_NUM
+    (4) val -> . TO_FLOT
+    (5) val -> . bool
+    (6) val -> . ID
+    (58) bool -> . PR_true
+    (59) bool -> . PR_false
+
+    TO_PARABRE      shift and go to state 95
+    ID              shift and go to state 97
+    TO_NUM          shift and go to state 93
+    TO_FLOT         shift and go to state 92
+    PR_true         shift and go to state 91
+    PR_false        shift and go to state 89
+
+    term                           shift and go to state 88
+    val                            shift and go to state 90
+    exp                            shift and go to state 108
+    bool                           shift and go to state 96
+    fact                           shift and go to state 98
+
+state 71
+
+    (73) comparacion -> PR_if TO_PARABRE . megaExp TO_PARCIERRA TO_LLAABRE bloque TO_LLACIERRA maybeElse
+    (76) megaExp -> . maybeNot superExp anotherMega
+    (77) maybeNot -> . PR_negacion
+    (78) maybeNot -> . empty
+    (96) empty -> .
+
+    PR_negacion     shift and go to state 64
+    TO_PARABRE      reduce using rule 96 (empty -> .)
+    ID              reduce using rule 96 (empty -> .)
+    TO_NUM          reduce using rule 96 (empty -> .)
+    TO_FLOT         reduce using rule 96 (empty -> .)
+    PR_true         reduce using rule 96 (empty -> .)
+    PR_false        reduce using rule 96 (empty -> .)
+
+    maybeNot                       shift and go to state 62
+    megaExp                        shift and go to state 109
+    empty                          shift and go to state 65
+
+state 72
+
+    (37) loop -> PR_loop TO_PARABRE . exp TO_PARCIERRA TO_LLAABRE bloque TO_LLACIERRA
+    (84) exp -> . term anotherExp
+    (88) term -> . fact anotherTerm
+    (93) fact -> . TO_PARABRE megaExp TO_PARCIERRA
+    (94) fact -> . ID arrayIndex
+    (95) fact -> . val
+    (2) val -> . TO_PARABRE exp TO_PARCIERRA
+    (3) val -> . TO_NUM
+    (4) val -> . TO_FLOT
+    (5) val -> . bool
+    (6) val -> . ID
+    (58) bool -> . PR_true
+    (59) bool -> . PR_false
+
+    TO_PARABRE      shift and go to state 95
+    ID              shift and go to state 97
+    TO_NUM          shift and go to state 93
+    TO_FLOT         shift and go to state 92
+    PR_true         shift and go to state 91
+    PR_false        shift and go to state 89
+
+    term                           shift and go to state 88
+    val                            shift and go to state 90
+    exp                            shift and go to state 110
+    bool                           shift and go to state 96
+    fact                           shift and go to state 98
+
+state 73
+
+    (30) params -> tipo . ID moreParams
+
+    ID              shift and go to state 111
+
+
+state 74
+
+    (27) func -> PR_function decideType ID TO_PARABRE params . TO_PARCIERRA TO_LLAABRE decVar bloque TO_LLACIERRA
+
+    TO_PARCIERRA    shift and go to state 112
+
+
+state 75
+
+    (31) params -> empty .
+
+    TO_PARCIERRA    reduce using rule 31 (params -> empty .)
+
+
+state 76
+
+    (13) arrayCreate -> TO_CORABRE TO_NUM TO_CORCIERRA .
+    (14) arrayCreate -> TO_CORABRE TO_NUM TO_CORCIERRA . TO_CORABRE TO_NUM TO_CORCIERRA
+
+    PR_var          reduce using rule 13 (arrayCreate -> TO_CORABRE TO_NUM TO_CORCIERRA .)
+    PR_function     reduce using rule 13 (arrayCreate -> TO_CORABRE TO_NUM TO_CORCIERRA .)
+    PR_main         reduce using rule 13 (arrayCreate -> TO_CORABRE TO_NUM TO_CORCIERRA .)
+    PR_loop         reduce using rule 13 (arrayCreate -> TO_CORABRE TO_NUM TO_CORCIERRA .)
+    PR_if           reduce using rule 13 (arrayCreate -> TO_CORABRE TO_NUM TO_CORCIERRA .)
+    PR_return       reduce using rule 13 (arrayCreate -> TO_CORABRE TO_NUM TO_CORCIERRA .)
+    ID              reduce using rule 13 (arrayCreate -> TO_CORABRE TO_NUM TO_CORCIERRA .)
+    PR_draw         reduce using rule 13 (arrayCreate -> TO_CORABRE TO_NUM TO_CORCIERRA .)
+    PR_circle       reduce using rule 13 (arrayCreate -> TO_CORABRE TO_NUM TO_CORCIERRA .)
+    PR_square       reduce using rule 13 (arrayCreate -> TO_CORABRE TO_NUM TO_CORCIERRA .)
+    PR_size         reduce using rule 13 (arrayCreate -> TO_CORABRE TO_NUM TO_CORCIERRA .)
+    PR_color        reduce using rule 13 (arrayCreate -> TO_CORABRE TO_NUM TO_CORCIERRA .)
+    PR_kameForw     reduce using rule 13 (arrayCreate -> TO_CORABRE TO_NUM TO_CORCIERRA .)
+    PR_kameBack     reduce using rule 13 (arrayCreate -> TO_CORABRE TO_NUM TO_CORCIERRA .)
+    PR_kameRot      reduce using rule 13 (arrayCreate -> TO_CORABRE TO_NUM TO_CORCIERRA .)
+    TO_LLACIERRA    reduce using rule 13 (arrayCreate -> TO_CORABRE TO_NUM TO_CORCIERRA .)
+    TO_CORABRE      shift and go to state 113
+
+
+state 77
+
+    (22) assign -> assignTo OP_IGUAL megaExp .
+
+    PR_loop         reduce using rule 22 (assign -> assignTo OP_IGUAL megaExp .)
+    PR_if           reduce using rule 22 (assign -> assignTo OP_IGUAL megaExp .)
+    PR_return       reduce using rule 22 (assign -> assignTo OP_IGUAL megaExp .)
+    ID              reduce using rule 22 (assign -> assignTo OP_IGUAL megaExp .)
+    PR_draw         reduce using rule 22 (assign -> assignTo OP_IGUAL megaExp .)
+    PR_circle       reduce using rule 22 (assign -> assignTo OP_IGUAL megaExp .)
+    PR_square       reduce using rule 22 (assign -> assignTo OP_IGUAL megaExp .)
+    PR_size         reduce using rule 22 (assign -> assignTo OP_IGUAL megaExp .)
+    PR_color        reduce using rule 22 (assign -> assignTo OP_IGUAL megaExp .)
+    PR_kameForw     reduce using rule 22 (assign -> assignTo OP_IGUAL megaExp .)
+    PR_kameBack     reduce using rule 22 (assign -> assignTo OP_IGUAL megaExp .)
+    PR_kameRot      reduce using rule 22 (assign -> assignTo OP_IGUAL megaExp .)
+    PR_var          reduce using rule 22 (assign -> assignTo OP_IGUAL megaExp .)
+    TO_LLACIERRA    reduce using rule 22 (assign -> assignTo OP_IGUAL megaExp .)
+
+
+state 78
+
+    (53) funcCall -> PR_draw TO_PARABRE megaExp . TO_PARCIERRA
+
+    TO_PARCIERRA    shift and go to state 114
+
+
+state 79
+
+    (64) colorChoice -> PR_orange .
+
+    TO_PARCIERRA    reduce using rule 64 (colorChoice -> PR_orange .)
+
+
+state 80
+
+    (66) colorChoice -> PR_white .
+
+    TO_PARCIERRA    reduce using rule 66 (colorChoice -> PR_white .)
+
+
+state 81
+
+    (57) funcCall -> PR_color TO_PARABRE colorChoice . TO_PARCIERRA
+
+    TO_PARCIERRA    shift and go to state 115
+
+
+state 82
+
+    (60) colorChoice -> PR_red .
+
+    TO_PARCIERRA    reduce using rule 60 (colorChoice -> PR_red .)
+
+
+state 83
+
+    (63) colorChoice -> PR_violet .
+
+    TO_PARCIERRA    reduce using rule 63 (colorChoice -> PR_violet .)
+
+
+state 84
+
+    (67) colorChoice -> PR_black .
+
+    TO_PARCIERRA    reduce using rule 67 (colorChoice -> PR_black .)
+
+
+state 85
+
+    (62) colorChoice -> PR_blue .
+
+    TO_PARCIERRA    reduce using rule 62 (colorChoice -> PR_blue .)
+
+
+state 86
+
+    (61) colorChoice -> PR_green .
+
+    TO_PARCIERRA    reduce using rule 61 (colorChoice -> PR_green .)
+
+
+state 87
+
+    (65) colorChoice -> PR_yellow .
+
+    TO_PARCIERRA    reduce using rule 65 (colorChoice -> PR_yellow .)
+
+
+state 88
+
+    (84) exp -> term . anotherExp
+    (85) anotherExp -> . OP_MAS exp
+    (86) anotherExp -> . OP_MENOS exp
+    (87) anotherExp -> . empty
+    (96) empty -> .
+
+    OP_MAS          shift and go to state 116
+    OP_MENOS        shift and go to state 118
+    TO_PARCIERRA    reduce using rule 96 (empty -> .)
+    OP_DOBLEIGUAL   reduce using rule 96 (empty -> .)
+    OP_DIFDE        reduce using rule 96 (empty -> .)
+    OP_MENORQUE     reduce using rule 96 (empty -> .)
+    OP_MENOROIGUAL  reduce using rule 96 (empty -> .)
+    OP_MAYORQUE     reduce using rule 96 (empty -> .)
+    OP_MAYOROIGUAL  reduce using rule 96 (empty -> .)
+    PR_interseccion reduce using rule 96 (empty -> .)
+    PR_union        reduce using rule 96 (empty -> .)
+    PR_loop         reduce using rule 96 (empty -> .)
+    PR_if           reduce using rule 96 (empty -> .)
+    PR_return       reduce using rule 96 (empty -> .)
+    ID              reduce using rule 96 (empty -> .)
+    PR_draw         reduce using rule 96 (empty -> .)
+    PR_circle       reduce using rule 96 (empty -> .)
+    PR_square       reduce using rule 96 (empty -> .)
+    PR_size         reduce using rule 96 (empty -> .)
+    PR_color        reduce using rule 96 (empty -> .)
+    PR_kameForw     reduce using rule 96 (empty -> .)
+    PR_kameBack     reduce using rule 96 (empty -> .)
+    PR_kameRot      reduce using rule 96 (empty -> .)
+    PR_var          reduce using rule 96 (empty -> .)
+    TO_LLACIERRA    reduce using rule 96 (empty -> .)
+    TO_CORCIERRA    reduce using rule 96 (empty -> .)
+
+    anotherExp                     shift and go to state 117
+    empty                          shift and go to state 119
+
+state 89
+
+    (59) bool -> PR_false .
+
+    OP_MULT         reduce using rule 59 (bool -> PR_false .)
+    OP_DIV          reduce using rule 59 (bool -> PR_false .)
+    OP_RESID        reduce using rule 59 (bool -> PR_false .)
+    OP_MAS          reduce using rule 59 (bool -> PR_false .)
+    OP_MENOS        reduce using rule 59 (bool -> PR_false .)
+    TO_PARCIERRA    reduce using rule 59 (bool -> PR_false .)
+    TO_CORCIERRA    reduce using rule 59 (bool -> PR_false .)
+    OP_DOBLEIGUAL   reduce using rule 59 (bool -> PR_false .)
+    OP_DIFDE        reduce using rule 59 (bool -> PR_false .)
+    OP_MENORQUE     reduce using rule 59 (bool -> PR_false .)
+    OP_MENOROIGUAL  reduce using rule 59 (bool -> PR_false .)
+    OP_MAYORQUE     reduce using rule 59 (bool -> PR_false .)
+    OP_MAYOROIGUAL  reduce using rule 59 (bool -> PR_false .)
+    PR_interseccion reduce using rule 59 (bool -> PR_false .)
+    PR_union        reduce using rule 59 (bool -> PR_false .)
+    PR_loop         reduce using rule 59 (bool -> PR_false .)
+    PR_if           reduce using rule 59 (bool -> PR_false .)
+    PR_return       reduce using rule 59 (bool -> PR_false .)
+    ID              reduce using rule 59 (bool -> PR_false .)
+    PR_draw         reduce using rule 59 (bool -> PR_false .)
+    PR_circle       reduce using rule 59 (bool -> PR_false .)
+    PR_square       reduce using rule 59 (bool -> PR_false .)
+    PR_size         reduce using rule 59 (bool -> PR_false .)
+    PR_color        reduce using rule 59 (bool -> PR_false .)
+    PR_kameForw     reduce using rule 59 (bool -> PR_false .)
+    PR_kameBack     reduce using rule 59 (bool -> PR_false .)
+    PR_kameRot      reduce using rule 59 (bool -> PR_false .)
+    PR_var          reduce using rule 59 (bool -> PR_false .)
+    TO_LLACIERRA    reduce using rule 59 (bool -> PR_false .)
+    TO_COMA         reduce using rule 59 (bool -> PR_false .)
+
+
+state 90
+
+    (95) fact -> val .
+
+    OP_MULT         reduce using rule 95 (fact -> val .)
+    OP_DIV          reduce using rule 95 (fact -> val .)
+    OP_RESID        reduce using rule 95 (fact -> val .)
+    OP_MAS          reduce using rule 95 (fact -> val .)
+    OP_MENOS        reduce using rule 95 (fact -> val .)
+    PR_interseccion reduce using rule 95 (fact -> val .)
+    PR_union        reduce using rule 95 (fact -> val .)
+    PR_loop         reduce using rule 95 (fact -> val .)
+    PR_if           reduce using rule 95 (fact -> val .)
+    PR_return       reduce using rule 95 (fact -> val .)
+    ID              reduce using rule 95 (fact -> val .)
+    PR_draw         reduce using rule 95 (fact -> val .)
+    PR_circle       reduce using rule 95 (fact -> val .)
+    PR_square       reduce using rule 95 (fact -> val .)
+    PR_size         reduce using rule 95 (fact -> val .)
+    PR_color        reduce using rule 95 (fact -> val .)
+    PR_kameForw     reduce using rule 95 (fact -> val .)
+    PR_kameBack     reduce using rule 95 (fact -> val .)
+    PR_kameRot      reduce using rule 95 (fact -> val .)
+    PR_var          reduce using rule 95 (fact -> val .)
+    TO_LLACIERRA    reduce using rule 95 (fact -> val .)
+    TO_PARCIERRA    reduce using rule 95 (fact -> val .)
+    OP_DOBLEIGUAL   reduce using rule 95 (fact -> val .)
+    OP_DIFDE        reduce using rule 95 (fact -> val .)
+    OP_MENORQUE     reduce using rule 95 (fact -> val .)
+    OP_MENOROIGUAL  reduce using rule 95 (fact -> val .)
+    OP_MAYORQUE     reduce using rule 95 (fact -> val .)
+    OP_MAYOROIGUAL  reduce using rule 95 (fact -> val .)
+    TO_CORCIERRA    reduce using rule 95 (fact -> val .)
+
+
+state 91
+
+    (58) bool -> PR_true .
+
+    OP_MULT         reduce using rule 58 (bool -> PR_true .)
+    OP_DIV          reduce using rule 58 (bool -> PR_true .)
+    OP_RESID        reduce using rule 58 (bool -> PR_true .)
+    OP_MAS          reduce using rule 58 (bool -> PR_true .)
+    OP_MENOS        reduce using rule 58 (bool -> PR_true .)
+    TO_PARCIERRA    reduce using rule 58 (bool -> PR_true .)
+    TO_CORCIERRA    reduce using rule 58 (bool -> PR_true .)
+    OP_DOBLEIGUAL   reduce using rule 58 (bool -> PR_true .)
+    OP_DIFDE        reduce using rule 58 (bool -> PR_true .)
+    OP_MENORQUE     reduce using rule 58 (bool -> PR_true .)
+    OP_MENOROIGUAL  reduce using rule 58 (bool -> PR_true .)
+    OP_MAYORQUE     reduce using rule 58 (bool -> PR_true .)
+    OP_MAYOROIGUAL  reduce using rule 58 (bool -> PR_true .)
+    PR_interseccion reduce using rule 58 (bool -> PR_true .)
+    PR_union        reduce using rule 58 (bool -> PR_true .)
+    PR_loop         reduce using rule 58 (bool -> PR_true .)
+    PR_if           reduce using rule 58 (bool -> PR_true .)
+    PR_return       reduce using rule 58 (bool -> PR_true .)
+    ID              reduce using rule 58 (bool -> PR_true .)
+    PR_draw         reduce using rule 58 (bool -> PR_true .)
+    PR_circle       reduce using rule 58 (bool -> PR_true .)
+    PR_square       reduce using rule 58 (bool -> PR_true .)
+    PR_size         reduce using rule 58 (bool -> PR_true .)
+    PR_color        reduce using rule 58 (bool -> PR_true .)
+    PR_kameForw     reduce using rule 58 (bool -> PR_true .)
+    PR_kameBack     reduce using rule 58 (bool -> PR_true .)
+    PR_kameRot      reduce using rule 58 (bool -> PR_true .)
+    PR_var          reduce using rule 58 (bool -> PR_true .)
+    TO_LLACIERRA    reduce using rule 58 (bool -> PR_true .)
+    TO_COMA         reduce using rule 58 (bool -> PR_true .)
+
+
+state 92
+
+    (4) val -> TO_FLOT .
+
+    OP_MULT         reduce using rule 4 (val -> TO_FLOT .)
+    OP_DIV          reduce using rule 4 (val -> TO_FLOT .)
+    OP_RESID        reduce using rule 4 (val -> TO_FLOT .)
+    OP_MAS          reduce using rule 4 (val -> TO_FLOT .)
+    OP_MENOS        reduce using rule 4 (val -> TO_FLOT .)
+    TO_PARCIERRA    reduce using rule 4 (val -> TO_FLOT .)
+    OP_DOBLEIGUAL   reduce using rule 4 (val -> TO_FLOT .)
+    OP_DIFDE        reduce using rule 4 (val -> TO_FLOT .)
+    OP_MENORQUE     reduce using rule 4 (val -> TO_FLOT .)
+    OP_MENOROIGUAL  reduce using rule 4 (val -> TO_FLOT .)
+    OP_MAYORQUE     reduce using rule 4 (val -> TO_FLOT .)
+    OP_MAYOROIGUAL  reduce using rule 4 (val -> TO_FLOT .)
+    PR_interseccion reduce using rule 4 (val -> TO_FLOT .)
+    PR_union        reduce using rule 4 (val -> TO_FLOT .)
+    PR_loop         reduce using rule 4 (val -> TO_FLOT .)
+    PR_if           reduce using rule 4 (val -> TO_FLOT .)
+    PR_return       reduce using rule 4 (val -> TO_FLOT .)
+    ID              reduce using rule 4 (val -> TO_FLOT .)
+    PR_draw         reduce using rule 4 (val -> TO_FLOT .)
+    PR_circle       reduce using rule 4 (val -> TO_FLOT .)
+    PR_square       reduce using rule 4 (val -> TO_FLOT .)
+    PR_size         reduce using rule 4 (val -> TO_FLOT .)
+    PR_color        reduce using rule 4 (val -> TO_FLOT .)
+    PR_kameForw     reduce using rule 4 (val -> TO_FLOT .)
+    PR_kameBack     reduce using rule 4 (val -> TO_FLOT .)
+    PR_kameRot      reduce using rule 4 (val -> TO_FLOT .)
+    PR_var          reduce using rule 4 (val -> TO_FLOT .)
+    TO_LLACIERRA    reduce using rule 4 (val -> TO_FLOT .)
+    TO_CORCIERRA    reduce using rule 4 (val -> TO_FLOT .)
+    TO_COMA         reduce using rule 4 (val -> TO_FLOT .)
+
+
+state 93
+
+    (3) val -> TO_NUM .
+
+    OP_MULT         reduce using rule 3 (val -> TO_NUM .)
+    OP_DIV          reduce using rule 3 (val -> TO_NUM .)
+    OP_RESID        reduce using rule 3 (val -> TO_NUM .)
+    OP_MAS          reduce using rule 3 (val -> TO_NUM .)
+    OP_MENOS        reduce using rule 3 (val -> TO_NUM .)
+    TO_PARCIERRA    reduce using rule 3 (val -> TO_NUM .)
+    OP_DOBLEIGUAL   reduce using rule 3 (val -> TO_NUM .)
+    OP_DIFDE        reduce using rule 3 (val -> TO_NUM .)
+    OP_MENORQUE     reduce using rule 3 (val -> TO_NUM .)
+    OP_MENOROIGUAL  reduce using rule 3 (val -> TO_NUM .)
+    OP_MAYORQUE     reduce using rule 3 (val -> TO_NUM .)
+    OP_MAYOROIGUAL  reduce using rule 3 (val -> TO_NUM .)
+    PR_interseccion reduce using rule 3 (val -> TO_NUM .)
+    PR_union        reduce using rule 3 (val -> TO_NUM .)
+    PR_loop         reduce using rule 3 (val -> TO_NUM .)
+    PR_if           reduce using rule 3 (val -> TO_NUM .)
+    PR_return       reduce using rule 3 (val -> TO_NUM .)
+    ID              reduce using rule 3 (val -> TO_NUM .)
+    PR_draw         reduce using rule 3 (val -> TO_NUM .)
+    PR_circle       reduce using rule 3 (val -> TO_NUM .)
+    PR_square       reduce using rule 3 (val -> TO_NUM .)
+    PR_size         reduce using rule 3 (val -> TO_NUM .)
+    PR_color        reduce using rule 3 (val -> TO_NUM .)
+    PR_kameForw     reduce using rule 3 (val -> TO_NUM .)
+    PR_kameBack     reduce using rule 3 (val -> TO_NUM .)
+    PR_kameRot      reduce using rule 3 (val -> TO_NUM .)
+    PR_var          reduce using rule 3 (val -> TO_NUM .)
+    TO_LLACIERRA    reduce using rule 3 (val -> TO_NUM .)
+    TO_CORCIERRA    reduce using rule 3 (val -> TO_NUM .)
+    TO_COMA         reduce using rule 3 (val -> TO_NUM .)
+
+
+state 94
+
+    (54) funcCall -> PR_circle TO_PARABRE exp . TO_PARCIERRA
+
+    TO_PARCIERRA    shift and go to state 120
+
+
+state 95
+
+    (93) fact -> TO_PARABRE . megaExp TO_PARCIERRA
+    (2) val -> TO_PARABRE . exp TO_PARCIERRA
+    (76) megaExp -> . maybeNot superExp anotherMega
+    (84) exp -> . term anotherExp
+    (77) maybeNot -> . PR_negacion
+    (78) maybeNot -> . empty
+    (88) term -> . fact anotherTerm
+    (96) empty -> .
+    (93) fact -> . TO_PARABRE megaExp TO_PARCIERRA
+    (94) fact -> . ID arrayIndex
+    (95) fact -> . val
+    (2) val -> . TO_PARABRE exp TO_PARCIERRA
+    (3) val -> . TO_NUM
+    (4) val -> . TO_FLOT
+    (5) val -> . bool
+    (6) val -> . ID
+    (58) bool -> . PR_true
+    (59) bool -> . PR_false
+
+  ! shift/reduce conflict for TO_PARABRE resolved as shift
+  ! shift/reduce conflict for ID resolved as shift
+  ! shift/reduce conflict for TO_NUM resolved as shift
+  ! shift/reduce conflict for TO_FLOT resolved as shift
+  ! shift/reduce conflict for PR_true resolved as shift
+  ! shift/reduce conflict for PR_false resolved as shift
+    PR_negacion     shift and go to state 64
+    TO_PARABRE      shift and go to state 95
+    ID              shift and go to state 97
+    TO_NUM          shift and go to state 93
+    TO_FLOT         shift and go to state 92
+    PR_true         shift and go to state 91
+    PR_false        shift and go to state 89
+
+  ! TO_PARABRE      [ reduce using rule 96 (empty -> .) ]
+  ! ID              [ reduce using rule 96 (empty -> .) ]
+  ! TO_NUM          [ reduce using rule 96 (empty -> .) ]
+  ! TO_FLOT         [ reduce using rule 96 (empty -> .) ]
+  ! PR_true         [ reduce using rule 96 (empty -> .) ]
+  ! PR_false        [ reduce using rule 96 (empty -> .) ]
+
+    term                           shift and go to state 88
+    val                            shift and go to state 90
+    maybeNot                       shift and go to state 62
+    fact                           shift and go to state 98
+    exp                            shift and go to state 122
+    megaExp                        shift and go to state 121
+    bool                           shift and go to state 96
+    empty                          shift and go to state 65
+
+state 96
+
+    (5) val -> bool .
+
+    OP_MULT         reduce using rule 5 (val -> bool .)
+    OP_DIV          reduce using rule 5 (val -> bool .)
+    OP_RESID        reduce using rule 5 (val -> bool .)
+    OP_MAS          reduce using rule 5 (val -> bool .)
+    OP_MENOS        reduce using rule 5 (val -> bool .)
+    TO_PARCIERRA    reduce using rule 5 (val -> bool .)
+    OP_DOBLEIGUAL   reduce using rule 5 (val -> bool .)
+    OP_DIFDE        reduce using rule 5 (val -> bool .)
+    OP_MENORQUE     reduce using rule 5 (val -> bool .)
+    OP_MENOROIGUAL  reduce using rule 5 (val -> bool .)
+    OP_MAYORQUE     reduce using rule 5 (val -> bool .)
+    OP_MAYOROIGUAL  reduce using rule 5 (val -> bool .)
+    PR_interseccion reduce using rule 5 (val -> bool .)
+    PR_union        reduce using rule 5 (val -> bool .)
+    PR_loop         reduce using rule 5 (val -> bool .)
+    PR_if           reduce using rule 5 (val -> bool .)
+    PR_return       reduce using rule 5 (val -> bool .)
+    ID              reduce using rule 5 (val -> bool .)
+    PR_draw         reduce using rule 5 (val -> bool .)
+    PR_circle       reduce using rule 5 (val -> bool .)
+    PR_square       reduce using rule 5 (val -> bool .)
+    PR_size         reduce using rule 5 (val -> bool .)
+    PR_color        reduce using rule 5 (val -> bool .)
+    PR_kameForw     reduce using rule 5 (val -> bool .)
+    PR_kameBack     reduce using rule 5 (val -> bool .)
+    PR_kameRot      reduce using rule 5 (val -> bool .)
+    PR_var          reduce using rule 5 (val -> bool .)
+    TO_LLACIERRA    reduce using rule 5 (val -> bool .)
+    TO_CORCIERRA    reduce using rule 5 (val -> bool .)
+    TO_COMA         reduce using rule 5 (val -> bool .)
+
+
+state 97
+
+    (94) fact -> ID . arrayIndex
+    (6) val -> ID .
+    (16) arrayIndex -> . TO_CORABRE exp TO_CORCIERRA
+    (17) arrayIndex -> . TO_CORABRE exp TO_CORCIERRA TO_CORABRE exp TO_CORCIERRA
+    (18) arrayIndex -> . empty
+    (96) empty -> .
+
+  ! reduce/reduce conflict for OP_MULT resolved using rule 6 (val -> ID .)
+  ! reduce/reduce conflict for OP_DIV resolved using rule 6 (val -> ID .)
+  ! reduce/reduce conflict for OP_RESID resolved using rule 6 (val -> ID .)
+  ! reduce/reduce conflict for OP_MAS resolved using rule 6 (val -> ID .)
+  ! reduce/reduce conflict for OP_MENOS resolved using rule 6 (val -> ID .)
+  ! reduce/reduce conflict for TO_PARCIERRA resolved using rule 6 (val -> ID .)
+  ! reduce/reduce conflict for OP_DOBLEIGUAL resolved using rule 6 (val -> ID .)
+  ! reduce/reduce conflict for OP_DIFDE resolved using rule 6 (val -> ID .)
+  ! reduce/reduce conflict for OP_MENORQUE resolved using rule 6 (val -> ID .)
+  ! reduce/reduce conflict for OP_MENOROIGUAL resolved using rule 6 (val -> ID .)
+  ! reduce/reduce conflict for OP_MAYORQUE resolved using rule 6 (val -> ID .)
+  ! reduce/reduce conflict for OP_MAYOROIGUAL resolved using rule 6 (val -> ID .)
+  ! reduce/reduce conflict for PR_interseccion resolved using rule 6 (val -> ID .)
+  ! reduce/reduce conflict for PR_union resolved using rule 6 (val -> ID .)
+  ! reduce/reduce conflict for PR_loop resolved using rule 6 (val -> ID .)
+  ! reduce/reduce conflict for PR_if resolved using rule 6 (val -> ID .)
+  ! reduce/reduce conflict for PR_return resolved using rule 6 (val -> ID .)
+  ! reduce/reduce conflict for ID resolved using rule 6 (val -> ID .)
+  ! reduce/reduce conflict for PR_draw resolved using rule 6 (val -> ID .)
+  ! reduce/reduce conflict for PR_circle resolved using rule 6 (val -> ID .)
+  ! reduce/reduce conflict for PR_square resolved using rule 6 (val -> ID .)
+  ! reduce/reduce conflict for PR_size resolved using rule 6 (val -> ID .)
+  ! reduce/reduce conflict for PR_color resolved using rule 6 (val -> ID .)
+  ! reduce/reduce conflict for PR_kameForw resolved using rule 6 (val -> ID .)
+  ! reduce/reduce conflict for PR_kameBack resolved using rule 6 (val -> ID .)
+  ! reduce/reduce conflict for PR_kameRot resolved using rule 6 (val -> ID .)
+  ! reduce/reduce conflict for PR_var resolved using rule 6 (val -> ID .)
+  ! reduce/reduce conflict for TO_LLACIERRA resolved using rule 6 (val -> ID .)
+  ! reduce/reduce conflict for TO_CORCIERRA resolved using rule 6 (val -> ID .)
+    OP_MULT         reduce using rule 6 (val -> ID .)
+    OP_DIV          reduce using rule 6 (val -> ID .)
+    OP_RESID        reduce using rule 6 (val -> ID .)
+    OP_MAS          reduce using rule 6 (val -> ID .)
+    OP_MENOS        reduce using rule 6 (val -> ID .)
+    TO_PARCIERRA    reduce using rule 6 (val -> ID .)
+    OP_DOBLEIGUAL   reduce using rule 6 (val -> ID .)
+    OP_DIFDE        reduce using rule 6 (val -> ID .)
+    OP_MENORQUE     reduce using rule 6 (val -> ID .)
+    OP_MENOROIGUAL  reduce using rule 6 (val -> ID .)
+    OP_MAYORQUE     reduce using rule 6 (val -> ID .)
+    OP_MAYOROIGUAL  reduce using rule 6 (val -> ID .)
+    PR_interseccion reduce using rule 6 (val -> ID .)
+    PR_union        reduce using rule 6 (val -> ID .)
+    PR_loop         reduce using rule 6 (val -> ID .)
+    PR_if           reduce using rule 6 (val -> ID .)
+    PR_return       reduce using rule 6 (val -> ID .)
+    ID              reduce using rule 6 (val -> ID .)
+    PR_draw         reduce using rule 6 (val -> ID .)
+    PR_circle       reduce using rule 6 (val -> ID .)
+    PR_square       reduce using rule 6 (val -> ID .)
+    PR_size         reduce using rule 6 (val -> ID .)
+    PR_color        reduce using rule 6 (val -> ID .)
+    PR_kameForw     reduce using rule 6 (val -> ID .)
+    PR_kameBack     reduce using rule 6 (val -> ID .)
+    PR_kameRot      reduce using rule 6 (val -> ID .)
+    PR_var          reduce using rule 6 (val -> ID .)
+    TO_LLACIERRA    reduce using rule 6 (val -> ID .)
+    TO_CORCIERRA    reduce using rule 6 (val -> ID .)
+    TO_CORABRE      shift and go to state 66
+
+  ! OP_MULT         [ reduce using rule 96 (empty -> .) ]
+  ! OP_DIV          [ reduce using rule 96 (empty -> .) ]
+  ! OP_RESID        [ reduce using rule 96 (empty -> .) ]
+  ! OP_MAS          [ reduce using rule 96 (empty -> .) ]
+  ! OP_MENOS        [ reduce using rule 96 (empty -> .) ]
+  ! TO_PARCIERRA    [ reduce using rule 96 (empty -> .) ]
+  ! OP_DOBLEIGUAL   [ reduce using rule 96 (empty -> .) ]
+  ! OP_DIFDE        [ reduce using rule 96 (empty -> .) ]
+  ! OP_MENORQUE     [ reduce using rule 96 (empty -> .) ]
+  ! OP_MENOROIGUAL  [ reduce using rule 96 (empty -> .) ]
+  ! OP_MAYORQUE     [ reduce using rule 96 (empty -> .) ]
+  ! OP_MAYOROIGUAL  [ reduce using rule 96 (empty -> .) ]
+  ! PR_interseccion [ reduce using rule 96 (empty -> .) ]
+  ! PR_union        [ reduce using rule 96 (empty -> .) ]
+  ! PR_loop         [ reduce using rule 96 (empty -> .) ]
+  ! PR_if           [ reduce using rule 96 (empty -> .) ]
+  ! PR_return       [ reduce using rule 96 (empty -> .) ]
+  ! ID              [ reduce using rule 96 (empty -> .) ]
+  ! PR_draw         [ reduce using rule 96 (empty -> .) ]
+  ! PR_circle       [ reduce using rule 96 (empty -> .) ]
+  ! PR_square       [ reduce using rule 96 (empty -> .) ]
+  ! PR_size         [ reduce using rule 96 (empty -> .) ]
+  ! PR_color        [ reduce using rule 96 (empty -> .) ]
+  ! PR_kameForw     [ reduce using rule 96 (empty -> .) ]
+  ! PR_kameBack     [ reduce using rule 96 (empty -> .) ]
+  ! PR_kameRot      [ reduce using rule 96 (empty -> .) ]
+  ! PR_var          [ reduce using rule 96 (empty -> .) ]
+  ! TO_LLACIERRA    [ reduce using rule 96 (empty -> .) ]
+  ! TO_CORCIERRA    [ reduce using rule 96 (empty -> .) ]
+
+    arrayIndex                     shift and go to state 123
+    empty                          shift and go to state 69
+
+state 98
+
+    (88) term -> fact . anotherTerm
+    (89) anotherTerm -> . OP_MULT term
+    (90) anotherTerm -> . OP_DIV term
+    (91) anotherTerm -> . OP_RESID term
+    (92) anotherTerm -> . empty
+    (96) empty -> .
+
+    OP_MULT         shift and go to state 126
+    OP_DIV          shift and go to state 127
+    OP_RESID        shift and go to state 125
+    OP_MAS          reduce using rule 96 (empty -> .)
+    OP_MENOS        reduce using rule 96 (empty -> .)
+    TO_PARCIERRA    reduce using rule 96 (empty -> .)
+    OP_DOBLEIGUAL   reduce using rule 96 (empty -> .)
+    OP_DIFDE        reduce using rule 96 (empty -> .)
+    OP_MENORQUE     reduce using rule 96 (empty -> .)
+    OP_MENOROIGUAL  reduce using rule 96 (empty -> .)
+    OP_MAYORQUE     reduce using rule 96 (empty -> .)
+    OP_MAYOROIGUAL  reduce using rule 96 (empty -> .)
+    PR_interseccion reduce using rule 96 (empty -> .)
+    PR_union        reduce using rule 96 (empty -> .)
+    PR_loop         reduce using rule 96 (empty -> .)
+    PR_if           reduce using rule 96 (empty -> .)
+    PR_return       reduce using rule 96 (empty -> .)
+    ID              reduce using rule 96 (empty -> .)
+    PR_draw         reduce using rule 96 (empty -> .)
+    PR_circle       reduce using rule 96 (empty -> .)
+    PR_square       reduce using rule 96 (empty -> .)
+    PR_size         reduce using rule 96 (empty -> .)
+    PR_color        reduce using rule 96 (empty -> .)
+    PR_kameForw     reduce using rule 96 (empty -> .)
+    PR_kameBack     reduce using rule 96 (empty -> .)
+    PR_kameRot      reduce using rule 96 (empty -> .)
+    PR_var          reduce using rule 96 (empty -> .)
+    TO_LLACIERRA    reduce using rule 96 (empty -> .)
+    TO_CORCIERRA    reduce using rule 96 (empty -> .)
+
+    anotherTerm                    shift and go to state 124
+    empty                          shift and go to state 128
+
+state 99
+
+    (56) funcCall -> PR_size TO_PARABRE exp . TO_PARCIERRA
+
+    TO_PARCIERRA    shift and go to state 129
+
+
+state 100
+
+    (76) megaExp -> maybeNot superExp . anotherMega
+    (79) anotherMega -> . opLogico megaExp
+    (80) anotherMega -> . empty
+    (35) opLogico -> . PR_interseccion
+    (36) opLogico -> . PR_union
+    (96) empty -> .
+
+    PR_interseccion shift and go to state 131
+    PR_union        shift and go to state 132
+    PR_loop         reduce using rule 96 (empty -> .)
+    PR_if           reduce using rule 96 (empty -> .)
+    PR_return       reduce using rule 96 (empty -> .)
+    ID              reduce using rule 96 (empty -> .)
+    PR_draw         reduce using rule 96 (empty -> .)
+    PR_circle       reduce using rule 96 (empty -> .)
+    PR_square       reduce using rule 96 (empty -> .)
+    PR_size         reduce using rule 96 (empty -> .)
+    PR_color        reduce using rule 96 (empty -> .)
+    PR_kameForw     reduce using rule 96 (empty -> .)
+    PR_kameBack     reduce using rule 96 (empty -> .)
+    PR_kameRot      reduce using rule 96 (empty -> .)
+    PR_var          reduce using rule 96 (empty -> .)
+    TO_LLACIERRA    reduce using rule 96 (empty -> .)
+    TO_PARCIERRA    reduce using rule 96 (empty -> .)
+
+    opLogico                       shift and go to state 130
+    anotherMega                    shift and go to state 133
+    empty                          shift and go to state 134
+
+state 101
+
+    (81) superExp -> exp . maybeRel
+    (82) maybeRel -> . opRelacional exp
+    (83) maybeRel -> . empty
+    (38) opRelacional -> . OP_DOBLEIGUAL
+    (39) opRelacional -> . OP_DIFDE
+    (40) opRelacional -> . OP_MENORQUE
+    (41) opRelacional -> . OP_MENOROIGUAL
+    (42) opRelacional -> . OP_MAYORQUE
+    (43) opRelacional -> . OP_MAYOROIGUAL
+    (96) empty -> .
+
+    OP_DOBLEIGUAL   shift and go to state 140
+    OP_DIFDE        shift and go to state 135
+    OP_MENORQUE     shift and go to state 142
+    OP_MENOROIGUAL  shift and go to state 137
+    OP_MAYORQUE     shift and go to state 141
+    OP_MAYOROIGUAL  shift and go to state 138
+    PR_interseccion reduce using rule 96 (empty -> .)
+    PR_union        reduce using rule 96 (empty -> .)
+    PR_loop         reduce using rule 96 (empty -> .)
+    PR_if           reduce using rule 96 (empty -> .)
+    PR_return       reduce using rule 96 (empty -> .)
+    ID              reduce using rule 96 (empty -> .)
+    PR_draw         reduce using rule 96 (empty -> .)
+    PR_circle       reduce using rule 96 (empty -> .)
+    PR_square       reduce using rule 96 (empty -> .)
+    PR_size         reduce using rule 96 (empty -> .)
+    PR_color        reduce using rule 96 (empty -> .)
+    PR_kameForw     reduce using rule 96 (empty -> .)
+    PR_kameBack     reduce using rule 96 (empty -> .)
+    PR_kameRot      reduce using rule 96 (empty -> .)
+    PR_var          reduce using rule 96 (empty -> .)
+    TO_LLACIERRA    reduce using rule 96 (empty -> .)
+    TO_PARCIERRA    reduce using rule 96 (empty -> .)
+
+    maybeRel                       shift and go to state 136
+    empty                          shift and go to state 143
+    opRelacional                   shift and go to state 139
+
+state 102
+
+    (16) arrayIndex -> TO_CORABRE exp . TO_CORCIERRA
+    (17) arrayIndex -> TO_CORABRE exp . TO_CORCIERRA TO_CORABRE exp TO_CORCIERRA
+
+    TO_CORCIERRA    shift and go to state 144
+
+
+state 103
+
+    (68) paramVals -> val . moreParamVals
+    (70) moreParamVals -> . TO_COMA val moreParamVals
+    (71) moreParamVals -> . empty
+    (96) empty -> .
+
+    TO_COMA         shift and go to state 147
+    TO_PARCIERRA    reduce using rule 96 (empty -> .)
+
+    moreParamVals                  shift and go to state 146
+    empty                          shift and go to state 145
+
+state 104
+
+    (2) val -> TO_PARABRE . exp TO_PARCIERRA
+    (84) exp -> . term anotherExp
+    (88) term -> . fact anotherTerm
+    (93) fact -> . TO_PARABRE megaExp TO_PARCIERRA
+    (94) fact -> . ID arrayIndex
+    (95) fact -> . val
+    (2) val -> . TO_PARABRE exp TO_PARCIERRA
+    (3) val -> . TO_NUM
+    (4) val -> . TO_FLOT
+    (5) val -> . bool
+    (6) val -> . ID
+    (58) bool -> . PR_true
+    (59) bool -> . PR_false
+
+    TO_PARABRE      shift and go to state 95
+    ID              shift and go to state 97
+    TO_NUM          shift and go to state 93
+    TO_FLOT         shift and go to state 92
+    PR_true         shift and go to state 91
+    PR_false        shift and go to state 89
+
+    term                           shift and go to state 88
+    val                            shift and go to state 90
+    exp                            shift and go to state 122
+    bool                           shift and go to state 96
+    fact                           shift and go to state 98
+
+state 105
+
+    (52) funcCall -> ID TO_PARABRE paramVals . TO_PARCIERRA
+
+    TO_PARCIERRA    shift and go to state 148
+
+
+state 106
+
+    (6) val -> ID .
+
+    TO_COMA         reduce using rule 6 (val -> ID .)
+    TO_PARCIERRA    reduce using rule 6 (val -> ID .)
+
+
+state 107
+
+    (69) paramVals -> empty .
+
+    TO_PARCIERRA    reduce using rule 69 (paramVals -> empty .)
+
+
+state 108
+
+    (55) funcCall -> PR_square TO_PARABRE exp . TO_PARCIERRA
+
+    TO_PARCIERRA    shift and go to state 149
+
+
+state 109
+
+    (73) comparacion -> PR_if TO_PARABRE megaExp . TO_PARCIERRA TO_LLAABRE bloque TO_LLACIERRA maybeElse
+
+    TO_PARCIERRA    shift and go to state 150
+
+
+state 110
+
+    (37) loop -> PR_loop TO_PARABRE exp . TO_PARCIERRA TO_LLAABRE bloque TO_LLACIERRA
+
+    TO_PARCIERRA    shift and go to state 151
+
+
+state 111
+
+    (30) params -> tipo ID . moreParams
+    (32) moreParams -> . TO_COMA tipo ID moreParams
+    (33) moreParams -> . empty
+    (96) empty -> .
+
+    TO_COMA         shift and go to state 152
+    TO_PARCIERRA    reduce using rule 96 (empty -> .)
+
+    empty                          shift and go to state 153
+    moreParams                     shift and go to state 154
+
+state 112
+
+    (27) func -> PR_function decideType ID TO_PARABRE params TO_PARCIERRA . TO_LLAABRE decVar bloque TO_LLACIERRA
+
+    TO_LLAABRE      shift and go to state 155
+
+
+state 113
+
+    (14) arrayCreate -> TO_CORABRE TO_NUM TO_CORCIERRA TO_CORABRE . TO_NUM TO_CORCIERRA
+
+    TO_NUM          shift and go to state 156
+
+
+state 114
+
+    (53) funcCall -> PR_draw TO_PARABRE megaExp TO_PARCIERRA .
+
+    PR_loop         reduce using rule 53 (funcCall -> PR_draw TO_PARABRE megaExp TO_PARCIERRA .)
+    PR_if           reduce using rule 53 (funcCall -> PR_draw TO_PARABRE megaExp TO_PARCIERRA .)
+    PR_return       reduce using rule 53 (funcCall -> PR_draw TO_PARABRE megaExp TO_PARCIERRA .)
+    ID              reduce using rule 53 (funcCall -> PR_draw TO_PARABRE megaExp TO_PARCIERRA .)
+    PR_draw         reduce using rule 53 (funcCall -> PR_draw TO_PARABRE megaExp TO_PARCIERRA .)
+    PR_circle       reduce using rule 53 (funcCall -> PR_draw TO_PARABRE megaExp TO_PARCIERRA .)
+    PR_square       reduce using rule 53 (funcCall -> PR_draw TO_PARABRE megaExp TO_PARCIERRA .)
+    PR_size         reduce using rule 53 (funcCall -> PR_draw TO_PARABRE megaExp TO_PARCIERRA .)
+    PR_color        reduce using rule 53 (funcCall -> PR_draw TO_PARABRE megaExp TO_PARCIERRA .)
+    PR_kameForw     reduce using rule 53 (funcCall -> PR_draw TO_PARABRE megaExp TO_PARCIERRA .)
+    PR_kameBack     reduce using rule 53 (funcCall -> PR_draw TO_PARABRE megaExp TO_PARCIERRA .)
+    PR_kameRot      reduce using rule 53 (funcCall -> PR_draw TO_PARABRE megaExp TO_PARCIERRA .)
+    PR_var          reduce using rule 53 (funcCall -> PR_draw TO_PARABRE megaExp TO_PARCIERRA .)
+    TO_LLACIERRA    reduce using rule 53 (funcCall -> PR_draw TO_PARABRE megaExp TO_PARCIERRA .)
+
+
+state 115
+
+    (57) funcCall -> PR_color TO_PARABRE colorChoice TO_PARCIERRA .
+
+    PR_loop         reduce using rule 57 (funcCall -> PR_color TO_PARABRE colorChoice TO_PARCIERRA .)
+    PR_if           reduce using rule 57 (funcCall -> PR_color TO_PARABRE colorChoice TO_PARCIERRA .)
+    PR_return       reduce using rule 57 (funcCall -> PR_color TO_PARABRE colorChoice TO_PARCIERRA .)
+    ID              reduce using rule 57 (funcCall -> PR_color TO_PARABRE colorChoice TO_PARCIERRA .)
+    PR_draw         reduce using rule 57 (funcCall -> PR_color TO_PARABRE colorChoice TO_PARCIERRA .)
+    PR_circle       reduce using rule 57 (funcCall -> PR_color TO_PARABRE colorChoice TO_PARCIERRA .)
+    PR_square       reduce using rule 57 (funcCall -> PR_color TO_PARABRE colorChoice TO_PARCIERRA .)
+    PR_size         reduce using rule 57 (funcCall -> PR_color TO_PARABRE colorChoice TO_PARCIERRA .)
+    PR_color        reduce using rule 57 (funcCall -> PR_color TO_PARABRE colorChoice TO_PARCIERRA .)
+    PR_kameForw     reduce using rule 57 (funcCall -> PR_color TO_PARABRE colorChoice TO_PARCIERRA .)
+    PR_kameBack     reduce using rule 57 (funcCall -> PR_color TO_PARABRE colorChoice TO_PARCIERRA .)
+    PR_kameRot      reduce using rule 57 (funcCall -> PR_color TO_PARABRE colorChoice TO_PARCIERRA .)
+    PR_var          reduce using rule 57 (funcCall -> PR_color TO_PARABRE colorChoice TO_PARCIERRA .)
+    TO_LLACIERRA    reduce using rule 57 (funcCall -> PR_color TO_PARABRE colorChoice TO_PARCIERRA .)
+
+
+state 116
+
+    (85) anotherExp -> OP_MAS . exp
+    (84) exp -> . term anotherExp
+    (88) term -> . fact anotherTerm
+    (93) fact -> . TO_PARABRE megaExp TO_PARCIERRA
+    (94) fact -> . ID arrayIndex
+    (95) fact -> . val
+    (2) val -> . TO_PARABRE exp TO_PARCIERRA
+    (3) val -> . TO_NUM
+    (4) val -> . TO_FLOT
+    (5) val -> . bool
+    (6) val -> . ID
+    (58) bool -> . PR_true
+    (59) bool -> . PR_false
+
+    TO_PARABRE      shift and go to state 95
+    ID              shift and go to state 97
+    TO_NUM          shift and go to state 93
+    TO_FLOT         shift and go to state 92
+    PR_true         shift and go to state 91
+    PR_false        shift and go to state 89
+
+    term                           shift and go to state 88
+    val                            shift and go to state 90
+    exp                            shift and go to state 157
+    bool                           shift and go to state 96
+    fact                           shift and go to state 98
+
+state 117
+
+    (84) exp -> term anotherExp .
+
+    TO_PARCIERRA    reduce using rule 84 (exp -> term anotherExp .)
+    OP_DOBLEIGUAL   reduce using rule 84 (exp -> term anotherExp .)
+    OP_DIFDE        reduce using rule 84 (exp -> term anotherExp .)
+    OP_MENORQUE     reduce using rule 84 (exp -> term anotherExp .)
+    OP_MENOROIGUAL  reduce using rule 84 (exp -> term anotherExp .)
+    OP_MAYORQUE     reduce using rule 84 (exp -> term anotherExp .)
+    OP_MAYOROIGUAL  reduce using rule 84 (exp -> term anotherExp .)
+    PR_interseccion reduce using rule 84 (exp -> term anotherExp .)
+    PR_union        reduce using rule 84 (exp -> term anotherExp .)
+    PR_loop         reduce using rule 84 (exp -> term anotherExp .)
+    PR_if           reduce using rule 84 (exp -> term anotherExp .)
+    PR_return       reduce using rule 84 (exp -> term anotherExp .)
+    ID              reduce using rule 84 (exp -> term anotherExp .)
+    PR_draw         reduce using rule 84 (exp -> term anotherExp .)
+    PR_circle       reduce using rule 84 (exp -> term anotherExp .)
+    PR_square       reduce using rule 84 (exp -> term anotherExp .)
+    PR_size         reduce using rule 84 (exp -> term anotherExp .)
+    PR_color        reduce using rule 84 (exp -> term anotherExp .)
+    PR_kameForw     reduce using rule 84 (exp -> term anotherExp .)
+    PR_kameBack     reduce using rule 84 (exp -> term anotherExp .)
+    PR_kameRot      reduce using rule 84 (exp -> term anotherExp .)
+    PR_var          reduce using rule 84 (exp -> term anotherExp .)
+    TO_LLACIERRA    reduce using rule 84 (exp -> term anotherExp .)
+    TO_CORCIERRA    reduce using rule 84 (exp -> term anotherExp .)
+
+
+state 118
+
+    (86) anotherExp -> OP_MENOS . exp
+    (84) exp -> . term anotherExp
+    (88) term -> . fact anotherTerm
+    (93) fact -> . TO_PARABRE megaExp TO_PARCIERRA
+    (94) fact -> . ID arrayIndex
+    (95) fact -> . val
+    (2) val -> . TO_PARABRE exp TO_PARCIERRA
+    (3) val -> . TO_NUM
+    (4) val -> . TO_FLOT
+    (5) val -> . bool
+    (6) val -> . ID
+    (58) bool -> . PR_true
+    (59) bool -> . PR_false
+
+    TO_PARABRE      shift and go to state 95
+    ID              shift and go to state 97
+    TO_NUM          shift and go to state 93
+    TO_FLOT         shift and go to state 92
+    PR_true         shift and go to state 91
+    PR_false        shift and go to state 89
+
+    term                           shift and go to state 88
+    val                            shift and go to state 90
+    exp                            shift and go to state 158
+    bool                           shift and go to state 96
+    fact                           shift and go to state 98
+
+state 119
+
+    (87) anotherExp -> empty .
+
+    TO_PARCIERRA    reduce using rule 87 (anotherExp -> empty .)
+    OP_DOBLEIGUAL   reduce using rule 87 (anotherExp -> empty .)
+    OP_DIFDE        reduce using rule 87 (anotherExp -> empty .)
+    OP_MENORQUE     reduce using rule 87 (anotherExp -> empty .)
+    OP_MENOROIGUAL  reduce using rule 87 (anotherExp -> empty .)
+    OP_MAYORQUE     reduce using rule 87 (anotherExp -> empty .)
+    OP_MAYOROIGUAL  reduce using rule 87 (anotherExp -> empty .)
+    PR_interseccion reduce using rule 87 (anotherExp -> empty .)
+    PR_union        reduce using rule 87 (anotherExp -> empty .)
+    PR_loop         reduce using rule 87 (anotherExp -> empty .)
+    PR_if           reduce using rule 87 (anotherExp -> empty .)
+    PR_return       reduce using rule 87 (anotherExp -> empty .)
+    ID              reduce using rule 87 (anotherExp -> empty .)
+    PR_draw         reduce using rule 87 (anotherExp -> empty .)
+    PR_circle       reduce using rule 87 (anotherExp -> empty .)
+    PR_square       reduce using rule 87 (anotherExp -> empty .)
+    PR_size         reduce using rule 87 (anotherExp -> empty .)
+    PR_color        reduce using rule 87 (anotherExp -> empty .)
+    PR_kameForw     reduce using rule 87 (anotherExp -> empty .)
+    PR_kameBack     reduce using rule 87 (anotherExp -> empty .)
+    PR_kameRot      reduce using rule 87 (anotherExp -> empty .)
+    PR_var          reduce using rule 87 (anotherExp -> empty .)
+    TO_LLACIERRA    reduce using rule 87 (anotherExp -> empty .)
+    TO_CORCIERRA    reduce using rule 87 (anotherExp -> empty .)
+
+
+state 120
+
+    (54) funcCall -> PR_circle TO_PARABRE exp TO_PARCIERRA .
+
+    PR_loop         reduce using rule 54 (funcCall -> PR_circle TO_PARABRE exp TO_PARCIERRA .)
+    PR_if           reduce using rule 54 (funcCall -> PR_circle TO_PARABRE exp TO_PARCIERRA .)
+    PR_return       reduce using rule 54 (funcCall -> PR_circle TO_PARABRE exp TO_PARCIERRA .)
+    ID              reduce using rule 54 (funcCall -> PR_circle TO_PARABRE exp TO_PARCIERRA .)
+    PR_draw         reduce using rule 54 (funcCall -> PR_circle TO_PARABRE exp TO_PARCIERRA .)
+    PR_circle       reduce using rule 54 (funcCall -> PR_circle TO_PARABRE exp TO_PARCIERRA .)
+    PR_square       reduce using rule 54 (funcCall -> PR_circle TO_PARABRE exp TO_PARCIERRA .)
+    PR_size         reduce using rule 54 (funcCall -> PR_circle TO_PARABRE exp TO_PARCIERRA .)
+    PR_color        reduce using rule 54 (funcCall -> PR_circle TO_PARABRE exp TO_PARCIERRA .)
+    PR_kameForw     reduce using rule 54 (funcCall -> PR_circle TO_PARABRE exp TO_PARCIERRA .)
+    PR_kameBack     reduce using rule 54 (funcCall -> PR_circle TO_PARABRE exp TO_PARCIERRA .)
+    PR_kameRot      reduce using rule 54 (funcCall -> PR_circle TO_PARABRE exp TO_PARCIERRA .)
+    PR_var          reduce using rule 54 (funcCall -> PR_circle TO_PARABRE exp TO_PARCIERRA .)
+    TO_LLACIERRA    reduce using rule 54 (funcCall -> PR_circle TO_PARABRE exp TO_PARCIERRA .)
+
+
+state 121
+
+    (93) fact -> TO_PARABRE megaExp . TO_PARCIERRA
+
+    TO_PARCIERRA    shift and go to state 159
+
+
+state 122
+
+    (2) val -> TO_PARABRE exp . TO_PARCIERRA
+
+    TO_PARCIERRA    shift and go to state 160
+
+
+state 123
+
+    (94) fact -> ID arrayIndex .
+
+    OP_MULT         reduce using rule 94 (fact -> ID arrayIndex .)
+    OP_DIV          reduce using rule 94 (fact -> ID arrayIndex .)
+    OP_RESID        reduce using rule 94 (fact -> ID arrayIndex .)
+    OP_MAS          reduce using rule 94 (fact -> ID arrayIndex .)
+    OP_MENOS        reduce using rule 94 (fact -> ID arrayIndex .)
+    PR_interseccion reduce using rule 94 (fact -> ID arrayIndex .)
+    PR_union        reduce using rule 94 (fact -> ID arrayIndex .)
+    PR_loop         reduce using rule 94 (fact -> ID arrayIndex .)
+    PR_if           reduce using rule 94 (fact -> ID arrayIndex .)
+    PR_return       reduce using rule 94 (fact -> ID arrayIndex .)
+    ID              reduce using rule 94 (fact -> ID arrayIndex .)
+    PR_draw         reduce using rule 94 (fact -> ID arrayIndex .)
+    PR_circle       reduce using rule 94 (fact -> ID arrayIndex .)
+    PR_square       reduce using rule 94 (fact -> ID arrayIndex .)
+    PR_size         reduce using rule 94 (fact -> ID arrayIndex .)
+    PR_color        reduce using rule 94 (fact -> ID arrayIndex .)
+    PR_kameForw     reduce using rule 94 (fact -> ID arrayIndex .)
+    PR_kameBack     reduce using rule 94 (fact -> ID arrayIndex .)
+    PR_kameRot      reduce using rule 94 (fact -> ID arrayIndex .)
+    PR_var          reduce using rule 94 (fact -> ID arrayIndex .)
+    TO_LLACIERRA    reduce using rule 94 (fact -> ID arrayIndex .)
+    TO_PARCIERRA    reduce using rule 94 (fact -> ID arrayIndex .)
+    OP_DOBLEIGUAL   reduce using rule 94 (fact -> ID arrayIndex .)
+    OP_DIFDE        reduce using rule 94 (fact -> ID arrayIndex .)
+    OP_MENORQUE     reduce using rule 94 (fact -> ID arrayIndex .)
+    OP_MENOROIGUAL  reduce using rule 94 (fact -> ID arrayIndex .)
+    OP_MAYORQUE     reduce using rule 94 (fact -> ID arrayIndex .)
+    OP_MAYOROIGUAL  reduce using rule 94 (fact -> ID arrayIndex .)
+    TO_CORCIERRA    reduce using rule 94 (fact -> ID arrayIndex .)
+
+
+state 124
+
+    (88) term -> fact anotherTerm .
+
+    OP_MAS          reduce using rule 88 (term -> fact anotherTerm .)
+    OP_MENOS        reduce using rule 88 (term -> fact anotherTerm .)
+    TO_PARCIERRA    reduce using rule 88 (term -> fact anotherTerm .)
+    OP_DOBLEIGUAL   reduce using rule 88 (term -> fact anotherTerm .)
+    OP_DIFDE        reduce using rule 88 (term -> fact anotherTerm .)
+    OP_MENORQUE     reduce using rule 88 (term -> fact anotherTerm .)
+    OP_MENOROIGUAL  reduce using rule 88 (term -> fact anotherTerm .)
+    OP_MAYORQUE     reduce using rule 88 (term -> fact anotherTerm .)
+    OP_MAYOROIGUAL  reduce using rule 88 (term -> fact anotherTerm .)
+    PR_interseccion reduce using rule 88 (term -> fact anotherTerm .)
+    PR_union        reduce using rule 88 (term -> fact anotherTerm .)
+    PR_loop         reduce using rule 88 (term -> fact anotherTerm .)
+    PR_if           reduce using rule 88 (term -> fact anotherTerm .)
+    PR_return       reduce using rule 88 (term -> fact anotherTerm .)
+    ID              reduce using rule 88 (term -> fact anotherTerm .)
+    PR_draw         reduce using rule 88 (term -> fact anotherTerm .)
+    PR_circle       reduce using rule 88 (term -> fact anotherTerm .)
+    PR_square       reduce using rule 88 (term -> fact anotherTerm .)
+    PR_size         reduce using rule 88 (term -> fact anotherTerm .)
+    PR_color        reduce using rule 88 (term -> fact anotherTerm .)
+    PR_kameForw     reduce using rule 88 (term -> fact anotherTerm .)
+    PR_kameBack     reduce using rule 88 (term -> fact anotherTerm .)
+    PR_kameRot      reduce using rule 88 (term -> fact anotherTerm .)
+    PR_var          reduce using rule 88 (term -> fact anotherTerm .)
+    TO_LLACIERRA    reduce using rule 88 (term -> fact anotherTerm .)
+    TO_CORCIERRA    reduce using rule 88 (term -> fact anotherTerm .)
+
+
+state 125
+
+    (91) anotherTerm -> OP_RESID . term
+    (88) term -> . fact anotherTerm
+    (93) fact -> . TO_PARABRE megaExp TO_PARCIERRA
+    (94) fact -> . ID arrayIndex
+    (95) fact -> . val
+    (2) val -> . TO_PARABRE exp TO_PARCIERRA
+    (3) val -> . TO_NUM
+    (4) val -> . TO_FLOT
+    (5) val -> . bool
+    (6) val -> . ID
+    (58) bool -> . PR_true
+    (59) bool -> . PR_false
+
+    TO_PARABRE      shift and go to state 95
+    ID              shift and go to state 97
+    TO_NUM          shift and go to state 93
+    TO_FLOT         shift and go to state 92
+    PR_true         shift and go to state 91
+    PR_false        shift and go to state 89
+
+    term                           shift and go to state 161
+    val                            shift and go to state 90
+    bool                           shift and go to state 96
+    fact                           shift and go to state 98
+
+state 126
+
+    (89) anotherTerm -> OP_MULT . term
+    (88) term -> . fact anotherTerm
+    (93) fact -> . TO_PARABRE megaExp TO_PARCIERRA
+    (94) fact -> . ID arrayIndex
+    (95) fact -> . val
+    (2) val -> . TO_PARABRE exp TO_PARCIERRA
+    (3) val -> . TO_NUM
+    (4) val -> . TO_FLOT
+    (5) val -> . bool
+    (6) val -> . ID
+    (58) bool -> . PR_true
+    (59) bool -> . PR_false
+
+    TO_PARABRE      shift and go to state 95
+    ID              shift and go to state 97
+    TO_NUM          shift and go to state 93
+    TO_FLOT         shift and go to state 92
+    PR_true         shift and go to state 91
+    PR_false        shift and go to state 89
+
+    term                           shift and go to state 162
+    val                            shift and go to state 90
+    bool                           shift and go to state 96
+    fact                           shift and go to state 98
+
+state 127
+
+    (90) anotherTerm -> OP_DIV . term
+    (88) term -> . fact anotherTerm
+    (93) fact -> . TO_PARABRE megaExp TO_PARCIERRA
+    (94) fact -> . ID arrayIndex
+    (95) fact -> . val
+    (2) val -> . TO_PARABRE exp TO_PARCIERRA
+    (3) val -> . TO_NUM
+    (4) val -> . TO_FLOT
+    (5) val -> . bool
+    (6) val -> . ID
+    (58) bool -> . PR_true
+    (59) bool -> . PR_false
+
+    TO_PARABRE      shift and go to state 95
+    ID              shift and go to state 97
+    TO_NUM          shift and go to state 93
+    TO_FLOT         shift and go to state 92
+    PR_true         shift and go to state 91
+    PR_false        shift and go to state 89
+
+    term                           shift and go to state 163
+    val                            shift and go to state 90
+    bool                           shift and go to state 96
+    fact                           shift and go to state 98
+
+state 128
+
+    (92) anotherTerm -> empty .
+
+    OP_MAS          reduce using rule 92 (anotherTerm -> empty .)
+    OP_MENOS        reduce using rule 92 (anotherTerm -> empty .)
+    TO_PARCIERRA    reduce using rule 92 (anotherTerm -> empty .)
+    OP_DOBLEIGUAL   reduce using rule 92 (anotherTerm -> empty .)
+    OP_DIFDE        reduce using rule 92 (anotherTerm -> empty .)
+    OP_MENORQUE     reduce using rule 92 (anotherTerm -> empty .)
+    OP_MENOROIGUAL  reduce using rule 92 (anotherTerm -> empty .)
+    OP_MAYORQUE     reduce using rule 92 (anotherTerm -> empty .)
+    OP_MAYOROIGUAL  reduce using rule 92 (anotherTerm -> empty .)
+    PR_interseccion reduce using rule 92 (anotherTerm -> empty .)
+    PR_union        reduce using rule 92 (anotherTerm -> empty .)
+    PR_loop         reduce using rule 92 (anotherTerm -> empty .)
+    PR_if           reduce using rule 92 (anotherTerm -> empty .)
+    PR_return       reduce using rule 92 (anotherTerm -> empty .)
+    ID              reduce using rule 92 (anotherTerm -> empty .)
+    PR_draw         reduce using rule 92 (anotherTerm -> empty .)
+    PR_circle       reduce using rule 92 (anotherTerm -> empty .)
+    PR_square       reduce using rule 92 (anotherTerm -> empty .)
+    PR_size         reduce using rule 92 (anotherTerm -> empty .)
+    PR_color        reduce using rule 92 (anotherTerm -> empty .)
+    PR_kameForw     reduce using rule 92 (anotherTerm -> empty .)
+    PR_kameBack     reduce using rule 92 (anotherTerm -> empty .)
+    PR_kameRot      reduce using rule 92 (anotherTerm -> empty .)
+    PR_var          reduce using rule 92 (anotherTerm -> empty .)
+    TO_LLACIERRA    reduce using rule 92 (anotherTerm -> empty .)
+    TO_CORCIERRA    reduce using rule 92 (anotherTerm -> empty .)
+
+
+state 129
+
+    (56) funcCall -> PR_size TO_PARABRE exp TO_PARCIERRA .
+
+    PR_loop         reduce using rule 56 (funcCall -> PR_size TO_PARABRE exp TO_PARCIERRA .)
+    PR_if           reduce using rule 56 (funcCall -> PR_size TO_PARABRE exp TO_PARCIERRA .)
+    PR_return       reduce using rule 56 (funcCall -> PR_size TO_PARABRE exp TO_PARCIERRA .)
+    ID              reduce using rule 56 (funcCall -> PR_size TO_PARABRE exp TO_PARCIERRA .)
+    PR_draw         reduce using rule 56 (funcCall -> PR_size TO_PARABRE exp TO_PARCIERRA .)
+    PR_circle       reduce using rule 56 (funcCall -> PR_size TO_PARABRE exp TO_PARCIERRA .)
+    PR_square       reduce using rule 56 (funcCall -> PR_size TO_PARABRE exp TO_PARCIERRA .)
+    PR_size         reduce using rule 56 (funcCall -> PR_size TO_PARABRE exp TO_PARCIERRA .)
+    PR_color        reduce using rule 56 (funcCall -> PR_size TO_PARABRE exp TO_PARCIERRA .)
+    PR_kameForw     reduce using rule 56 (funcCall -> PR_size TO_PARABRE exp TO_PARCIERRA .)
+    PR_kameBack     reduce using rule 56 (funcCall -> PR_size TO_PARABRE exp TO_PARCIERRA .)
+    PR_kameRot      reduce using rule 56 (funcCall -> PR_size TO_PARABRE exp TO_PARCIERRA .)
+    PR_var          reduce using rule 56 (funcCall -> PR_size TO_PARABRE exp TO_PARCIERRA .)
+    TO_LLACIERRA    reduce using rule 56 (funcCall -> PR_size TO_PARABRE exp TO_PARCIERRA .)
+
+
+state 130
+
+    (79) anotherMega -> opLogico . megaExp
+    (76) megaExp -> . maybeNot superExp anotherMega
+    (77) maybeNot -> . PR_negacion
+    (78) maybeNot -> . empty
+    (96) empty -> .
+
+    PR_negacion     shift and go to state 64
+    TO_PARABRE      reduce using rule 96 (empty -> .)
+    ID              reduce using rule 96 (empty -> .)
+    TO_NUM          reduce using rule 96 (empty -> .)
+    TO_FLOT         reduce using rule 96 (empty -> .)
+    PR_true         reduce using rule 96 (empty -> .)
+    PR_false        reduce using rule 96 (empty -> .)
+
+    megaExp                        shift and go to state 164
+    maybeNot                       shift and go to state 62
+    empty                          shift and go to state 65
+
+state 131
+
+    (35) opLogico -> PR_interseccion .
+
+    PR_negacion     reduce using rule 35 (opLogico -> PR_interseccion .)
+    TO_PARABRE      reduce using rule 35 (opLogico -> PR_interseccion .)
+    ID              reduce using rule 35 (opLogico -> PR_interseccion .)
+    TO_NUM          reduce using rule 35 (opLogico -> PR_interseccion .)
+    TO_FLOT         reduce using rule 35 (opLogico -> PR_interseccion .)
+    PR_true         reduce using rule 35 (opLogico -> PR_interseccion .)
+    PR_false        reduce using rule 35 (opLogico -> PR_interseccion .)
+
+
+state 132
+
+    (36) opLogico -> PR_union .
+
+    PR_negacion     reduce using rule 36 (opLogico -> PR_union .)
+    TO_PARABRE      reduce using rule 36 (opLogico -> PR_union .)
+    ID              reduce using rule 36 (opLogico -> PR_union .)
+    TO_NUM          reduce using rule 36 (opLogico -> PR_union .)
+    TO_FLOT         reduce using rule 36 (opLogico -> PR_union .)
+    PR_true         reduce using rule 36 (opLogico -> PR_union .)
+    PR_false        reduce using rule 36 (opLogico -> PR_union .)
+
+
+state 133
+
+    (76) megaExp -> maybeNot superExp anotherMega .
+
+    TO_PARCIERRA    reduce using rule 76 (megaExp -> maybeNot superExp anotherMega .)
+    PR_loop         reduce using rule 76 (megaExp -> maybeNot superExp anotherMega .)
+    PR_if           reduce using rule 76 (megaExp -> maybeNot superExp anotherMega .)
+    PR_return       reduce using rule 76 (megaExp -> maybeNot superExp anotherMega .)
+    ID              reduce using rule 76 (megaExp -> maybeNot superExp anotherMega .)
+    PR_draw         reduce using rule 76 (megaExp -> maybeNot superExp anotherMega .)
+    PR_circle       reduce using rule 76 (megaExp -> maybeNot superExp anotherMega .)
+    PR_square       reduce using rule 76 (megaExp -> maybeNot superExp anotherMega .)
+    PR_size         reduce using rule 76 (megaExp -> maybeNot superExp anotherMega .)
+    PR_color        reduce using rule 76 (megaExp -> maybeNot superExp anotherMega .)
+    PR_kameForw     reduce using rule 76 (megaExp -> maybeNot superExp anotherMega .)
+    PR_kameBack     reduce using rule 76 (megaExp -> maybeNot superExp anotherMega .)
+    PR_kameRot      reduce using rule 76 (megaExp -> maybeNot superExp anotherMega .)
+    PR_var          reduce using rule 76 (megaExp -> maybeNot superExp anotherMega .)
+    TO_LLACIERRA    reduce using rule 76 (megaExp -> maybeNot superExp anotherMega .)
+
+
+state 134
+
+    (80) anotherMega -> empty .
+
+    PR_loop         reduce using rule 80 (anotherMega -> empty .)
+    PR_if           reduce using rule 80 (anotherMega -> empty .)
+    PR_return       reduce using rule 80 (anotherMega -> empty .)
+    ID              reduce using rule 80 (anotherMega -> empty .)
+    PR_draw         reduce using rule 80 (anotherMega -> empty .)
+    PR_circle       reduce using rule 80 (anotherMega -> empty .)
+    PR_square       reduce using rule 80 (anotherMega -> empty .)
+    PR_size         reduce using rule 80 (anotherMega -> empty .)
+    PR_color        reduce using rule 80 (anotherMega -> empty .)
+    PR_kameForw     reduce using rule 80 (anotherMega -> empty .)
+    PR_kameBack     reduce using rule 80 (anotherMega -> empty .)
+    PR_kameRot      reduce using rule 80 (anotherMega -> empty .)
+    PR_var          reduce using rule 80 (anotherMega -> empty .)
+    TO_LLACIERRA    reduce using rule 80 (anotherMega -> empty .)
+    TO_PARCIERRA    reduce using rule 80 (anotherMega -> empty .)
+
+
+state 135
+
+    (39) opRelacional -> OP_DIFDE .
+
+    TO_PARABRE      reduce using rule 39 (opRelacional -> OP_DIFDE .)
+    ID              reduce using rule 39 (opRelacional -> OP_DIFDE .)
+    TO_NUM          reduce using rule 39 (opRelacional -> OP_DIFDE .)
+    TO_FLOT         reduce using rule 39 (opRelacional -> OP_DIFDE .)
+    PR_true         reduce using rule 39 (opRelacional -> OP_DIFDE .)
+    PR_false        reduce using rule 39 (opRelacional -> OP_DIFDE .)
+
+
+state 136
+
+    (81) superExp -> exp maybeRel .
+
+    PR_interseccion reduce using rule 81 (superExp -> exp maybeRel .)
+    PR_union        reduce using rule 81 (superExp -> exp maybeRel .)
+    PR_loop         reduce using rule 81 (superExp -> exp maybeRel .)
+    PR_if           reduce using rule 81 (superExp -> exp maybeRel .)
+    PR_return       reduce using rule 81 (superExp -> exp maybeRel .)
+    ID              reduce using rule 81 (superExp -> exp maybeRel .)
+    PR_draw         reduce using rule 81 (superExp -> exp maybeRel .)
+    PR_circle       reduce using rule 81 (superExp -> exp maybeRel .)
+    PR_square       reduce using rule 81 (superExp -> exp maybeRel .)
+    PR_size         reduce using rule 81 (superExp -> exp maybeRel .)
+    PR_color        reduce using rule 81 (superExp -> exp maybeRel .)
+    PR_kameForw     reduce using rule 81 (superExp -> exp maybeRel .)
+    PR_kameBack     reduce using rule 81 (superExp -> exp maybeRel .)
+    PR_kameRot      reduce using rule 81 (superExp -> exp maybeRel .)
+    PR_var          reduce using rule 81 (superExp -> exp maybeRel .)
+    TO_LLACIERRA    reduce using rule 81 (superExp -> exp maybeRel .)
+    TO_PARCIERRA    reduce using rule 81 (superExp -> exp maybeRel .)
+
+
+state 137
+
+    (41) opRelacional -> OP_MENOROIGUAL .
+
+    TO_PARABRE      reduce using rule 41 (opRelacional -> OP_MENOROIGUAL .)
+    ID              reduce using rule 41 (opRelacional -> OP_MENOROIGUAL .)
+    TO_NUM          reduce using rule 41 (opRelacional -> OP_MENOROIGUAL .)
+    TO_FLOT         reduce using rule 41 (opRelacional -> OP_MENOROIGUAL .)
+    PR_true         reduce using rule 41 (opRelacional -> OP_MENOROIGUAL .)
+    PR_false        reduce using rule 41 (opRelacional -> OP_MENOROIGUAL .)
+
+
+state 138
+
+    (43) opRelacional -> OP_MAYOROIGUAL .
+
+    TO_PARABRE      reduce using rule 43 (opRelacional -> OP_MAYOROIGUAL .)
+    ID              reduce using rule 43 (opRelacional -> OP_MAYOROIGUAL .)
+    TO_NUM          reduce using rule 43 (opRelacional -> OP_MAYOROIGUAL .)
+    TO_FLOT         reduce using rule 43 (opRelacional -> OP_MAYOROIGUAL .)
+    PR_true         reduce using rule 43 (opRelacional -> OP_MAYOROIGUAL .)
+    PR_false        reduce using rule 43 (opRelacional -> OP_MAYOROIGUAL .)
+
+
+state 139
+
+    (82) maybeRel -> opRelacional . exp
+    (84) exp -> . term anotherExp
+    (88) term -> . fact anotherTerm
+    (93) fact -> . TO_PARABRE megaExp TO_PARCIERRA
+    (94) fact -> . ID arrayIndex
+    (95) fact -> . val
+    (2) val -> . TO_PARABRE exp TO_PARCIERRA
+    (3) val -> . TO_NUM
+    (4) val -> . TO_FLOT
+    (5) val -> . bool
+    (6) val -> . ID
+    (58) bool -> . PR_true
+    (59) bool -> . PR_false
+
+    TO_PARABRE      shift and go to state 95
+    ID              shift and go to state 97
+    TO_NUM          shift and go to state 93
+    TO_FLOT         shift and go to state 92
+    PR_true         shift and go to state 91
+    PR_false        shift and go to state 89
+
+    term                           shift and go to state 88
+    val                            shift and go to state 90
+    exp                            shift and go to state 165
+    bool                           shift and go to state 96
+    fact                           shift and go to state 98
+
+state 140
+
+    (38) opRelacional -> OP_DOBLEIGUAL .
+
+    TO_PARABRE      reduce using rule 38 (opRelacional -> OP_DOBLEIGUAL .)
+    ID              reduce using rule 38 (opRelacional -> OP_DOBLEIGUAL .)
+    TO_NUM          reduce using rule 38 (opRelacional -> OP_DOBLEIGUAL .)
+    TO_FLOT         reduce using rule 38 (opRelacional -> OP_DOBLEIGUAL .)
+    PR_true         reduce using rule 38 (opRelacional -> OP_DOBLEIGUAL .)
+    PR_false        reduce using rule 38 (opRelacional -> OP_DOBLEIGUAL .)
+
+
+state 141
+
+    (42) opRelacional -> OP_MAYORQUE .
+
+    TO_PARABRE      reduce using rule 42 (opRelacional -> OP_MAYORQUE .)
+    ID              reduce using rule 42 (opRelacional -> OP_MAYORQUE .)
+    TO_NUM          reduce using rule 42 (opRelacional -> OP_MAYORQUE .)
+    TO_FLOT         reduce using rule 42 (opRelacional -> OP_MAYORQUE .)
+    PR_true         reduce using rule 42 (opRelacional -> OP_MAYORQUE .)
+    PR_false        reduce using rule 42 (opRelacional -> OP_MAYORQUE .)
+
+
+state 142
+
+    (40) opRelacional -> OP_MENORQUE .
+
+    TO_PARABRE      reduce using rule 40 (opRelacional -> OP_MENORQUE .)
+    ID              reduce using rule 40 (opRelacional -> OP_MENORQUE .)
+    TO_NUM          reduce using rule 40 (opRelacional -> OP_MENORQUE .)
+    TO_FLOT         reduce using rule 40 (opRelacional -> OP_MENORQUE .)
+    PR_true         reduce using rule 40 (opRelacional -> OP_MENORQUE .)
+    PR_false        reduce using rule 40 (opRelacional -> OP_MENORQUE .)
+
+
+state 143
+
+    (83) maybeRel -> empty .
+
+    PR_interseccion reduce using rule 83 (maybeRel -> empty .)
+    PR_union        reduce using rule 83 (maybeRel -> empty .)
+    PR_loop         reduce using rule 83 (maybeRel -> empty .)
+    PR_if           reduce using rule 83 (maybeRel -> empty .)
+    PR_return       reduce using rule 83 (maybeRel -> empty .)
+    ID              reduce using rule 83 (maybeRel -> empty .)
+    PR_draw         reduce using rule 83 (maybeRel -> empty .)
+    PR_circle       reduce using rule 83 (maybeRel -> empty .)
+    PR_square       reduce using rule 83 (maybeRel -> empty .)
+    PR_size         reduce using rule 83 (maybeRel -> empty .)
+    PR_color        reduce using rule 83 (maybeRel -> empty .)
+    PR_kameForw     reduce using rule 83 (maybeRel -> empty .)
+    PR_kameBack     reduce using rule 83 (maybeRel -> empty .)
+    PR_kameRot      reduce using rule 83 (maybeRel -> empty .)
+    PR_var          reduce using rule 83 (maybeRel -> empty .)
+    TO_LLACIERRA    reduce using rule 83 (maybeRel -> empty .)
+    TO_PARCIERRA    reduce using rule 83 (maybeRel -> empty .)
+
+
+state 144
+
+    (16) arrayIndex -> TO_CORABRE exp TO_CORCIERRA .
+    (17) arrayIndex -> TO_CORABRE exp TO_CORCIERRA . TO_CORABRE exp TO_CORCIERRA
+
+    OP_IGUAL        reduce using rule 16 (arrayIndex -> TO_CORABRE exp TO_CORCIERRA .)
+    OP_MULT         reduce using rule 16 (arrayIndex -> TO_CORABRE exp TO_CORCIERRA .)
+    OP_DIV          reduce using rule 16 (arrayIndex -> TO_CORABRE exp TO_CORCIERRA .)
+    OP_RESID        reduce using rule 16 (arrayIndex -> TO_CORABRE exp TO_CORCIERRA .)
+    OP_MAS          reduce using rule 16 (arrayIndex -> TO_CORABRE exp TO_CORCIERRA .)
+    OP_MENOS        reduce using rule 16 (arrayIndex -> TO_CORABRE exp TO_CORCIERRA .)
+    TO_PARCIERRA    reduce using rule 16 (arrayIndex -> TO_CORABRE exp TO_CORCIERRA .)
+    OP_DOBLEIGUAL   reduce using rule 16 (arrayIndex -> TO_CORABRE exp TO_CORCIERRA .)
+    OP_DIFDE        reduce using rule 16 (arrayIndex -> TO_CORABRE exp TO_CORCIERRA .)
+    OP_MENORQUE     reduce using rule 16 (arrayIndex -> TO_CORABRE exp TO_CORCIERRA .)
+    OP_MENOROIGUAL  reduce using rule 16 (arrayIndex -> TO_CORABRE exp TO_CORCIERRA .)
+    OP_MAYORQUE     reduce using rule 16 (arrayIndex -> TO_CORABRE exp TO_CORCIERRA .)
+    OP_MAYOROIGUAL  reduce using rule 16 (arrayIndex -> TO_CORABRE exp TO_CORCIERRA .)
+    PR_interseccion reduce using rule 16 (arrayIndex -> TO_CORABRE exp TO_CORCIERRA .)
+    PR_union        reduce using rule 16 (arrayIndex -> TO_CORABRE exp TO_CORCIERRA .)
+    PR_loop         reduce using rule 16 (arrayIndex -> TO_CORABRE exp TO_CORCIERRA .)
+    PR_if           reduce using rule 16 (arrayIndex -> TO_CORABRE exp TO_CORCIERRA .)
+    PR_return       reduce using rule 16 (arrayIndex -> TO_CORABRE exp TO_CORCIERRA .)
+    ID              reduce using rule 16 (arrayIndex -> TO_CORABRE exp TO_CORCIERRA .)
+    PR_draw         reduce using rule 16 (arrayIndex -> TO_CORABRE exp TO_CORCIERRA .)
+    PR_circle       reduce using rule 16 (arrayIndex -> TO_CORABRE exp TO_CORCIERRA .)
+    PR_square       reduce using rule 16 (arrayIndex -> TO_CORABRE exp TO_CORCIERRA .)
+    PR_size         reduce using rule 16 (arrayIndex -> TO_CORABRE exp TO_CORCIERRA .)
+    PR_color        reduce using rule 16 (arrayIndex -> TO_CORABRE exp TO_CORCIERRA .)
+    PR_kameForw     reduce using rule 16 (arrayIndex -> TO_CORABRE exp TO_CORCIERRA .)
+    PR_kameBack     reduce using rule 16 (arrayIndex -> TO_CORABRE exp TO_CORCIERRA .)
+    PR_kameRot      reduce using rule 16 (arrayIndex -> TO_CORABRE exp TO_CORCIERRA .)
+    PR_var          reduce using rule 16 (arrayIndex -> TO_CORABRE exp TO_CORCIERRA .)
+    TO_LLACIERRA    reduce using rule 16 (arrayIndex -> TO_CORABRE exp TO_CORCIERRA .)
+    TO_CORCIERRA    reduce using rule 16 (arrayIndex -> TO_CORABRE exp TO_CORCIERRA .)
+    TO_CORABRE      shift and go to state 166
+
+
+state 145
+
+    (71) moreParamVals -> empty .
+
+    TO_PARCIERRA    reduce using rule 71 (moreParamVals -> empty .)
+
+
+state 146
+
+    (68) paramVals -> val moreParamVals .
+
+    TO_PARCIERRA    reduce using rule 68 (paramVals -> val moreParamVals .)
+
+
+state 147
+
+    (70) moreParamVals -> TO_COMA . val moreParamVals
+    (2) val -> . TO_PARABRE exp TO_PARCIERRA
+    (3) val -> . TO_NUM
+    (4) val -> . TO_FLOT
+    (5) val -> . bool
+    (6) val -> . ID
+    (58) bool -> . PR_true
+    (59) bool -> . PR_false
+
+    TO_PARABRE      shift and go to state 104
+    TO_NUM          shift and go to state 93
+    TO_FLOT         shift and go to state 92
+    ID              shift and go to state 106
+    PR_true         shift and go to state 91
+    PR_false        shift and go to state 89
+
+    bool                           shift and go to state 96
+    val                            shift and go to state 167
+
+state 148
+
+    (52) funcCall -> ID TO_PARABRE paramVals TO_PARCIERRA .
+
+    PR_loop         reduce using rule 52 (funcCall -> ID TO_PARABRE paramVals TO_PARCIERRA .)
+    PR_if           reduce using rule 52 (funcCall -> ID TO_PARABRE paramVals TO_PARCIERRA .)
+    PR_return       reduce using rule 52 (funcCall -> ID TO_PARABRE paramVals TO_PARCIERRA .)
+    ID              reduce using rule 52 (funcCall -> ID TO_PARABRE paramVals TO_PARCIERRA .)
+    PR_draw         reduce using rule 52 (funcCall -> ID TO_PARABRE paramVals TO_PARCIERRA .)
+    PR_circle       reduce using rule 52 (funcCall -> ID TO_PARABRE paramVals TO_PARCIERRA .)
+    PR_square       reduce using rule 52 (funcCall -> ID TO_PARABRE paramVals TO_PARCIERRA .)
+    PR_size         reduce using rule 52 (funcCall -> ID TO_PARABRE paramVals TO_PARCIERRA .)
+    PR_color        reduce using rule 52 (funcCall -> ID TO_PARABRE paramVals TO_PARCIERRA .)
+    PR_kameForw     reduce using rule 52 (funcCall -> ID TO_PARABRE paramVals TO_PARCIERRA .)
+    PR_kameBack     reduce using rule 52 (funcCall -> ID TO_PARABRE paramVals TO_PARCIERRA .)
+    PR_kameRot      reduce using rule 52 (funcCall -> ID TO_PARABRE paramVals TO_PARCIERRA .)
+    PR_var          reduce using rule 52 (funcCall -> ID TO_PARABRE paramVals TO_PARCIERRA .)
+    TO_LLACIERRA    reduce using rule 52 (funcCall -> ID TO_PARABRE paramVals TO_PARCIERRA .)
+
+
+state 149
+
+    (55) funcCall -> PR_square TO_PARABRE exp TO_PARCIERRA .
+
+    PR_loop         reduce using rule 55 (funcCall -> PR_square TO_PARABRE exp TO_PARCIERRA .)
+    PR_if           reduce using rule 55 (funcCall -> PR_square TO_PARABRE exp TO_PARCIERRA .)
+    PR_return       reduce using rule 55 (funcCall -> PR_square TO_PARABRE exp TO_PARCIERRA .)
+    ID              reduce using rule 55 (funcCall -> PR_square TO_PARABRE exp TO_PARCIERRA .)
+    PR_draw         reduce using rule 55 (funcCall -> PR_square TO_PARABRE exp TO_PARCIERRA .)
+    PR_circle       reduce using rule 55 (funcCall -> PR_square TO_PARABRE exp TO_PARCIERRA .)
+    PR_square       reduce using rule 55 (funcCall -> PR_square TO_PARABRE exp TO_PARCIERRA .)
+    PR_size         reduce using rule 55 (funcCall -> PR_square TO_PARABRE exp TO_PARCIERRA .)
+    PR_color        reduce using rule 55 (funcCall -> PR_square TO_PARABRE exp TO_PARCIERRA .)
+    PR_kameForw     reduce using rule 55 (funcCall -> PR_square TO_PARABRE exp TO_PARCIERRA .)
+    PR_kameBack     reduce using rule 55 (funcCall -> PR_square TO_PARABRE exp TO_PARCIERRA .)
+    PR_kameRot      reduce using rule 55 (funcCall -> PR_square TO_PARABRE exp TO_PARCIERRA .)
+    PR_var          reduce using rule 55 (funcCall -> PR_square TO_PARABRE exp TO_PARCIERRA .)
+    TO_LLACIERRA    reduce using rule 55 (funcCall -> PR_square TO_PARABRE exp TO_PARCIERRA .)
+
+
+state 150
+
+    (73) comparacion -> PR_if TO_PARABRE megaExp TO_PARCIERRA . TO_LLAABRE bloque TO_LLACIERRA maybeElse
+
+    TO_LLAABRE      shift and go to state 168
+
+
+state 151
+
+    (37) loop -> PR_loop TO_PARABRE exp TO_PARCIERRA . TO_LLAABRE bloque TO_LLACIERRA
+
+    TO_LLAABRE      shift and go to state 169
+
+
+state 152
+
+    (32) moreParams -> TO_COMA . tipo ID moreParams
+    (19) tipo -> . PR_num
+    (20) tipo -> . PR_flot
+    (21) tipo -> . PR_bool
+
+    PR_num          shift and go to state 13
+    PR_flot         shift and go to state 16
+    PR_bool         shift and go to state 15
+
+    tipo                           shift and go to state 170
+
+state 153
+
+    (33) moreParams -> empty .
+
+    TO_PARCIERRA    reduce using rule 33 (moreParams -> empty .)
+
+
+state 154
+
+    (30) params -> tipo ID moreParams .
+
+    TO_PARCIERRA    reduce using rule 30 (params -> tipo ID moreParams .)
+
+
+state 155
+
+    (27) func -> PR_function decideType ID TO_PARABRE params TO_PARCIERRA TO_LLAABRE . decVar bloque TO_LLACIERRA
+    (8) decVar -> . var decVar
+    (9) decVar -> . empty
+    (12) var -> . PR_var tipo ID arrayCreate
+    (96) empty -> .
+
+  ! shift/reduce conflict for PR_var resolved as shift
+    PR_var          shift and go to state 5
+    PR_loop         reduce using rule 96 (empty -> .)
+    PR_if           reduce using rule 96 (empty -> .)
+    PR_return       reduce using rule 96 (empty -> .)
+    ID              reduce using rule 96 (empty -> .)
+    PR_draw         reduce using rule 96 (empty -> .)
+    PR_circle       reduce using rule 96 (empty -> .)
+    PR_square       reduce using rule 96 (empty -> .)
+    PR_size         reduce using rule 96 (empty -> .)
+    PR_color        reduce using rule 96 (empty -> .)
+    PR_kameForw     reduce using rule 96 (empty -> .)
+    PR_kameBack     reduce using rule 96 (empty -> .)
+    PR_kameRot      reduce using rule 96 (empty -> .)
+    TO_LLACIERRA    reduce using rule 96 (empty -> .)
+
+  ! PR_var          [ reduce using rule 96 (empty -> .) ]
+
+    decVar                         shift and go to state 171
+    var                            shift and go to state 6
+    empty                          shift and go to state 8
+
+state 156
+
+    (14) arrayCreate -> TO_CORABRE TO_NUM TO_CORCIERRA TO_CORABRE TO_NUM . TO_CORCIERRA
+
+    TO_CORCIERRA    shift and go to state 172
+
+
+state 157
+
+    (85) anotherExp -> OP_MAS exp .
+
+    TO_PARCIERRA    reduce using rule 85 (anotherExp -> OP_MAS exp .)
+    OP_DOBLEIGUAL   reduce using rule 85 (anotherExp -> OP_MAS exp .)
+    OP_DIFDE        reduce using rule 85 (anotherExp -> OP_MAS exp .)
+    OP_MENORQUE     reduce using rule 85 (anotherExp -> OP_MAS exp .)
+    OP_MENOROIGUAL  reduce using rule 85 (anotherExp -> OP_MAS exp .)
+    OP_MAYORQUE     reduce using rule 85 (anotherExp -> OP_MAS exp .)
+    OP_MAYOROIGUAL  reduce using rule 85 (anotherExp -> OP_MAS exp .)
+    PR_interseccion reduce using rule 85 (anotherExp -> OP_MAS exp .)
+    PR_union        reduce using rule 85 (anotherExp -> OP_MAS exp .)
+    PR_loop         reduce using rule 85 (anotherExp -> OP_MAS exp .)
+    PR_if           reduce using rule 85 (anotherExp -> OP_MAS exp .)
+    PR_return       reduce using rule 85 (anotherExp -> OP_MAS exp .)
+    ID              reduce using rule 85 (anotherExp -> OP_MAS exp .)
+    PR_draw         reduce using rule 85 (anotherExp -> OP_MAS exp .)
+    PR_circle       reduce using rule 85 (anotherExp -> OP_MAS exp .)
+    PR_square       reduce using rule 85 (anotherExp -> OP_MAS exp .)
+    PR_size         reduce using rule 85 (anotherExp -> OP_MAS exp .)
+    PR_color        reduce using rule 85 (anotherExp -> OP_MAS exp .)
+    PR_kameForw     reduce using rule 85 (anotherExp -> OP_MAS exp .)
+    PR_kameBack     reduce using rule 85 (anotherExp -> OP_MAS exp .)
+    PR_kameRot      reduce using rule 85 (anotherExp -> OP_MAS exp .)
+    PR_var          reduce using rule 85 (anotherExp -> OP_MAS exp .)
+    TO_LLACIERRA    reduce using rule 85 (anotherExp -> OP_MAS exp .)
+    TO_CORCIERRA    reduce using rule 85 (anotherExp -> OP_MAS exp .)
+
+
+state 158
+
+    (86) anotherExp -> OP_MENOS exp .
+
+    TO_PARCIERRA    reduce using rule 86 (anotherExp -> OP_MENOS exp .)
+    OP_DOBLEIGUAL   reduce using rule 86 (anotherExp -> OP_MENOS exp .)
+    OP_DIFDE        reduce using rule 86 (anotherExp -> OP_MENOS exp .)
+    OP_MENORQUE     reduce using rule 86 (anotherExp -> OP_MENOS exp .)
+    OP_MENOROIGUAL  reduce using rule 86 (anotherExp -> OP_MENOS exp .)
+    OP_MAYORQUE     reduce using rule 86 (anotherExp -> OP_MENOS exp .)
+    OP_MAYOROIGUAL  reduce using rule 86 (anotherExp -> OP_MENOS exp .)
+    PR_interseccion reduce using rule 86 (anotherExp -> OP_MENOS exp .)
+    PR_union        reduce using rule 86 (anotherExp -> OP_MENOS exp .)
+    PR_loop         reduce using rule 86 (anotherExp -> OP_MENOS exp .)
+    PR_if           reduce using rule 86 (anotherExp -> OP_MENOS exp .)
+    PR_return       reduce using rule 86 (anotherExp -> OP_MENOS exp .)
+    ID              reduce using rule 86 (anotherExp -> OP_MENOS exp .)
+    PR_draw         reduce using rule 86 (anotherExp -> OP_MENOS exp .)
+    PR_circle       reduce using rule 86 (anotherExp -> OP_MENOS exp .)
+    PR_square       reduce using rule 86 (anotherExp -> OP_MENOS exp .)
+    PR_size         reduce using rule 86 (anotherExp -> OP_MENOS exp .)
+    PR_color        reduce using rule 86 (anotherExp -> OP_MENOS exp .)
+    PR_kameForw     reduce using rule 86 (anotherExp -> OP_MENOS exp .)
+    PR_kameBack     reduce using rule 86 (anotherExp -> OP_MENOS exp .)
+    PR_kameRot      reduce using rule 86 (anotherExp -> OP_MENOS exp .)
+    PR_var          reduce using rule 86 (anotherExp -> OP_MENOS exp .)
+    TO_LLACIERRA    reduce using rule 86 (anotherExp -> OP_MENOS exp .)
+    TO_CORCIERRA    reduce using rule 86 (anotherExp -> OP_MENOS exp .)
+
+
+state 159
+
+    (93) fact -> TO_PARABRE megaExp TO_PARCIERRA .
+
+    OP_MULT         reduce using rule 93 (fact -> TO_PARABRE megaExp TO_PARCIERRA .)
+    OP_DIV          reduce using rule 93 (fact -> TO_PARABRE megaExp TO_PARCIERRA .)
+    OP_RESID        reduce using rule 93 (fact -> TO_PARABRE megaExp TO_PARCIERRA .)
+    OP_MAS          reduce using rule 93 (fact -> TO_PARABRE megaExp TO_PARCIERRA .)
+    OP_MENOS        reduce using rule 93 (fact -> TO_PARABRE megaExp TO_PARCIERRA .)
+    PR_interseccion reduce using rule 93 (fact -> TO_PARABRE megaExp TO_PARCIERRA .)
+    PR_union        reduce using rule 93 (fact -> TO_PARABRE megaExp TO_PARCIERRA .)
+    PR_loop         reduce using rule 93 (fact -> TO_PARABRE megaExp TO_PARCIERRA .)
+    PR_if           reduce using rule 93 (fact -> TO_PARABRE megaExp TO_PARCIERRA .)
+    PR_return       reduce using rule 93 (fact -> TO_PARABRE megaExp TO_PARCIERRA .)
+    ID              reduce using rule 93 (fact -> TO_PARABRE megaExp TO_PARCIERRA .)
+    PR_draw         reduce using rule 93 (fact -> TO_PARABRE megaExp TO_PARCIERRA .)
+    PR_circle       reduce using rule 93 (fact -> TO_PARABRE megaExp TO_PARCIERRA .)
+    PR_square       reduce using rule 93 (fact -> TO_PARABRE megaExp TO_PARCIERRA .)
+    PR_size         reduce using rule 93 (fact -> TO_PARABRE megaExp TO_PARCIERRA .)
+    PR_color        reduce using rule 93 (fact -> TO_PARABRE megaExp TO_PARCIERRA .)
+    PR_kameForw     reduce using rule 93 (fact -> TO_PARABRE megaExp TO_PARCIERRA .)
+    PR_kameBack     reduce using rule 93 (fact -> TO_PARABRE megaExp TO_PARCIERRA .)
+    PR_kameRot      reduce using rule 93 (fact -> TO_PARABRE megaExp TO_PARCIERRA .)
+    PR_var          reduce using rule 93 (fact -> TO_PARABRE megaExp TO_PARCIERRA .)
+    TO_LLACIERRA    reduce using rule 93 (fact -> TO_PARABRE megaExp TO_PARCIERRA .)
+    TO_PARCIERRA    reduce using rule 93 (fact -> TO_PARABRE megaExp TO_PARCIERRA .)
+    OP_DOBLEIGUAL   reduce using rule 93 (fact -> TO_PARABRE megaExp TO_PARCIERRA .)
+    OP_DIFDE        reduce using rule 93 (fact -> TO_PARABRE megaExp TO_PARCIERRA .)
+    OP_MENORQUE     reduce using rule 93 (fact -> TO_PARABRE megaExp TO_PARCIERRA .)
+    OP_MENOROIGUAL  reduce using rule 93 (fact -> TO_PARABRE megaExp TO_PARCIERRA .)
+    OP_MAYORQUE     reduce using rule 93 (fact -> TO_PARABRE megaExp TO_PARCIERRA .)
+    OP_MAYOROIGUAL  reduce using rule 93 (fact -> TO_PARABRE megaExp TO_PARCIERRA .)
+    TO_CORCIERRA    reduce using rule 93 (fact -> TO_PARABRE megaExp TO_PARCIERRA .)
+
+
+state 160
+
+    (2) val -> TO_PARABRE exp TO_PARCIERRA .
+
+    OP_MULT         reduce using rule 2 (val -> TO_PARABRE exp TO_PARCIERRA .)
+    OP_DIV          reduce using rule 2 (val -> TO_PARABRE exp TO_PARCIERRA .)
+    OP_RESID        reduce using rule 2 (val -> TO_PARABRE exp TO_PARCIERRA .)
+    OP_MAS          reduce using rule 2 (val -> TO_PARABRE exp TO_PARCIERRA .)
+    OP_MENOS        reduce using rule 2 (val -> TO_PARABRE exp TO_PARCIERRA .)
+    TO_PARCIERRA    reduce using rule 2 (val -> TO_PARABRE exp TO_PARCIERRA .)
+    OP_DOBLEIGUAL   reduce using rule 2 (val -> TO_PARABRE exp TO_PARCIERRA .)
+    OP_DIFDE        reduce using rule 2 (val -> TO_PARABRE exp TO_PARCIERRA .)
+    OP_MENORQUE     reduce using rule 2 (val -> TO_PARABRE exp TO_PARCIERRA .)
+    OP_MENOROIGUAL  reduce using rule 2 (val -> TO_PARABRE exp TO_PARCIERRA .)
+    OP_MAYORQUE     reduce using rule 2 (val -> TO_PARABRE exp TO_PARCIERRA .)
+    OP_MAYOROIGUAL  reduce using rule 2 (val -> TO_PARABRE exp TO_PARCIERRA .)
+    PR_interseccion reduce using rule 2 (val -> TO_PARABRE exp TO_PARCIERRA .)
+    PR_union        reduce using rule 2 (val -> TO_PARABRE exp TO_PARCIERRA .)
+    PR_loop         reduce using rule 2 (val -> TO_PARABRE exp TO_PARCIERRA .)
+    PR_if           reduce using rule 2 (val -> TO_PARABRE exp TO_PARCIERRA .)
+    PR_return       reduce using rule 2 (val -> TO_PARABRE exp TO_PARCIERRA .)
+    ID              reduce using rule 2 (val -> TO_PARABRE exp TO_PARCIERRA .)
+    PR_draw         reduce using rule 2 (val -> TO_PARABRE exp TO_PARCIERRA .)
+    PR_circle       reduce using rule 2 (val -> TO_PARABRE exp TO_PARCIERRA .)
+    PR_square       reduce using rule 2 (val -> TO_PARABRE exp TO_PARCIERRA .)
+    PR_size         reduce using rule 2 (val -> TO_PARABRE exp TO_PARCIERRA .)
+    PR_color        reduce using rule 2 (val -> TO_PARABRE exp TO_PARCIERRA .)
+    PR_kameForw     reduce using rule 2 (val -> TO_PARABRE exp TO_PARCIERRA .)
+    PR_kameBack     reduce using rule 2 (val -> TO_PARABRE exp TO_PARCIERRA .)
+    PR_kameRot      reduce using rule 2 (val -> TO_PARABRE exp TO_PARCIERRA .)
+    PR_var          reduce using rule 2 (val -> TO_PARABRE exp TO_PARCIERRA .)
+    TO_LLACIERRA    reduce using rule 2 (val -> TO_PARABRE exp TO_PARCIERRA .)
+    TO_CORCIERRA    reduce using rule 2 (val -> TO_PARABRE exp TO_PARCIERRA .)
+    TO_COMA         reduce using rule 2 (val -> TO_PARABRE exp TO_PARCIERRA .)
+
+
+state 161
+
+    (91) anotherTerm -> OP_RESID term .
+
+    OP_MAS          reduce using rule 91 (anotherTerm -> OP_RESID term .)
+    OP_MENOS        reduce using rule 91 (anotherTerm -> OP_RESID term .)
+    TO_PARCIERRA    reduce using rule 91 (anotherTerm -> OP_RESID term .)
+    OP_DOBLEIGUAL   reduce using rule 91 (anotherTerm -> OP_RESID term .)
+    OP_DIFDE        reduce using rule 91 (anotherTerm -> OP_RESID term .)
+    OP_MENORQUE     reduce using rule 91 (anotherTerm -> OP_RESID term .)
+    OP_MENOROIGUAL  reduce using rule 91 (anotherTerm -> OP_RESID term .)
+    OP_MAYORQUE     reduce using rule 91 (anotherTerm -> OP_RESID term .)
+    OP_MAYOROIGUAL  reduce using rule 91 (anotherTerm -> OP_RESID term .)
+    PR_interseccion reduce using rule 91 (anotherTerm -> OP_RESID term .)
+    PR_union        reduce using rule 91 (anotherTerm -> OP_RESID term .)
+    PR_loop         reduce using rule 91 (anotherTerm -> OP_RESID term .)
+    PR_if           reduce using rule 91 (anotherTerm -> OP_RESID term .)
+    PR_return       reduce using rule 91 (anotherTerm -> OP_RESID term .)
+    ID              reduce using rule 91 (anotherTerm -> OP_RESID term .)
+    PR_draw         reduce using rule 91 (anotherTerm -> OP_RESID term .)
+    PR_circle       reduce using rule 91 (anotherTerm -> OP_RESID term .)
+    PR_square       reduce using rule 91 (anotherTerm -> OP_RESID term .)
+    PR_size         reduce using rule 91 (anotherTerm -> OP_RESID term .)
+    PR_color        reduce using rule 91 (anotherTerm -> OP_RESID term .)
+    PR_kameForw     reduce using rule 91 (anotherTerm -> OP_RESID term .)
+    PR_kameBack     reduce using rule 91 (anotherTerm -> OP_RESID term .)
+    PR_kameRot      reduce using rule 91 (anotherTerm -> OP_RESID term .)
+    PR_var          reduce using rule 91 (anotherTerm -> OP_RESID term .)
+    TO_LLACIERRA    reduce using rule 91 (anotherTerm -> OP_RESID term .)
+    TO_CORCIERRA    reduce using rule 91 (anotherTerm -> OP_RESID term .)
+
+
+state 162
+
+    (89) anotherTerm -> OP_MULT term .
+
+    OP_MAS          reduce using rule 89 (anotherTerm -> OP_MULT term .)
+    OP_MENOS        reduce using rule 89 (anotherTerm -> OP_MULT term .)
+    TO_PARCIERRA    reduce using rule 89 (anotherTerm -> OP_MULT term .)
+    OP_DOBLEIGUAL   reduce using rule 89 (anotherTerm -> OP_MULT term .)
+    OP_DIFDE        reduce using rule 89 (anotherTerm -> OP_MULT term .)
+    OP_MENORQUE     reduce using rule 89 (anotherTerm -> OP_MULT term .)
+    OP_MENOROIGUAL  reduce using rule 89 (anotherTerm -> OP_MULT term .)
+    OP_MAYORQUE     reduce using rule 89 (anotherTerm -> OP_MULT term .)
+    OP_MAYOROIGUAL  reduce using rule 89 (anotherTerm -> OP_MULT term .)
+    PR_interseccion reduce using rule 89 (anotherTerm -> OP_MULT term .)
+    PR_union        reduce using rule 89 (anotherTerm -> OP_MULT term .)
+    PR_loop         reduce using rule 89 (anotherTerm -> OP_MULT term .)
+    PR_if           reduce using rule 89 (anotherTerm -> OP_MULT term .)
+    PR_return       reduce using rule 89 (anotherTerm -> OP_MULT term .)
+    ID              reduce using rule 89 (anotherTerm -> OP_MULT term .)
+    PR_draw         reduce using rule 89 (anotherTerm -> OP_MULT term .)
+    PR_circle       reduce using rule 89 (anotherTerm -> OP_MULT term .)
+    PR_square       reduce using rule 89 (anotherTerm -> OP_MULT term .)
+    PR_size         reduce using rule 89 (anotherTerm -> OP_MULT term .)
+    PR_color        reduce using rule 89 (anotherTerm -> OP_MULT term .)
+    PR_kameForw     reduce using rule 89 (anotherTerm -> OP_MULT term .)
+    PR_kameBack     reduce using rule 89 (anotherTerm -> OP_MULT term .)
+    PR_kameRot      reduce using rule 89 (anotherTerm -> OP_MULT term .)
+    PR_var          reduce using rule 89 (anotherTerm -> OP_MULT term .)
+    TO_LLACIERRA    reduce using rule 89 (anotherTerm -> OP_MULT term .)
+    TO_CORCIERRA    reduce using rule 89 (anotherTerm -> OP_MULT term .)
+
+
+state 163
+
+    (90) anotherTerm -> OP_DIV term .
+
+    OP_MAS          reduce using rule 90 (anotherTerm -> OP_DIV term .)
+    OP_MENOS        reduce using rule 90 (anotherTerm -> OP_DIV term .)
+    TO_PARCIERRA    reduce using rule 90 (anotherTerm -> OP_DIV term .)
+    OP_DOBLEIGUAL   reduce using rule 90 (anotherTerm -> OP_DIV term .)
+    OP_DIFDE        reduce using rule 90 (anotherTerm -> OP_DIV term .)
+    OP_MENORQUE     reduce using rule 90 (anotherTerm -> OP_DIV term .)
+    OP_MENOROIGUAL  reduce using rule 90 (anotherTerm -> OP_DIV term .)
+    OP_MAYORQUE     reduce using rule 90 (anotherTerm -> OP_DIV term .)
+    OP_MAYOROIGUAL  reduce using rule 90 (anotherTerm -> OP_DIV term .)
+    PR_interseccion reduce using rule 90 (anotherTerm -> OP_DIV term .)
+    PR_union        reduce using rule 90 (anotherTerm -> OP_DIV term .)
+    PR_loop         reduce using rule 90 (anotherTerm -> OP_DIV term .)
+    PR_if           reduce using rule 90 (anotherTerm -> OP_DIV term .)
+    PR_return       reduce using rule 90 (anotherTerm -> OP_DIV term .)
+    ID              reduce using rule 90 (anotherTerm -> OP_DIV term .)
+    PR_draw         reduce using rule 90 (anotherTerm -> OP_DIV term .)
+    PR_circle       reduce using rule 90 (anotherTerm -> OP_DIV term .)
+    PR_square       reduce using rule 90 (anotherTerm -> OP_DIV term .)
+    PR_size         reduce using rule 90 (anotherTerm -> OP_DIV term .)
+    PR_color        reduce using rule 90 (anotherTerm -> OP_DIV term .)
+    PR_kameForw     reduce using rule 90 (anotherTerm -> OP_DIV term .)
+    PR_kameBack     reduce using rule 90 (anotherTerm -> OP_DIV term .)
+    PR_kameRot      reduce using rule 90 (anotherTerm -> OP_DIV term .)
+    PR_var          reduce using rule 90 (anotherTerm -> OP_DIV term .)
+    TO_LLACIERRA    reduce using rule 90 (anotherTerm -> OP_DIV term .)
+    TO_CORCIERRA    reduce using rule 90 (anotherTerm -> OP_DIV term .)
+
+
+state 164
+
+    (79) anotherMega -> opLogico megaExp .
+
+    PR_loop         reduce using rule 79 (anotherMega -> opLogico megaExp .)
+    PR_if           reduce using rule 79 (anotherMega -> opLogico megaExp .)
+    PR_return       reduce using rule 79 (anotherMega -> opLogico megaExp .)
+    ID              reduce using rule 79 (anotherMega -> opLogico megaExp .)
+    PR_draw         reduce using rule 79 (anotherMega -> opLogico megaExp .)
+    PR_circle       reduce using rule 79 (anotherMega -> opLogico megaExp .)
+    PR_square       reduce using rule 79 (anotherMega -> opLogico megaExp .)
+    PR_size         reduce using rule 79 (anotherMega -> opLogico megaExp .)
+    PR_color        reduce using rule 79 (anotherMega -> opLogico megaExp .)
+    PR_kameForw     reduce using rule 79 (anotherMega -> opLogico megaExp .)
+    PR_kameBack     reduce using rule 79 (anotherMega -> opLogico megaExp .)
+    PR_kameRot      reduce using rule 79 (anotherMega -> opLogico megaExp .)
+    PR_var          reduce using rule 79 (anotherMega -> opLogico megaExp .)
+    TO_LLACIERRA    reduce using rule 79 (anotherMega -> opLogico megaExp .)
+    TO_PARCIERRA    reduce using rule 79 (anotherMega -> opLogico megaExp .)
+
+
+state 165
+
+    (82) maybeRel -> opRelacional exp .
+
+    PR_interseccion reduce using rule 82 (maybeRel -> opRelacional exp .)
+    PR_union        reduce using rule 82 (maybeRel -> opRelacional exp .)
+    PR_loop         reduce using rule 82 (maybeRel -> opRelacional exp .)
+    PR_if           reduce using rule 82 (maybeRel -> opRelacional exp .)
+    PR_return       reduce using rule 82 (maybeRel -> opRelacional exp .)
+    ID              reduce using rule 82 (maybeRel -> opRelacional exp .)
+    PR_draw         reduce using rule 82 (maybeRel -> opRelacional exp .)
+    PR_circle       reduce using rule 82 (maybeRel -> opRelacional exp .)
+    PR_square       reduce using rule 82 (maybeRel -> opRelacional exp .)
+    PR_size         reduce using rule 82 (maybeRel -> opRelacional exp .)
+    PR_color        reduce using rule 82 (maybeRel -> opRelacional exp .)
+    PR_kameForw     reduce using rule 82 (maybeRel -> opRelacional exp .)
+    PR_kameBack     reduce using rule 82 (maybeRel -> opRelacional exp .)
+    PR_kameRot      reduce using rule 82 (maybeRel -> opRelacional exp .)
+    PR_var          reduce using rule 82 (maybeRel -> opRelacional exp .)
+    TO_LLACIERRA    reduce using rule 82 (maybeRel -> opRelacional exp .)
+    TO_PARCIERRA    reduce using rule 82 (maybeRel -> opRelacional exp .)
+
+
+state 166
+
+    (17) arrayIndex -> TO_CORABRE exp TO_CORCIERRA TO_CORABRE . exp TO_CORCIERRA
+    (84) exp -> . term anotherExp
+    (88) term -> . fact anotherTerm
+    (93) fact -> . TO_PARABRE megaExp TO_PARCIERRA
+    (94) fact -> . ID arrayIndex
+    (95) fact -> . val
+    (2) val -> . TO_PARABRE exp TO_PARCIERRA
+    (3) val -> . TO_NUM
+    (4) val -> . TO_FLOT
+    (5) val -> . bool
+    (6) val -> . ID
+    (58) bool -> . PR_true
+    (59) bool -> . PR_false
+
+    TO_PARABRE      shift and go to state 95
+    ID              shift and go to state 97
+    TO_NUM          shift and go to state 93
+    TO_FLOT         shift and go to state 92
+    PR_true         shift and go to state 91
+    PR_false        shift and go to state 89
+
+    term                           shift and go to state 88
+    val                            shift and go to state 90
+    exp                            shift and go to state 173
+    bool                           shift and go to state 96
+    fact                           shift and go to state 98
+
+state 167
+
+    (70) moreParamVals -> TO_COMA val . moreParamVals
+    (70) moreParamVals -> . TO_COMA val moreParamVals
+    (71) moreParamVals -> . empty
+    (96) empty -> .
+
+    TO_COMA         shift and go to state 147
+    TO_PARCIERRA    reduce using rule 96 (empty -> .)
+
+    moreParamVals                  shift and go to state 174
+    empty                          shift and go to state 145
+
+state 168
+
+    (73) comparacion -> PR_if TO_PARABRE megaExp TO_PARCIERRA TO_LLAABRE . bloque TO_LLACIERRA maybeElse
+    (44) bloque -> . estructura bloque
+    (45) bloque -> . empty
+    (46) estructura -> . assign
+    (47) estructura -> . loop
+    (48) estructura -> . comparacion
+    (49) estructura -> . return
+    (50) estructura -> . funcCall
+    (51) estructura -> . decVar
+    (96) empty -> .
+    (22) assign -> . assignTo OP_IGUAL megaExp
+    (37) loop -> . PR_loop TO_PARABRE exp TO_PARCIERRA TO_LLAABRE bloque TO_LLACIERRA
+    (73) comparacion -> . PR_if TO_PARABRE megaExp TO_PARCIERRA TO_LLAABRE bloque TO_LLACIERRA maybeElse
+    (72) return -> . PR_return megaExp
+    (52) funcCall -> . ID TO_PARABRE paramVals TO_PARCIERRA
+    (53) funcCall -> . PR_draw TO_PARABRE megaExp TO_PARCIERRA
+    (54) funcCall -> . PR_circle TO_PARABRE exp TO_PARCIERRA
+    (55) funcCall -> . PR_square TO_PARABRE exp TO_PARCIERRA
+    (56) funcCall -> . PR_size TO_PARABRE exp TO_PARCIERRA
+    (57) funcCall -> . PR_color TO_PARABRE colorChoice TO_PARCIERRA
+    (8) decVar -> . var decVar
+    (9) decVar -> . empty
+    (23) assignTo -> . ID arrayIndex
+    (24) assignTo -> . PR_kameForw
+    (25) assignTo -> . PR_kameBack
+    (26) assignTo -> . PR_kameRot
+    (12) var -> . PR_var tipo ID arrayCreate
+
+  ! shift/reduce conflict for PR_loop resolved as shift
+  ! shift/reduce conflict for PR_if resolved as shift
+  ! shift/reduce conflict for PR_return resolved as shift
+  ! shift/reduce conflict for ID resolved as shift
+  ! shift/reduce conflict for PR_draw resolved as shift
+  ! shift/reduce conflict for PR_circle resolved as shift
+  ! shift/reduce conflict for PR_square resolved as shift
+  ! shift/reduce conflict for PR_size resolved as shift
+  ! shift/reduce conflict for PR_color resolved as shift
+  ! shift/reduce conflict for PR_kameForw resolved as shift
+  ! shift/reduce conflict for PR_kameBack resolved as shift
+  ! shift/reduce conflict for PR_kameRot resolved as shift
+  ! shift/reduce conflict for PR_var resolved as shift
+    TO_LLACIERRA    reduce using rule 96 (empty -> .)
+    PR_loop         shift and go to state 49
+    PR_if           shift and go to state 47
+    PR_return       shift and go to state 40
+    ID              shift and go to state 45
+    PR_draw         shift and go to state 32
+    PR_circle       shift and go to state 36
+    PR_square       shift and go to state 46
+    PR_size         shift and go to state 37
+    PR_color        shift and go to state 35
+    PR_kameForw     shift and go to state 43
+    PR_kameBack     shift and go to state 44
+    PR_kameRot      shift and go to state 38
+    PR_var          shift and go to state 5
+
+  ! PR_loop         [ reduce using rule 96 (empty -> .) ]
+  ! PR_if           [ reduce using rule 96 (empty -> .) ]
+  ! PR_return       [ reduce using rule 96 (empty -> .) ]
+  ! ID              [ reduce using rule 96 (empty -> .) ]
+  ! PR_draw         [ reduce using rule 96 (empty -> .) ]
+  ! PR_circle       [ reduce using rule 96 (empty -> .) ]
+  ! PR_square       [ reduce using rule 96 (empty -> .) ]
+  ! PR_size         [ reduce using rule 96 (empty -> .) ]
+  ! PR_color        [ reduce using rule 96 (empty -> .) ]
+  ! PR_kameForw     [ reduce using rule 96 (empty -> .) ]
+  ! PR_kameBack     [ reduce using rule 96 (empty -> .) ]
+  ! PR_kameRot      [ reduce using rule 96 (empty -> .) ]
+  ! PR_var          [ reduce using rule 96 (empty -> .) ]
+
+    decVar                         shift and go to state 34
+    funcCall                       shift and go to state 48
+    assignTo                       shift and go to state 31
+    return                         shift and go to state 42
+    estructura                     shift and go to state 39
+    loop                           shift and go to state 52
+    var                            shift and go to state 6
+    comparacion                    shift and go to state 50
+    bloque                         shift and go to state 175
+    assign                         shift and go to state 51
+    empty                          shift and go to state 41
+
+state 169
+
+    (37) loop -> PR_loop TO_PARABRE exp TO_PARCIERRA TO_LLAABRE . bloque TO_LLACIERRA
+    (44) bloque -> . estructura bloque
+    (45) bloque -> . empty
+    (46) estructura -> . assign
+    (47) estructura -> . loop
+    (48) estructura -> . comparacion
+    (49) estructura -> . return
+    (50) estructura -> . funcCall
+    (51) estructura -> . decVar
+    (96) empty -> .
+    (22) assign -> . assignTo OP_IGUAL megaExp
+    (37) loop -> . PR_loop TO_PARABRE exp TO_PARCIERRA TO_LLAABRE bloque TO_LLACIERRA
+    (73) comparacion -> . PR_if TO_PARABRE megaExp TO_PARCIERRA TO_LLAABRE bloque TO_LLACIERRA maybeElse
+    (72) return -> . PR_return megaExp
+    (52) funcCall -> . ID TO_PARABRE paramVals TO_PARCIERRA
+    (53) funcCall -> . PR_draw TO_PARABRE megaExp TO_PARCIERRA
+    (54) funcCall -> . PR_circle TO_PARABRE exp TO_PARCIERRA
+    (55) funcCall -> . PR_square TO_PARABRE exp TO_PARCIERRA
+    (56) funcCall -> . PR_size TO_PARABRE exp TO_PARCIERRA
+    (57) funcCall -> . PR_color TO_PARABRE colorChoice TO_PARCIERRA
+    (8) decVar -> . var decVar
+    (9) decVar -> . empty
+    (23) assignTo -> . ID arrayIndex
+    (24) assignTo -> . PR_kameForw
+    (25) assignTo -> . PR_kameBack
+    (26) assignTo -> . PR_kameRot
+    (12) var -> . PR_var tipo ID arrayCreate
+
+  ! shift/reduce conflict for PR_loop resolved as shift
+  ! shift/reduce conflict for PR_if resolved as shift
+  ! shift/reduce conflict for PR_return resolved as shift
+  ! shift/reduce conflict for ID resolved as shift
+  ! shift/reduce conflict for PR_draw resolved as shift
+  ! shift/reduce conflict for PR_circle resolved as shift
+  ! shift/reduce conflict for PR_square resolved as shift
+  ! shift/reduce conflict for PR_size resolved as shift
+  ! shift/reduce conflict for PR_color resolved as shift
+  ! shift/reduce conflict for PR_kameForw resolved as shift
+  ! shift/reduce conflict for PR_kameBack resolved as shift
+  ! shift/reduce conflict for PR_kameRot resolved as shift
+  ! shift/reduce conflict for PR_var resolved as shift
+    TO_LLACIERRA    reduce using rule 96 (empty -> .)
+    PR_loop         shift and go to state 49
+    PR_if           shift and go to state 47
+    PR_return       shift and go to state 40
+    ID              shift and go to state 45
+    PR_draw         shift and go to state 32
+    PR_circle       shift and go to state 36
+    PR_square       shift and go to state 46
+    PR_size         shift and go to state 37
+    PR_color        shift and go to state 35
+    PR_kameForw     shift and go to state 43
+    PR_kameBack     shift and go to state 44
+    PR_kameRot      shift and go to state 38
+    PR_var          shift and go to state 5
+
+  ! PR_loop         [ reduce using rule 96 (empty -> .) ]
+  ! PR_if           [ reduce using rule 96 (empty -> .) ]
+  ! PR_return       [ reduce using rule 96 (empty -> .) ]
+  ! ID              [ reduce using rule 96 (empty -> .) ]
+  ! PR_draw         [ reduce using rule 96 (empty -> .) ]
+  ! PR_circle       [ reduce using rule 96 (empty -> .) ]
+  ! PR_square       [ reduce using rule 96 (empty -> .) ]
+  ! PR_size         [ reduce using rule 96 (empty -> .) ]
+  ! PR_color        [ reduce using rule 96 (empty -> .) ]
+  ! PR_kameForw     [ reduce using rule 96 (empty -> .) ]
+  ! PR_kameBack     [ reduce using rule 96 (empty -> .) ]
+  ! PR_kameRot      [ reduce using rule 96 (empty -> .) ]
+  ! PR_var          [ reduce using rule 96 (empty -> .) ]
+
+    return                         shift and go to state 42
+    decVar                         shift and go to state 34
+    funcCall                       shift and go to state 48
+    assignTo                       shift and go to state 31
+    estructura                     shift and go to state 39
+    empty                          shift and go to state 41
+    var                            shift and go to state 6
+    comparacion                    shift and go to state 50
+    bloque                         shift and go to state 176
+    assign                         shift and go to state 51
+    loop                           shift and go to state 52
+
+state 170
+
+    (32) moreParams -> TO_COMA tipo . ID moreParams
+
+    ID              shift and go to state 177
+
+
+state 171
+
+    (27) func -> PR_function decideType ID TO_PARABRE params TO_PARCIERRA TO_LLAABRE decVar . bloque TO_LLACIERRA
+    (44) bloque -> . estructura bloque
+    (45) bloque -> . empty
+    (46) estructura -> . assign
+    (47) estructura -> . loop
+    (48) estructura -> . comparacion
+    (49) estructura -> . return
+    (50) estructura -> . funcCall
+    (51) estructura -> . decVar
+    (96) empty -> .
+    (22) assign -> . assignTo OP_IGUAL megaExp
+    (37) loop -> . PR_loop TO_PARABRE exp TO_PARCIERRA TO_LLAABRE bloque TO_LLACIERRA
+    (73) comparacion -> . PR_if TO_PARABRE megaExp TO_PARCIERRA TO_LLAABRE bloque TO_LLACIERRA maybeElse
+    (72) return -> . PR_return megaExp
+    (52) funcCall -> . ID TO_PARABRE paramVals TO_PARCIERRA
+    (53) funcCall -> . PR_draw TO_PARABRE megaExp TO_PARCIERRA
+    (54) funcCall -> . PR_circle TO_PARABRE exp TO_PARCIERRA
+    (55) funcCall -> . PR_square TO_PARABRE exp TO_PARCIERRA
+    (56) funcCall -> . PR_size TO_PARABRE exp TO_PARCIERRA
+    (57) funcCall -> . PR_color TO_PARABRE colorChoice TO_PARCIERRA
+    (8) decVar -> . var decVar
+    (9) decVar -> . empty
+    (23) assignTo -> . ID arrayIndex
+    (24) assignTo -> . PR_kameForw
+    (25) assignTo -> . PR_kameBack
+    (26) assignTo -> . PR_kameRot
+    (12) var -> . PR_var tipo ID arrayCreate
+
+  ! shift/reduce conflict for PR_loop resolved as shift
+  ! shift/reduce conflict for PR_if resolved as shift
+  ! shift/reduce conflict for PR_return resolved as shift
+  ! shift/reduce conflict for ID resolved as shift
+  ! shift/reduce conflict for PR_draw resolved as shift
+  ! shift/reduce conflict for PR_circle resolved as shift
+  ! shift/reduce conflict for PR_square resolved as shift
+  ! shift/reduce conflict for PR_size resolved as shift
+  ! shift/reduce conflict for PR_color resolved as shift
+  ! shift/reduce conflict for PR_kameForw resolved as shift
+  ! shift/reduce conflict for PR_kameBack resolved as shift
+  ! shift/reduce conflict for PR_kameRot resolved as shift
+  ! shift/reduce conflict for PR_var resolved as shift
+    TO_LLACIERRA    reduce using rule 96 (empty -> .)
+    PR_loop         shift and go to state 49
+    PR_if           shift and go to state 47
+    PR_return       shift and go to state 40
+    ID              shift and go to state 45
+    PR_draw         shift and go to state 32
+    PR_circle       shift and go to state 36
+    PR_square       shift and go to state 46
+    PR_size         shift and go to state 37
+    PR_color        shift and go to state 35
+    PR_kameForw     shift and go to state 43
+    PR_kameBack     shift and go to state 44
+    PR_kameRot      shift and go to state 38
+    PR_var          shift and go to state 5
+
+  ! PR_loop         [ reduce using rule 96 (empty -> .) ]
+  ! PR_if           [ reduce using rule 96 (empty -> .) ]
+  ! PR_return       [ reduce using rule 96 (empty -> .) ]
+  ! ID              [ reduce using rule 96 (empty -> .) ]
+  ! PR_draw         [ reduce using rule 96 (empty -> .) ]
+  ! PR_circle       [ reduce using rule 96 (empty -> .) ]
+  ! PR_square       [ reduce using rule 96 (empty -> .) ]
+  ! PR_size         [ reduce using rule 96 (empty -> .) ]
+  ! PR_color        [ reduce using rule 96 (empty -> .) ]
+  ! PR_kameForw     [ reduce using rule 96 (empty -> .) ]
+  ! PR_kameBack     [ reduce using rule 96 (empty -> .) ]
+  ! PR_kameRot      [ reduce using rule 96 (empty -> .) ]
+  ! PR_var          [ reduce using rule 96 (empty -> .) ]
+
+    return                         shift and go to state 42
+    decVar                         shift and go to state 34
+    funcCall                       shift and go to state 48
+    assignTo                       shift and go to state 31
+    estructura                     shift and go to state 39
+    loop                           shift and go to state 52
+    var                            shift and go to state 6
+    comparacion                    shift and go to state 50
+    bloque                         shift and go to state 178
+    assign                         shift and go to state 51
+    empty                          shift and go to state 41
+
+state 172
+
+    (14) arrayCreate -> TO_CORABRE TO_NUM TO_CORCIERRA TO_CORABRE TO_NUM TO_CORCIERRA .
+
+    PR_var          reduce using rule 14 (arrayCreate -> TO_CORABRE TO_NUM TO_CORCIERRA TO_CORABRE TO_NUM TO_CORCIERRA .)
+    PR_function     reduce using rule 14 (arrayCreate -> TO_CORABRE TO_NUM TO_CORCIERRA TO_CORABRE TO_NUM TO_CORCIERRA .)
+    PR_main         reduce using rule 14 (arrayCreate -> TO_CORABRE TO_NUM TO_CORCIERRA TO_CORABRE TO_NUM TO_CORCIERRA .)
+    PR_loop         reduce using rule 14 (arrayCreate -> TO_CORABRE TO_NUM TO_CORCIERRA TO_CORABRE TO_NUM TO_CORCIERRA .)
+    PR_if           reduce using rule 14 (arrayCreate -> TO_CORABRE TO_NUM TO_CORCIERRA TO_CORABRE TO_NUM TO_CORCIERRA .)
+    PR_return       reduce using rule 14 (arrayCreate -> TO_CORABRE TO_NUM TO_CORCIERRA TO_CORABRE TO_NUM TO_CORCIERRA .)
+    ID              reduce using rule 14 (arrayCreate -> TO_CORABRE TO_NUM TO_CORCIERRA TO_CORABRE TO_NUM TO_CORCIERRA .)
+    PR_draw         reduce using rule 14 (arrayCreate -> TO_CORABRE TO_NUM TO_CORCIERRA TO_CORABRE TO_NUM TO_CORCIERRA .)
+    PR_circle       reduce using rule 14 (arrayCreate -> TO_CORABRE TO_NUM TO_CORCIERRA TO_CORABRE TO_NUM TO_CORCIERRA .)
+    PR_square       reduce using rule 14 (arrayCreate -> TO_CORABRE TO_NUM TO_CORCIERRA TO_CORABRE TO_NUM TO_CORCIERRA .)
+    PR_size         reduce using rule 14 (arrayCreate -> TO_CORABRE TO_NUM TO_CORCIERRA TO_CORABRE TO_NUM TO_CORCIERRA .)
+    PR_color        reduce using rule 14 (arrayCreate -> TO_CORABRE TO_NUM TO_CORCIERRA TO_CORABRE TO_NUM TO_CORCIERRA .)
+    PR_kameForw     reduce using rule 14 (arrayCreate -> TO_CORABRE TO_NUM TO_CORCIERRA TO_CORABRE TO_NUM TO_CORCIERRA .)
+    PR_kameBack     reduce using rule 14 (arrayCreate -> TO_CORABRE TO_NUM TO_CORCIERRA TO_CORABRE TO_NUM TO_CORCIERRA .)
+    PR_kameRot      reduce using rule 14 (arrayCreate -> TO_CORABRE TO_NUM TO_CORCIERRA TO_CORABRE TO_NUM TO_CORCIERRA .)
+    TO_LLACIERRA    reduce using rule 14 (arrayCreate -> TO_CORABRE TO_NUM TO_CORCIERRA TO_CORABRE TO_NUM TO_CORCIERRA .)
+
+
+state 173
+
+    (17) arrayIndex -> TO_CORABRE exp TO_CORCIERRA TO_CORABRE exp . TO_CORCIERRA
+
+    TO_CORCIERRA    shift and go to state 179
+
+
+state 174
+
+    (70) moreParamVals -> TO_COMA val moreParamVals .
+
+    TO_PARCIERRA    reduce using rule 70 (moreParamVals -> TO_COMA val moreParamVals .)
+
+
+state 175
+
+    (73) comparacion -> PR_if TO_PARABRE megaExp TO_PARCIERRA TO_LLAABRE bloque . TO_LLACIERRA maybeElse
+
+    TO_LLACIERRA    shift and go to state 180
+
+
+state 176
+
+    (37) loop -> PR_loop TO_PARABRE exp TO_PARCIERRA TO_LLAABRE bloque . TO_LLACIERRA
+
+    TO_LLACIERRA    shift and go to state 181
+
+
+state 177
+
+    (32) moreParams -> TO_COMA tipo ID . moreParams
+    (32) moreParams -> . TO_COMA tipo ID moreParams
+    (33) moreParams -> . empty
+    (96) empty -> .
+
+    TO_COMA         shift and go to state 152
+    TO_PARCIERRA    reduce using rule 96 (empty -> .)
+
+    empty                          shift and go to state 153
+    moreParams                     shift and go to state 182
+
+state 178
+
+    (27) func -> PR_function decideType ID TO_PARABRE params TO_PARCIERRA TO_LLAABRE decVar bloque . TO_LLACIERRA
+
+    TO_LLACIERRA    shift and go to state 183
+
+
+state 179
+
+    (17) arrayIndex -> TO_CORABRE exp TO_CORCIERRA TO_CORABRE exp TO_CORCIERRA .
+
+    OP_IGUAL        reduce using rule 17 (arrayIndex -> TO_CORABRE exp TO_CORCIERRA TO_CORABRE exp TO_CORCIERRA .)
+    OP_MULT         reduce using rule 17 (arrayIndex -> TO_CORABRE exp TO_CORCIERRA TO_CORABRE exp TO_CORCIERRA .)
+    OP_DIV          reduce using rule 17 (arrayIndex -> TO_CORABRE exp TO_CORCIERRA TO_CORABRE exp TO_CORCIERRA .)
+    OP_RESID        reduce using rule 17 (arrayIndex -> TO_CORABRE exp TO_CORCIERRA TO_CORABRE exp TO_CORCIERRA .)
+    OP_MAS          reduce using rule 17 (arrayIndex -> TO_CORABRE exp TO_CORCIERRA TO_CORABRE exp TO_CORCIERRA .)
+    OP_MENOS        reduce using rule 17 (arrayIndex -> TO_CORABRE exp TO_CORCIERRA TO_CORABRE exp TO_CORCIERRA .)
+    TO_PARCIERRA    reduce using rule 17 (arrayIndex -> TO_CORABRE exp TO_CORCIERRA TO_CORABRE exp TO_CORCIERRA .)
+    OP_DOBLEIGUAL   reduce using rule 17 (arrayIndex -> TO_CORABRE exp TO_CORCIERRA TO_CORABRE exp TO_CORCIERRA .)
+    OP_DIFDE        reduce using rule 17 (arrayIndex -> TO_CORABRE exp TO_CORCIERRA TO_CORABRE exp TO_CORCIERRA .)
+    OP_MENORQUE     reduce using rule 17 (arrayIndex -> TO_CORABRE exp TO_CORCIERRA TO_CORABRE exp TO_CORCIERRA .)
+    OP_MENOROIGUAL  reduce using rule 17 (arrayIndex -> TO_CORABRE exp TO_CORCIERRA TO_CORABRE exp TO_CORCIERRA .)
+    OP_MAYORQUE     reduce using rule 17 (arrayIndex -> TO_CORABRE exp TO_CORCIERRA TO_CORABRE exp TO_CORCIERRA .)
+    OP_MAYOROIGUAL  reduce using rule 17 (arrayIndex -> TO_CORABRE exp TO_CORCIERRA TO_CORABRE exp TO_CORCIERRA .)
+    PR_interseccion reduce using rule 17 (arrayIndex -> TO_CORABRE exp TO_CORCIERRA TO_CORABRE exp TO_CORCIERRA .)
+    PR_union        reduce using rule 17 (arrayIndex -> TO_CORABRE exp TO_CORCIERRA TO_CORABRE exp TO_CORCIERRA .)
+    PR_loop         reduce using rule 17 (arrayIndex -> TO_CORABRE exp TO_CORCIERRA TO_CORABRE exp TO_CORCIERRA .)
+    PR_if           reduce using rule 17 (arrayIndex -> TO_CORABRE exp TO_CORCIERRA TO_CORABRE exp TO_CORCIERRA .)
+    PR_return       reduce using rule 17 (arrayIndex -> TO_CORABRE exp TO_CORCIERRA TO_CORABRE exp TO_CORCIERRA .)
+    ID              reduce using rule 17 (arrayIndex -> TO_CORABRE exp TO_CORCIERRA TO_CORABRE exp TO_CORCIERRA .)
+    PR_draw         reduce using rule 17 (arrayIndex -> TO_CORABRE exp TO_CORCIERRA TO_CORABRE exp TO_CORCIERRA .)
+    PR_circle       reduce using rule 17 (arrayIndex -> TO_CORABRE exp TO_CORCIERRA TO_CORABRE exp TO_CORCIERRA .)
+    PR_square       reduce using rule 17 (arrayIndex -> TO_CORABRE exp TO_CORCIERRA TO_CORABRE exp TO_CORCIERRA .)
+    PR_size         reduce using rule 17 (arrayIndex -> TO_CORABRE exp TO_CORCIERRA TO_CORABRE exp TO_CORCIERRA .)
+    PR_color        reduce using rule 17 (arrayIndex -> TO_CORABRE exp TO_CORCIERRA TO_CORABRE exp TO_CORCIERRA .)
+    PR_kameForw     reduce using rule 17 (arrayIndex -> TO_CORABRE exp TO_CORCIERRA TO_CORABRE exp TO_CORCIERRA .)
+    PR_kameBack     reduce using rule 17 (arrayIndex -> TO_CORABRE exp TO_CORCIERRA TO_CORABRE exp TO_CORCIERRA .)
+    PR_kameRot      reduce using rule 17 (arrayIndex -> TO_CORABRE exp TO_CORCIERRA TO_CORABRE exp TO_CORCIERRA .)
+    PR_var          reduce using rule 17 (arrayIndex -> TO_CORABRE exp TO_CORCIERRA TO_CORABRE exp TO_CORCIERRA .)
+    TO_LLACIERRA    reduce using rule 17 (arrayIndex -> TO_CORABRE exp TO_CORCIERRA TO_CORABRE exp TO_CORCIERRA .)
+    TO_CORCIERRA    reduce using rule 17 (arrayIndex -> TO_CORABRE exp TO_CORCIERRA TO_CORABRE exp TO_CORCIERRA .)
+
+
+state 180
+
+    (73) comparacion -> PR_if TO_PARABRE megaExp TO_PARCIERRA TO_LLAABRE bloque TO_LLACIERRA . maybeElse
+    (74) maybeElse -> . PR_else TO_LLAABRE bloque TO_LLACIERRA
+    (75) maybeElse -> . empty
+    (96) empty -> .
+
+    PR_else         shift and go to state 184
+    PR_loop         reduce using rule 96 (empty -> .)
+    PR_if           reduce using rule 96 (empty -> .)
+    PR_return       reduce using rule 96 (empty -> .)
+    ID              reduce using rule 96 (empty -> .)
+    PR_draw         reduce using rule 96 (empty -> .)
+    PR_circle       reduce using rule 96 (empty -> .)
+    PR_square       reduce using rule 96 (empty -> .)
+    PR_size         reduce using rule 96 (empty -> .)
+    PR_color        reduce using rule 96 (empty -> .)
+    PR_kameForw     reduce using rule 96 (empty -> .)
+    PR_kameBack     reduce using rule 96 (empty -> .)
+    PR_kameRot      reduce using rule 96 (empty -> .)
+    PR_var          reduce using rule 96 (empty -> .)
+    TO_LLACIERRA    reduce using rule 96 (empty -> .)
+
+    empty                          shift and go to state 186
+    maybeElse                      shift and go to state 185
+
+state 181
+
+    (37) loop -> PR_loop TO_PARABRE exp TO_PARCIERRA TO_LLAABRE bloque TO_LLACIERRA .
+
+    PR_loop         reduce using rule 37 (loop -> PR_loop TO_PARABRE exp TO_PARCIERRA TO_LLAABRE bloque TO_LLACIERRA .)
+    PR_if           reduce using rule 37 (loop -> PR_loop TO_PARABRE exp TO_PARCIERRA TO_LLAABRE bloque TO_LLACIERRA .)
+    PR_return       reduce using rule 37 (loop -> PR_loop TO_PARABRE exp TO_PARCIERRA TO_LLAABRE bloque TO_LLACIERRA .)
+    ID              reduce using rule 37 (loop -> PR_loop TO_PARABRE exp TO_PARCIERRA TO_LLAABRE bloque TO_LLACIERRA .)
+    PR_draw         reduce using rule 37 (loop -> PR_loop TO_PARABRE exp TO_PARCIERRA TO_LLAABRE bloque TO_LLACIERRA .)
+    PR_circle       reduce using rule 37 (loop -> PR_loop TO_PARABRE exp TO_PARCIERRA TO_LLAABRE bloque TO_LLACIERRA .)
+    PR_square       reduce using rule 37 (loop -> PR_loop TO_PARABRE exp TO_PARCIERRA TO_LLAABRE bloque TO_LLACIERRA .)
+    PR_size         reduce using rule 37 (loop -> PR_loop TO_PARABRE exp TO_PARCIERRA TO_LLAABRE bloque TO_LLACIERRA .)
+    PR_color        reduce using rule 37 (loop -> PR_loop TO_PARABRE exp TO_PARCIERRA TO_LLAABRE bloque TO_LLACIERRA .)
+    PR_kameForw     reduce using rule 37 (loop -> PR_loop TO_PARABRE exp TO_PARCIERRA TO_LLAABRE bloque TO_LLACIERRA .)
+    PR_kameBack     reduce using rule 37 (loop -> PR_loop TO_PARABRE exp TO_PARCIERRA TO_LLAABRE bloque TO_LLACIERRA .)
+    PR_kameRot      reduce using rule 37 (loop -> PR_loop TO_PARABRE exp TO_PARCIERRA TO_LLAABRE bloque TO_LLACIERRA .)
+    PR_var          reduce using rule 37 (loop -> PR_loop TO_PARABRE exp TO_PARCIERRA TO_LLAABRE bloque TO_LLACIERRA .)
+    TO_LLACIERRA    reduce using rule 37 (loop -> PR_loop TO_PARABRE exp TO_PARCIERRA TO_LLAABRE bloque TO_LLACIERRA .)
+
+
+state 182
+
+    (32) moreParams -> TO_COMA tipo ID moreParams .
+
+    TO_PARCIERRA    reduce using rule 32 (moreParams -> TO_COMA tipo ID moreParams .)
+
+
+state 183
+
+    (27) func -> PR_function decideType ID TO_PARABRE params TO_PARCIERRA TO_LLAABRE decVar bloque TO_LLACIERRA .
+
+    PR_function     reduce using rule 27 (func -> PR_function decideType ID TO_PARABRE params TO_PARCIERRA TO_LLAABRE decVar bloque TO_LLACIERRA .)
+    PR_main         reduce using rule 27 (func -> PR_function decideType ID TO_PARABRE params TO_PARCIERRA TO_LLAABRE decVar bloque TO_LLACIERRA .)
+
+
+state 184
+
+    (74) maybeElse -> PR_else . TO_LLAABRE bloque TO_LLACIERRA
+
+    TO_LLAABRE      shift and go to state 187
+
+
+state 185
+
+    (73) comparacion -> PR_if TO_PARABRE megaExp TO_PARCIERRA TO_LLAABRE bloque TO_LLACIERRA maybeElse .
+
+    PR_loop         reduce using rule 73 (comparacion -> PR_if TO_PARABRE megaExp TO_PARCIERRA TO_LLAABRE bloque TO_LLACIERRA maybeElse .)
+    PR_if           reduce using rule 73 (comparacion -> PR_if TO_PARABRE megaExp TO_PARCIERRA TO_LLAABRE bloque TO_LLACIERRA maybeElse .)
+    PR_return       reduce using rule 73 (comparacion -> PR_if TO_PARABRE megaExp TO_PARCIERRA TO_LLAABRE bloque TO_LLACIERRA maybeElse .)
+    ID              reduce using rule 73 (comparacion -> PR_if TO_PARABRE megaExp TO_PARCIERRA TO_LLAABRE bloque TO_LLACIERRA maybeElse .)
+    PR_draw         reduce using rule 73 (comparacion -> PR_if TO_PARABRE megaExp TO_PARCIERRA TO_LLAABRE bloque TO_LLACIERRA maybeElse .)
+    PR_circle       reduce using rule 73 (comparacion -> PR_if TO_PARABRE megaExp TO_PARCIERRA TO_LLAABRE bloque TO_LLACIERRA maybeElse .)
+    PR_square       reduce using rule 73 (comparacion -> PR_if TO_PARABRE megaExp TO_PARCIERRA TO_LLAABRE bloque TO_LLACIERRA maybeElse .)
+    PR_size         reduce using rule 73 (comparacion -> PR_if TO_PARABRE megaExp TO_PARCIERRA TO_LLAABRE bloque TO_LLACIERRA maybeElse .)
+    PR_color        reduce using rule 73 (comparacion -> PR_if TO_PARABRE megaExp TO_PARCIERRA TO_LLAABRE bloque TO_LLACIERRA maybeElse .)
+    PR_kameForw     reduce using rule 73 (comparacion -> PR_if TO_PARABRE megaExp TO_PARCIERRA TO_LLAABRE bloque TO_LLACIERRA maybeElse .)
+    PR_kameBack     reduce using rule 73 (comparacion -> PR_if TO_PARABRE megaExp TO_PARCIERRA TO_LLAABRE bloque TO_LLACIERRA maybeElse .)
+    PR_kameRot      reduce using rule 73 (comparacion -> PR_if TO_PARABRE megaExp TO_PARCIERRA TO_LLAABRE bloque TO_LLACIERRA maybeElse .)
+    PR_var          reduce using rule 73 (comparacion -> PR_if TO_PARABRE megaExp TO_PARCIERRA TO_LLAABRE bloque TO_LLACIERRA maybeElse .)
+    TO_LLACIERRA    reduce using rule 73 (comparacion -> PR_if TO_PARABRE megaExp TO_PARCIERRA TO_LLAABRE bloque TO_LLACIERRA maybeElse .)
+
+
+state 186
+
+    (75) maybeElse -> empty .
+
+    PR_loop         reduce using rule 75 (maybeElse -> empty .)
+    PR_if           reduce using rule 75 (maybeElse -> empty .)
+    PR_return       reduce using rule 75 (maybeElse -> empty .)
+    ID              reduce using rule 75 (maybeElse -> empty .)
+    PR_draw         reduce using rule 75 (maybeElse -> empty .)
+    PR_circle       reduce using rule 75 (maybeElse -> empty .)
+    PR_square       reduce using rule 75 (maybeElse -> empty .)
+    PR_size         reduce using rule 75 (maybeElse -> empty .)
+    PR_color        reduce using rule 75 (maybeElse -> empty .)
+    PR_kameForw     reduce using rule 75 (maybeElse -> empty .)
+    PR_kameBack     reduce using rule 75 (maybeElse -> empty .)
+    PR_kameRot      reduce using rule 75 (maybeElse -> empty .)
+    PR_var          reduce using rule 75 (maybeElse -> empty .)
+    TO_LLACIERRA    reduce using rule 75 (maybeElse -> empty .)
+
+
+state 187
+
+    (74) maybeElse -> PR_else TO_LLAABRE . bloque TO_LLACIERRA
+    (44) bloque -> . estructura bloque
+    (45) bloque -> . empty
+    (46) estructura -> . assign
+    (47) estructura -> . loop
+    (48) estructura -> . comparacion
+    (49) estructura -> . return
+    (50) estructura -> . funcCall
+    (51) estructura -> . decVar
+    (96) empty -> .
+    (22) assign -> . assignTo OP_IGUAL megaExp
+    (37) loop -> . PR_loop TO_PARABRE exp TO_PARCIERRA TO_LLAABRE bloque TO_LLACIERRA
+    (73) comparacion -> . PR_if TO_PARABRE megaExp TO_PARCIERRA TO_LLAABRE bloque TO_LLACIERRA maybeElse
+    (72) return -> . PR_return megaExp
+    (52) funcCall -> . ID TO_PARABRE paramVals TO_PARCIERRA
+    (53) funcCall -> . PR_draw TO_PARABRE megaExp TO_PARCIERRA
+    (54) funcCall -> . PR_circle TO_PARABRE exp TO_PARCIERRA
+    (55) funcCall -> . PR_square TO_PARABRE exp TO_PARCIERRA
+    (56) funcCall -> . PR_size TO_PARABRE exp TO_PARCIERRA
+    (57) funcCall -> . PR_color TO_PARABRE colorChoice TO_PARCIERRA
+    (8) decVar -> . var decVar
+    (9) decVar -> . empty
+    (23) assignTo -> . ID arrayIndex
+    (24) assignTo -> . PR_kameForw
+    (25) assignTo -> . PR_kameBack
+    (26) assignTo -> . PR_kameRot
+    (12) var -> . PR_var tipo ID arrayCreate
+
+  ! shift/reduce conflict for PR_loop resolved as shift
+  ! shift/reduce conflict for PR_if resolved as shift
+  ! shift/reduce conflict for PR_return resolved as shift
+  ! shift/reduce conflict for ID resolved as shift
+  ! shift/reduce conflict for PR_draw resolved as shift
+  ! shift/reduce conflict for PR_circle resolved as shift
+  ! shift/reduce conflict for PR_square resolved as shift
+  ! shift/reduce conflict for PR_size resolved as shift
+  ! shift/reduce conflict for PR_color resolved as shift
+  ! shift/reduce conflict for PR_kameForw resolved as shift
+  ! shift/reduce conflict for PR_kameBack resolved as shift
+  ! shift/reduce conflict for PR_kameRot resolved as shift
+  ! shift/reduce conflict for PR_var resolved as shift
+    TO_LLACIERRA    reduce using rule 96 (empty -> .)
+    PR_loop         shift and go to state 49
+    PR_if           shift and go to state 47
+    PR_return       shift and go to state 40
+    ID              shift and go to state 45
+    PR_draw         shift and go to state 32
+    PR_circle       shift and go to state 36
+    PR_square       shift and go to state 46
+    PR_size         shift and go to state 37
+    PR_color        shift and go to state 35
+    PR_kameForw     shift and go to state 43
+    PR_kameBack     shift and go to state 44
+    PR_kameRot      shift and go to state 38
+    PR_var          shift and go to state 5
+
+  ! PR_loop         [ reduce using rule 96 (empty -> .) ]
+  ! PR_if           [ reduce using rule 96 (empty -> .) ]
+  ! PR_return       [ reduce using rule 96 (empty -> .) ]
+  ! ID              [ reduce using rule 96 (empty -> .) ]
+  ! PR_draw         [ reduce using rule 96 (empty -> .) ]
+  ! PR_circle       [ reduce using rule 96 (empty -> .) ]
+  ! PR_square       [ reduce using rule 96 (empty -> .) ]
+  ! PR_size         [ reduce using rule 96 (empty -> .) ]
+  ! PR_color        [ reduce using rule 96 (empty -> .) ]
+  ! PR_kameForw     [ reduce using rule 96 (empty -> .) ]
+  ! PR_kameBack     [ reduce using rule 96 (empty -> .) ]
+  ! PR_kameRot      [ reduce using rule 96 (empty -> .) ]
+  ! PR_var          [ reduce using rule 96 (empty -> .) ]
+
+    return                         shift and go to state 42
+    decVar                         shift and go to state 34
+    funcCall                       shift and go to state 48
+    assignTo                       shift and go to state 31
+    estructura                     shift and go to state 39
+    empty                          shift and go to state 41
+    var                            shift and go to state 6
+    comparacion                    shift and go to state 50
+    bloque                         shift and go to state 188
+    assign                         shift and go to state 51
+    loop                           shift and go to state 52
+
+state 188
+
+    (74) maybeElse -> PR_else TO_LLAABRE bloque . TO_LLACIERRA
+
+    TO_LLACIERRA    shift and go to state 189
+
+
+state 189
+
+    (74) maybeElse -> PR_else TO_LLAABRE bloque TO_LLACIERRA .
+
+    PR_loop         reduce using rule 74 (maybeElse -> PR_else TO_LLAABRE bloque TO_LLACIERRA .)
+    PR_if           reduce using rule 74 (maybeElse -> PR_else TO_LLAABRE bloque TO_LLACIERRA .)
+    PR_return       reduce using rule 74 (maybeElse -> PR_else TO_LLAABRE bloque TO_LLACIERRA .)
+    ID              reduce using rule 74 (maybeElse -> PR_else TO_LLAABRE bloque TO_LLACIERRA .)
+    PR_draw         reduce using rule 74 (maybeElse -> PR_else TO_LLAABRE bloque TO_LLACIERRA .)
+    PR_circle       reduce using rule 74 (maybeElse -> PR_else TO_LLAABRE bloque TO_LLACIERRA .)
+    PR_square       reduce using rule 74 (maybeElse -> PR_else TO_LLAABRE bloque TO_LLACIERRA .)
+    PR_size         reduce using rule 74 (maybeElse -> PR_else TO_LLAABRE bloque TO_LLACIERRA .)
+    PR_color        reduce using rule 74 (maybeElse -> PR_else TO_LLAABRE bloque TO_LLACIERRA .)
+    PR_kameForw     reduce using rule 74 (maybeElse -> PR_else TO_LLAABRE bloque TO_LLACIERRA .)
+    PR_kameBack     reduce using rule 74 (maybeElse -> PR_else TO_LLAABRE bloque TO_LLACIERRA .)
+    PR_kameRot      reduce using rule 74 (maybeElse -> PR_else TO_LLAABRE bloque TO_LLACIERRA .)
+    PR_var          reduce using rule 74 (maybeElse -> PR_else TO_LLAABRE bloque TO_LLACIERRA .)
+    TO_LLACIERRA    reduce using rule 74 (maybeElse -> PR_else TO_LLAABRE bloque TO_LLACIERRA .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for PR_var in state 6 resolved as shift
+WARNING: shift/reduce conflict for PR_loop in state 26 resolved as shift
+WARNING: shift/reduce conflict for PR_if in state 26 resolved as shift
+WARNING: shift/reduce conflict for PR_return in state 26 resolved as shift
+WARNING: shift/reduce conflict for ID in state 26 resolved as shift
+WARNING: shift/reduce conflict for PR_draw in state 26 resolved as shift
+WARNING: shift/reduce conflict for PR_circle in state 26 resolved as shift
+WARNING: shift/reduce conflict for PR_square in state 26 resolved as shift
+WARNING: shift/reduce conflict for PR_size in state 26 resolved as shift
+WARNING: shift/reduce conflict for PR_color in state 26 resolved as shift
+WARNING: shift/reduce conflict for PR_kameForw in state 26 resolved as shift
+WARNING: shift/reduce conflict for PR_kameBack in state 26 resolved as shift
+WARNING: shift/reduce conflict for PR_kameRot in state 26 resolved as shift
+WARNING: shift/reduce conflict for PR_var in state 26 resolved as shift
+WARNING: shift/reduce conflict for PR_loop in state 39 resolved as shift
+WARNING: shift/reduce conflict for PR_if in state 39 resolved as shift
+WARNING: shift/reduce conflict for PR_return in state 39 resolved as shift
+WARNING: shift/reduce conflict for ID in state 39 resolved as shift
+WARNING: shift/reduce conflict for PR_draw in state 39 resolved as shift
+WARNING: shift/reduce conflict for PR_circle in state 39 resolved as shift
+WARNING: shift/reduce conflict for PR_square in state 39 resolved as shift
+WARNING: shift/reduce conflict for PR_size in state 39 resolved as shift
+WARNING: shift/reduce conflict for PR_color in state 39 resolved as shift
+WARNING: shift/reduce conflict for PR_kameForw in state 39 resolved as shift
+WARNING: shift/reduce conflict for PR_kameBack in state 39 resolved as shift
+WARNING: shift/reduce conflict for PR_kameRot in state 39 resolved as shift
+WARNING: shift/reduce conflict for PR_var in state 39 resolved as shift
+WARNING: shift/reduce conflict for TO_PARABRE in state 95 resolved as shift
+WARNING: shift/reduce conflict for ID in state 95 resolved as shift
+WARNING: shift/reduce conflict for TO_NUM in state 95 resolved as shift
+WARNING: shift/reduce conflict for TO_FLOT in state 95 resolved as shift
+WARNING: shift/reduce conflict for PR_true in state 95 resolved as shift
+WARNING: shift/reduce conflict for PR_false in state 95 resolved as shift
+WARNING: shift/reduce conflict for PR_var in state 155 resolved as shift
+WARNING: shift/reduce conflict for PR_loop in state 168 resolved as shift
+WARNING: shift/reduce conflict for PR_if in state 168 resolved as shift
+WARNING: shift/reduce conflict for PR_return in state 168 resolved as shift
+WARNING: shift/reduce conflict for ID in state 168 resolved as shift
+WARNING: shift/reduce conflict for PR_draw in state 168 resolved as shift
+WARNING: shift/reduce conflict for PR_circle in state 168 resolved as shift
+WARNING: shift/reduce conflict for PR_square in state 168 resolved as shift
+WARNING: shift/reduce conflict for PR_size in state 168 resolved as shift
+WARNING: shift/reduce conflict for PR_color in state 168 resolved as shift
+WARNING: shift/reduce conflict for PR_kameForw in state 168 resolved as shift
+WARNING: shift/reduce conflict for PR_kameBack in state 168 resolved as shift
+WARNING: shift/reduce conflict for PR_kameRot in state 168 resolved as shift
+WARNING: shift/reduce conflict for PR_var in state 168 resolved as shift
+WARNING: shift/reduce conflict for PR_loop in state 169 resolved as shift
+WARNING: shift/reduce conflict for PR_if in state 169 resolved as shift
+WARNING: shift/reduce conflict for PR_return in state 169 resolved as shift
+WARNING: shift/reduce conflict for ID in state 169 resolved as shift
+WARNING: shift/reduce conflict for PR_draw in state 169 resolved as shift
+WARNING: shift/reduce conflict for PR_circle in state 169 resolved as shift
+WARNING: shift/reduce conflict for PR_square in state 169 resolved as shift
+WARNING: shift/reduce conflict for PR_size in state 169 resolved as shift
+WARNING: shift/reduce conflict for PR_color in state 169 resolved as shift
+WARNING: shift/reduce conflict for PR_kameForw in state 169 resolved as shift
+WARNING: shift/reduce conflict for PR_kameBack in state 169 resolved as shift
+WARNING: shift/reduce conflict for PR_kameRot in state 169 resolved as shift
+WARNING: shift/reduce conflict for PR_var in state 169 resolved as shift
+WARNING: shift/reduce conflict for PR_loop in state 171 resolved as shift
+WARNING: shift/reduce conflict for PR_if in state 171 resolved as shift
+WARNING: shift/reduce conflict for PR_return in state 171 resolved as shift
+WARNING: shift/reduce conflict for ID in state 171 resolved as shift
+WARNING: shift/reduce conflict for PR_draw in state 171 resolved as shift
+WARNING: shift/reduce conflict for PR_circle in state 171 resolved as shift
+WARNING: shift/reduce conflict for PR_square in state 171 resolved as shift
+WARNING: shift/reduce conflict for PR_size in state 171 resolved as shift
+WARNING: shift/reduce conflict for PR_color in state 171 resolved as shift
+WARNING: shift/reduce conflict for PR_kameForw in state 171 resolved as shift
+WARNING: shift/reduce conflict for PR_kameBack in state 171 resolved as shift
+WARNING: shift/reduce conflict for PR_kameRot in state 171 resolved as shift
+WARNING: shift/reduce conflict for PR_var in state 171 resolved as shift
+WARNING: shift/reduce conflict for PR_loop in state 187 resolved as shift
+WARNING: shift/reduce conflict for PR_if in state 187 resolved as shift
+WARNING: shift/reduce conflict for PR_return in state 187 resolved as shift
+WARNING: shift/reduce conflict for ID in state 187 resolved as shift
+WARNING: shift/reduce conflict for PR_draw in state 187 resolved as shift
+WARNING: shift/reduce conflict for PR_circle in state 187 resolved as shift
+WARNING: shift/reduce conflict for PR_square in state 187 resolved as shift
+WARNING: shift/reduce conflict for PR_size in state 187 resolved as shift
+WARNING: shift/reduce conflict for PR_color in state 187 resolved as shift
+WARNING: shift/reduce conflict for PR_kameForw in state 187 resolved as shift
+WARNING: shift/reduce conflict for PR_kameBack in state 187 resolved as shift
+WARNING: shift/reduce conflict for PR_kameRot in state 187 resolved as shift
+WARNING: shift/reduce conflict for PR_var in state 187 resolved as shift
+WARNING: reduce/reduce conflict in state 41 resolved using rule (decVar -> empty)
+WARNING: rejected rule (bloque -> empty) in state 41
+WARNING: reduce/reduce conflict in state 97 resolved using rule (val -> ID)
+WARNING: rejected rule (empty -> <empty>) in state 97
+WARNING: Rule (bloque -> empty) is never reduced

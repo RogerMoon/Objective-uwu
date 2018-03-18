@@ -93,6 +93,7 @@ def t_error(t):
     aprobado = False
     print("Caracter ilegal '%s'" % t.value[0])
     t.lexer.skip(1)
+    print("entre aqui")
 
 # Construye el lexer
 lex.lex()
@@ -291,6 +292,7 @@ parser = yacc.yacc()
 archivo = sys.argv[1]
 f = open(archivo, 'r')
 s = f.read()
+print(aprobado)
 parser.parse(s)
 
 if aprobado == True:

@@ -1,10 +1,6 @@
 PROG{
-	VAR NUM nombre
-
+    VAR NUM nombre 
 	MAIN{
 
-		DRAW(TRUE)
-		KAMEF = 10
-
 	}
-}
+} 
