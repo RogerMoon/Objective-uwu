@@ -1,0 +1,20 @@
+PROG{
+
+	VAR BOOL resultado
+	VAR NUM resultado2
+	MAIN{
+
+		IF(resultado AND FALSE){
+
+			resultado2 = 15
+			#uwu
+		}
+		ELSE{
+			resultado2 = 20
+		#uwu
+		}
+		resultado2 = resultado2 + 1
+		#uwu
+
+	}
+}

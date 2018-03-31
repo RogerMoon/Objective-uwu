@@ -1,0 +1,10 @@
+PROG{
+
+	VAR BOOL resultado
+
+	MAIN{
+
+		resultado = 10 + 5*5 == 15 AND 13 < 15
+		#uwu
+	}
+}

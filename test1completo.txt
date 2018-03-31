@@ -1,15 +1,16 @@
 PROG{
 	
+	VAR NUM global1
 
 	FUNC NUM move(NUM x, FLOT y, FLOT z){
 		VAR NUM nombre1move
 		VAR NUM nombre2move
 		VAR NUM nombre3move
 
-		IF(A>B){
+		IF(nombre1move>nombre2move){
 			move(a,b,c,d)
 			LOOP(4+1){
-				A=1
+				nombre1move=1
 				#uwu
 			}
 			#uwu

@@ -10,11 +10,63 @@ pOper = []
 pType = []
 pilaO = []
 quad = []
+pJumps = []
 cont = 0
+contQuads = 0
+
 
 actual_scope = 'global'
 
 dir_func[actual_scope] = { 'type' : 'void', 'scope' : {}}
+
+def add_pilaO(id):
+    pilaO.append(id)
+
+def add_pOper(oper):
+    pOper.append(oper)
+
+def add_pType(type):
+    pType.append(type)
+
+def add_pJumps(quad):
+	pJumps.append(quad)
+
+def pop_pilaO():
+    if (len(pilaO) > 0):
+        return pilaO.pop()
+
+def pop_pOper():
+    if (len(pOper) > 0):
+        return pOper.pop()
+
+def pop_pType():
+    if (len(pType) > 0):
+        return pType.pop()
+
+def pop_pJumps():
+	if (len(pJumps) > 0):
+		return pJumps.pop()
+
+
+def top_pOper():
+    if (len(pOper) > 0):
+        temp = pop_pOper()
+        add_pOper(temp)
+        return temp
+    else:
+        return -1
+
+
+def add_quad(operator,leftOperand,rightOperand,result):
+	quad.append({'operator':operator,'leftOperand':leftOperand,'rightOperand':rightOperand,'result':result})
+	global contQuads
+	contQuads = contQuads + 1
+
+def updateQuad(i, llave, val):
+	(quad[i])[llave] = val
+
+
+
 
 def semantic_check(lOP_type,rOP_type,oper):
     if lOP_type in sem_cube:
@@ -22,6 +74,13 @@ def semantic_check(lOP_type,rOP_type,oper):
             if oper in sem_cube[lOP_type][rOP_type]:
                 return sem_cube[lOP_type][rOP_type][oper]
     return 'error'
+
+def is_number(s):
+    try:
+        float(s)
+        return True
+    except ValueError:
+        return False
 
 sem_cube = {'NUM' : 	{ 'NUM' : { '+': 'NUM',
                                     '-': 'NUM',
@@ -46,7 +105,7 @@ sem_cube = {'NUM' : 	{ 'NUM' : { '+': 'NUM',
                                     '>=': 'BOOL',
                                     '!=': 'BOOL',
                                     '==': 'BOOL',
-                                    '=': 'int'}},
+                                    '=': 'NUM'}},
                  'FLOT' : {'NUM' : {'+': 'FLOT',
                                     '-': 'FLOT',
                                     '/': 'FLOT',
@@ -178,15 +237,32 @@ lex.lex()
 
 def p_prog(p):
 	'prog : PR_program TO_LLAABRE declare mainBlock TO_LLACIERRA'
-	
-	print(dir_func.get('move'))
+	print(dir_func)
+	for q in quad: print q
+	#print(dir_func.get('move'))
 	
 def p_val(p):
-	'''val : TO_PARABRE exp TO_PARCIERRA 
-			| TO_NUM
+	'''val : TO_NUM
 			| TO_FLOT
-			| bool
+			| PR_true
+			| PR_false
 			| ID'''
+	
+	if p[1] == 'TRUE' or p[1] == 'FALSE':
+		add_pType('BOOL')
+		add_pilaO(p[1])
+	elif not is_number(p[1]):
+		varscope = dir_func[actual_scope]['scope'][p[1]]
+		add_pilaO(p[1])
+		add_pType(varscope.get('type'))
+
+	elif float(p[1]) % 1 != 0:
+		add_pType('FLOT')
+		add_pilaO(float(p[1]))
+	else:
+		add_pType('NUM')
+		add_pilaO(int(p[1]))
+
 
 def p_declare(p):
 	'declare : decVar decFunc'
@@ -229,6 +305,19 @@ def p_tipo(p):
 
 def p_assign(p):
 	'assign : assignTo OP_IGUAL megaExp'
+	varia = p[1]
+	rightOperand = pop_pilaO()
+	rOP_type = pop_pType()
+
+	if varia == 'KAMER' or varia == 'KAMEF' or varia == 'KAMEB':
+		print('palabra reservada')
+	else:
+		varscope = dir_func[actual_scope]['scope'][varia]
+		result_check = semantic_check(varscope.get('type'),rOP_type,'=')
+		if result_check != 'error':
+			add_quad('=','',rightOperand,varia)
+		else:
+			print("Error de tipos al asignar")
 
 def p_assignTo(p):
 	'''assignTo : ID arrayIndex
@@ -236,6 +325,7 @@ def p_assignTo(p):
 				| PR_kameBack
 				| PR_kameRot'''
 
+	p[0] = p[1]
 
 
 def p_func(p):
@@ -266,18 +356,52 @@ def p_moreParams(p):
 			  | empty'''
 
 def p_mainBlock(p):
-	'mainBlock : PR_main TO_LLAABRE bloque TO_LLACIERRA'
+	'mainBlock : mainBlock1 bloque TO_LLACIERRA'
+
+def p_mainBlock1(p):
+	'mainBlock1 : PR_main TO_LLAABRE'
 	actual_scope = 'main'
-	dir_func[p[3]] = {'type' : 'void', 'scope' : {}}
+	dir_func[p[1]] = {'type' : 'void', 'scope' : {}}
 	#print(dir_func.get('move'))
 
 def p_opLogico(p):
 	'''opLogico : PR_interseccion 
 				| PR_union'''
+	if len(p) > 1:
+		add_pOper(p[1])
+		print(pOper)
+		
 
 
 def p_loop(p):
-	'loop : PR_loop TO_PARABRE exp TO_PARCIERRA TO_LLAABRE bloque TO_LLACIERRA'
+	'loop : loop1 loop2 loop3'
+	fin = pop_pJumps()
+	inicio = pop_pJumps()
+	add_quad('+','iterator','1','iterator')
+	add_quad('GOTO', '','',inicio)
+	global contQuads
+	updateQuad(fin,'result',contQuads)
+
+def p_loop1(p):
+	'loop1 : PR_loop'
+	add_pJumps(contQuads)
+
+def p_loop2(p):
+	'loop2 : TO_PARABRE exp TO_PARCIERRA'
+	exp_type = pop_pType()
+	if exp_type == 'NUM':
+		resultado = pop_pilaO()
+		global cont
+		cont = cont + 1
+		add_quad('<=','iterator',resultado,cont)
+		add_quad('GOTOF',cont,'','')
+		global contQuads
+		add_pJumps(contQuads - 1)
+	else:
+		print('Error de tipo en LOOP')
+
+def p_loop3(p):
+	'loop3 : TO_LLAABRE bloque TO_LLACIERRA'
 
 def p_opRelacional(p):
 		'''opRelacional : OP_DOBLEIGUAL 
@@ -287,6 +411,9 @@ def p_opRelacional(p):
 						| OP_MAYORQUE 
 						| OP_MAYOROIGUAL'''
 
+		if len(p) > 1:
+			add_pOper(p[1])
+			
 
 def p_bloque(p):
 	'''bloque : estructura bloque 
@@ -335,51 +462,183 @@ def p_return(p):
 	'return : PR_return megaExp'
 
 def p_comparacion(p):
-	'comparacion : PR_if TO_PARABRE megaExp TO_PARCIERRA TO_LLAABRE bloque TO_LLACIERRA maybeElse'
+	'comparacion : compara1 compara2'
+
+
+def p_compara1(p):
+	'compara1 : PR_if TO_PARABRE megaExp TO_PARCIERRA TO_LLAABRE'
+	exp_type = pop_pType()
+	if exp_type == 'BOOL':
+		global contQuads
+		resultado = pop_pilaO()
+		add_quad('GOTOF', resultado, '', '')
+		add_pJumps(contQuads - 1)
+	else:
+		print('Error de tipo en IF')
+
+def p_compara2(p):
+	'compara2 : bloque TO_LLACIERRA maybeElse'
+	fin = pop_pJumps()
+	global contQuads
+	updateQuad(fin,'result',contQuads)
+
 
 def p_maybeElse(p):
-	'''maybeElse : PR_else TO_LLAABRE bloque TO_LLACIERRA 
+	'''maybeElse : checkElse doElse 
 				 | empty'''
+	
+
+def p_checkElse(p):
+	'checkElse : PR_else TO_LLAABRE'
+	add_quad('GOTO','','','')
+	falso = pop_pJumps()
+	global contQuads
+	add_pJumps(contQuads - 1)
+	updateQuad(falso,'result',contQuads)
+
+
+def p_doElse(p):
+	'doElse : bloque TO_LLACIERRA'
 
 def p_megaExp(p):
 	'megaExp : maybeNot superExp anotherMega'
+	top = top_pOper()
+	if top == 'OR' or top == 'AND' or top == 'NOT':
+		rightOperand = pop_pilaO()
+		rOP_type = pop_pType()
+		operator = pop_pOper()
+		global cont
+		cont = cont + 1
+		if operator == 'NOT':
+			if rOP_type == 'BOOL':
+				add_quad(operator,'',rightOperand,cont)
+				add_pilaO(cont)
+				add_pType('BOOL')
+			else:
+				print('Error de tipo en negacion')
+		else:
+			leftOperand = pop_pilaO()
+			lOP_type = pop_pType()
+			result_type = semantic_check(lOP_type, rOP_type, operator)
+			if result_type != 'error':
+				add_quad(operator,leftOperand,rightOperand,cont)
+				add_pilaO(cont)
+				add_pType(result_type)
+				#for q in quad: print q
+				#print(pType)
+			else:
+				print('Error de tipo en una comparacion')
+
 
 def p_maybeNot(p):
 	'''maybeNot : PR_negacion 
 				| empty'''
+	if p[1] == 'NOT':
+		add_pOper(p[1])
+		print(pOper)	
 
 def p_anotherMega(p):
 	'''anotherMega : opLogico megaExp 
 				   | empty'''
+
 def p_superExp(p):
 	'superExp : exp maybeRel'
+
 
 def p_maybeRel(p):
 	'''maybeRel : opRelacional exp 
 				| empty'''
+	top = top_pOper()
+	
+	if top == '>' or top == '<' or top == '>=' or top == '<=' or top == '!=' or top == '==':
+		rightOperand = pop_pilaO()
+		rOP_type = pop_pType()
+		leftOperand = pop_pilaO()
+		lOP_type = pop_pType()
+		operator = pop_pOper()
+		result_type = semantic_check(lOP_type, rOP_type, operator)
+		if result_type != 'error':
+			global cont
+			cont = cont + 1
+			add_quad(operator,leftOperand,rightOperand,cont)
+			add_pilaO(cont)
+			add_pType(result_type)
+			#for q in quad: print q
+			#print(pType)
+		else:
+			print('Error de tipo en una comparacion')
 
 def p_exp(p):
 	'exp : term anotherExp'
+
+	top = top_pOper()
+	if top == '+' or top == '-':
+		rightOperand = pop_pilaO()
+		rOP_type = pop_pType()
+		leftOperand = pop_pilaO()
+		lOP_type = pop_pType()
+		operator = pop_pOper()
+		result_type = semantic_check(lOP_type, rOP_type, operator)
+		if result_type != 'error':
+			global cont
+			cont = cont + 1
+			add_quad(operator,leftOperand,rightOperand,cont)
+			add_pilaO(cont)
+			add_pType(result_type)
+			#for q in quad: print q
+			#print(pType)
+		else:
+			print('Error de tipo en una suma o resta')
+
+
+
+
 
 def p_anotherExp(p):
 	'''anotherExp : OP_MAS exp 
 				  | OP_MENOS exp 
 				  | empty'''
+	if len(p) > 2:
+		add_pOper(p[1])		
 
 
 def p_term(p):
 	'term : fact anotherTerm'
+
+	top = top_pOper()
+	if top == '*' or top == '/' or top == '%':
+		rightOperand = pop_pilaO()
+		rOP_type = pop_pType()
+		leftOperand = pop_pilaO()
+		lOP_type = pop_pType()
+		operator = pop_pOper()
+		result_type = semantic_check(lOP_type, rOP_type, operator)
+		if result_type != 'error':
+			global cont
+			cont = cont + 1
+			add_quad(operator,leftOperand,rightOperand,cont)
+			add_pilaO(cont)
+			add_pType(result_type)
+			#for q in quad: print q
+			#print(pType)
+		else:
+			print('Error de tipo en una multiplicacion, division o modulo')
 
 def p_anotherTerm(p):
 	'''anotherTerm : OP_MULT term 
 				   | OP_DIV term
 				   | OP_RESID term
 				   | empty'''
+	if len(p) > 2:
+		add_pOper(p[1])
+	
 
 def p_fact(p):
 	'''fact : TO_PARABRE megaExp TO_PARCIERRA 
 			| ID arrayIndex 
 			| val'''
+	
+
 
 def p_empty(p):
     'empty :'
@@ -397,10 +656,6 @@ def p_error(p):
 
 parser = yacc.yacc()
 
-# for x in dir_func:
-#     print (x)
-#     for y in dir_func[x]:
-#         print (y,':',dir_func[x][y])
 
 
 

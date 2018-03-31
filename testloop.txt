@@ -1,0 +1,15 @@
+PROG{
+
+	VAR NUM resultado2
+	MAIN{
+
+		LOOP(45){
+
+			resultado2 = resultado2 + 15
+			#uwu
+		}
+		resultado2 = resultado2 + 1
+		#uwu
+
+	}
+}
