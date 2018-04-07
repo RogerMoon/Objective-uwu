@@ -13,11 +13,16 @@ quad = []
 pJumps = []
 cont = 0
 contQuads = 0
+contParam = 0
+funcToCall = ''
 
 
 actual_scope = 'global'
 
-dir_func[actual_scope] = { 'type' : 'void', 'scope' : {}}
+dir_func[actual_scope] = { 'type' : 'void', 'scope' : {}, 'numParams' : 0, 'quadStart' : -1}
+
+
+
 
 def add_pilaO(id):
     pilaO.append(id)
@@ -61,6 +66,8 @@ def add_quad(operator,leftOperand,rightOperand,result):
 	quad.append({'operator':operator,'leftOperand':leftOperand,'rightOperand':rightOperand,'result':result})
 	global contQuads
 	contQuads = contQuads + 1
+
+add_quad('GOTO', '','','')
 
 def updateQuad(i, llave, val):
 	(quad[i])[llave] = val
@@ -184,7 +191,7 @@ tokens = [
 	'OP_MAYORQUE', 'OP_MAYOROIGUAL',
 	'TO_PARABRE', 'TO_PARCIERRA', 'TO_LLAABRE', 'TO_LLACIERRA', 
 	'TO_CORABRE', 'TO_CORCIERRA',
-	'TO_DIGIT', 'TO_NUM', 'TO_FLOT', 'ID', 'TO_COMA', 'TO_UWU'
+	'TO_DIGIT', 'TO_NUM', 'TO_FLOT', 'ID', 'TO_COMA', 'TO_UWU','TO_DOSPTOS'
 
 ]
 #tokens
@@ -211,6 +218,8 @@ t_TO_NUM = r'[0-9]+'
 t_TO_FLOT = r'[0-9]+\.[0-9]+'
 t_TO_COMA = r'\,'
 t_TO_UWU = r'\#\u\w\u'
+t_TO_DOSPTOS = r'\:'
+
 
 
 tokens = tokens + list(reserved.values())
@@ -252,9 +261,15 @@ def p_val(p):
 		add_pType('BOOL')
 		add_pilaO(p[1])
 	elif not is_number(p[1]):
-		varscope = dir_func[actual_scope]['scope'][p[1]]
-		add_pilaO(p[1])
-		add_pType(varscope.get('type'))
+		try:
+			varscope = dir_func[actual_scope]['scope'][p[1]]
+		except KeyError:
+			varscope = dir_func['global']['scope'][p[1]]
+			add_pilaO(p[1])
+			add_pType(varscope.get('type'))
+		else:
+			add_pilaO(p[1])
+			add_pType(varscope.get('type'))
 
 	elif float(p[1]) % 1 != 0:
 		add_pType('FLOT')
@@ -274,16 +289,20 @@ def p_decVar(p):
 				| empty'''
 			
 
-
-
 def p_decFunc(p):
 	''' decFunc : func decFunc 
 				| empty'''
 
+
 def p_var(p):
 	'var : PR_var tipo ID arrayCreate'
-	#print(actual_scope)
-	dir_func[actual_scope]['scope'][p[3]] = {'type' : p[2]}
+	if not p[3] in dir_func[actual_scope]['scope']:
+		dir_func[actual_scope]['scope'][p[3]] = {'type' : p[2]}
+	else:
+		print('Variable ' + p[3] + ' ya declarada')
+		sys.exit()
+
+
 	#print(dir_func.get(actual_scope))
 	
 
@@ -310,14 +329,28 @@ def p_assign(p):
 	rOP_type = pop_pType()
 
 	if varia == 'KAMER' or varia == 'KAMEF' or varia == 'KAMEB':
-		print('palabra reservada')
+		print('palabra reservada, FALTA HACERLO')
 	else:
-		varscope = dir_func[actual_scope]['scope'][varia]
-		result_check = semantic_check(varscope.get('type'),rOP_type,'=')
-		if result_check != 'error':
-			add_quad('=','',rightOperand,varia)
+		try:
+			varscope = dir_func[actual_scope]['scope'][varia]
+		except KeyError:
+			varscope = dir_func['global']['scope'][varia]
+			result_check = semantic_check(varscope.get('type'),rOP_type,'=')
+			if result_check != 'error':
+				add_quad('=','',rightOperand,varia)
+			else:
+				print("Error de tipos al asignar")
+				sys.exit()
 		else:
-			print("Error de tipos al asignar")
+			result_check = semantic_check(varscope.get('type'),rOP_type,'=')
+			if result_check != 'error':
+				add_quad('=','',rightOperand,varia)
+			else:
+				print("Error de tipos al asignar")
+				sys.exit()
+
+		
+		
 
 def p_assignTo(p):
 	'''assignTo : ID arrayIndex
@@ -333,13 +366,26 @@ def p_func(p):
 
 
 def p_func1(p):
-	'func1 : PR_function decideType ID TO_PARABRE params TO_PARCIERRA TO_LLAABRE'
-	global actual_scope
-	actual_scope = p[3]
-	dir_func[p[3]] = { 'type' : p[2], 'scope' : {}}
+	'func1 : func11 func12'
+
+
+def p_func11(p):
+	'func11 : PR_function decideType ID TO_PARABRE'
+
+	if not p[3] in dir_func:
+		global actual_scope
+		actual_scope = p[3]
+		dir_func[p[3]] = { 'type' : p[2], 'scope' : {}, 'numParams' : 0, 'quadStart' : contQuads }
+	else:
+		print("Funcion " + p[3] +" ya declarada")
+		sys.exit()
+
+def p_func12(p):
+	'func12 : params TO_PARCIERRA TO_LLAABRE'
 
 def p_func2(p):
 	'func2 : decVar bloque TO_LLACIERRA'
+	add_quad('ENDPROC','','','')
 
 def p_decideType(p):
 	'''decideType : tipo 
@@ -348,13 +394,18 @@ def p_decideType(p):
 
 
 def p_params(p):
-	'''params : tipo ID moreParams 
+	'''params : tipo ID moreParams
 			  | empty'''
+	if len (p) > 2:
+		dir_func[actual_scope]['scope'][p[2]] = {'type' : p[1]}
+		dir_func[actual_scope]['numParams'] = dir_func[actual_scope]['numParams'] + 1
 
 def p_moreParams(p):
 	'''moreParams : TO_COMA tipo ID moreParams 
 			  | empty'''
-
+	if len(p) > 2:
+		dir_func[actual_scope]['scope'][p[3]] = {'type' : p[2]}
+		dir_func[actual_scope]['numParams'] = dir_func[actual_scope]['numParams'] + 1
 def p_mainBlock(p):
 	'mainBlock : mainBlock1 bloque TO_LLACIERRA'
 
@@ -362,6 +413,7 @@ def p_mainBlock1(p):
 	'mainBlock1 : PR_main TO_LLAABRE'
 	actual_scope = 'main'
 	dir_func[p[1]] = {'type' : 'void', 'scope' : {}}
+	updateQuad(0,'result', contQuads)
 	#print(dir_func.get('move'))
 
 def p_opLogico(p):
@@ -369,7 +421,7 @@ def p_opLogico(p):
 				| PR_union'''
 	if len(p) > 1:
 		add_pOper(p[1])
-		print(pOper)
+		#print(pOper)
 		
 
 
@@ -399,6 +451,7 @@ def p_loop2(p):
 		add_pJumps(contQuads - 1)
 	else:
 		print('Error de tipo en LOOP')
+		sys.exit()
 
 def p_loop3(p):
 	'loop3 : TO_LLAABRE bloque TO_LLACIERRA'
@@ -429,12 +482,30 @@ def p_estructura(p):
 
 
 def p_funcCall(p):
-	'''funcCall : ID TO_PARABRE paramVals TO_PARCIERRA 
+	'''funcCall : funcCall1 funcCall2
 				| PR_draw TO_PARABRE megaExp TO_PARCIERRA 
 				| PR_circle TO_PARABRE exp TO_PARCIERRA 
 				| PR_square TO_PARABRE exp TO_PARCIERRA 
 				| PR_size TO_PARABRE exp TO_PARCIERRA 
 				| PR_color TO_PARABRE colorChoice TO_PARCIERRA '''
+def p_funcCall1(p):
+	'funcCall1 : ID TO_PARABRE'
+	if p[1] in dir_func:
+		print('si existo')
+		add_quad('ERA',p[1],'','')
+		global funcToCall
+		funcToCall = p[1]
+	else:
+		print('Error la funcion ' + p[1] + ' no existe')
+		sys.exit()	
+
+def p_funcCall2(p):
+	'funcCall2 : paramVals TO_PARCIERRA'
+	if contParam == dir_func[funcToCall].get('numParams'):
+		add_quad('GOSUB',funcToCall,'','')
+	else:
+		print('Error en el numero de parametros de ' + funcToCall)
+		sys.exit()
 
 def p_bool(p):
 	'''bool : PR_true 
@@ -451,12 +522,34 @@ def p_colorChoice(p):
 				   | PR_black'''
 
 def p_paramVals(p):
-	'''paramVals : val moreParamVals 
+	'''paramVals : unParam moreParamVals 
 				 | empty'''
 
 def p_moreParamVals(p):
-	'''moreParamVals : TO_COMA val moreParamVals 
+	'''moreParamVals : TO_COMA unParam moreParamVals 
 				 	 | empty'''
+
+def p_unParam(p):
+	'unParam : ID TO_DOSPTOS  megaExp'
+	global funcToCall
+	val = pop_pilaO()
+	valType = pop_pType()
+	funcTable = dir_func[funcToCall]
+	try:
+		result = semantic_check(funcTable['scope'][p[1]].get('type'),valType, '=')
+	except KeyError:
+		print('Error parametro ' + p[1] + ' no existe para la funcion ' + funcToCall )
+		sys.exit()
+	if result != 'error':
+		global contParam
+		contParam = contParam + 1
+		print('Aqui es memoria')
+		add_quad('PARAM', val, '',funcToCall + ':' + p[1])
+
+	else:
+		print('Error de tipo al enviar parametro ' + p[1])
+		sys.exit()
+
 
 def p_return(p):
 	'return : PR_return megaExp'
@@ -475,6 +568,7 @@ def p_compara1(p):
 		add_pJumps(contQuads - 1)
 	else:
 		print('Error de tipo en IF')
+		sys.exit()
 
 def p_compara2(p):
 	'compara2 : bloque TO_LLACIERRA maybeElse'
@@ -516,6 +610,7 @@ def p_megaExp(p):
 				add_pType('BOOL')
 			else:
 				print('Error de tipo en negacion')
+				sys.exit()
 		else:
 			leftOperand = pop_pilaO()
 			lOP_type = pop_pType()
@@ -528,6 +623,7 @@ def p_megaExp(p):
 				#print(pType)
 			else:
 				print('Error de tipo en una comparacion')
+				sys.exit()
 
 
 def p_maybeNot(p):
@@ -535,7 +631,7 @@ def p_maybeNot(p):
 				| empty'''
 	if p[1] == 'NOT':
 		add_pOper(p[1])
-		print(pOper)	
+		#print(pOper)	
 
 def p_anotherMega(p):
 	'''anotherMega : opLogico megaExp 
@@ -567,6 +663,7 @@ def p_maybeRel(p):
 			#print(pType)
 		else:
 			print('Error de tipo en una comparacion')
+			sys.exit()
 
 def p_exp(p):
 	'exp : term anotherExp'
@@ -589,6 +686,7 @@ def p_exp(p):
 			#print(pType)
 		else:
 			print('Error de tipo en una suma o resta')
+			sys.exit()
 
 
 
@@ -623,6 +721,7 @@ def p_term(p):
 			#print(pType)
 		else:
 			print('Error de tipo en una multiplicacion, division o modulo')
+			sys.exit()
 
 def p_anotherTerm(p):
 	'''anotherTerm : OP_MULT term 
