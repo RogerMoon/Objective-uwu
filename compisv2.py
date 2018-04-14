@@ -15,12 +15,59 @@ cont = 0
 contQuads = 0
 contParam = 0
 funcToCall = ''
+currentQuad = 0
 
 
 actual_scope = 'global'
 
 dir_func[actual_scope] = { 'type' : 'void', 'scope' : {}, 'numParams' : 0, 'quadStart' : -1}
 
+
+
+#direcciones
+nextAvailable = {'gNum':1000,'gFlot':2000,'gBool':3000,
+		   		'tNum':4000,'tFlot':5000,'tBool':6000 }
+
+
+# memoria = {'gNum':{},'gFlot':{},'gBool':{},
+# 		   'tNum':{},'tFlot':{},'tBool':{} }
+
+memoria = {}
+
+
+
+
+def nextTemp(result_type):
+	if result_type == 'NUM':
+		availableTemp = nextAvailable['tNum']
+		nextAvailable['tNum'] = availableTemp + 1
+		return availableTemp
+	elif result_type == 'FLOT':
+		availableTemp = nextAvailable['tFlot']
+		nextAvailable['tFlot'] = availableTemp + 1
+		return availableTemp
+	elif result_type == 'BOOL':
+		availableTemp = nextAvailable['tBool']
+		nextAvailable['tBool'] = availableTemp + 1
+		return availableTemp
+
+def nextGlobal(result_type):
+	global actual_scope
+	if actual_scope =='global':
+		if result_type == 'NUM':
+			availableGlobal = nextAvailable['gNum']
+			nextAvailable['gNum'] = availableGlobal + 1
+			return availableGlobal
+		elif result_type == 'FLOT':
+			availableGlobal = nextAvailable['gFlot']
+			nextAvailable['gFlot'] = availableGlobal + 1
+			return availableGlobal
+		elif result_type == 'BOOL':
+			availableGlobal = nextAvailable['gBool']
+			nextAvailable['gBool'] = availableGlobal + 1
+			return availableGlobal
+	else:
+		print('Es una funcion')
 
 
 
@@ -224,6 +271,8 @@ t_TO_DOSPTOS = r'\:'
 
 tokens = tokens + list(reserved.values())
 
+
+
 def t_ID(t):
     r'[a-zA-Z][a-zA-Z0-9]*'
     t.type = reserved.get(t.value,'ID')
@@ -297,8 +346,15 @@ def p_decFunc(p):
 def p_var(p):
 	'var : PR_var tipo ID arrayCreate'
 	if not p[3] in dir_func[actual_scope]['scope']:
-		dir_func[actual_scope]['scope'][p[3]] = {'type' : p[2]}
+		varAddress = 0
+
+		if actual_scope=='global':
+			varAddress= nextGlobal(p[2])
+
+		dir_func[actual_scope]['scope'][p[3]] = {'type' : p[2], 'address':varAddress}
+		memoria[varAddress] = 0
 	else:
+
 		print('Variable ' + p[3] + ' ya declarada')
 		sys.exit()
 
@@ -429,7 +485,7 @@ def p_loop(p):
 	'loop : loop1 loop2 loop3'
 	fin = pop_pJumps()
 	inicio = pop_pJumps()
-	add_quad('+','iterator','1','iterator')
+	add_quad('+','iterator',1,'iterator')
 	add_quad('GOTO', '','',inicio)
 	global contQuads
 	updateQuad(fin,'result',contQuads)
@@ -605,8 +661,10 @@ def p_megaExp(p):
 		cont = cont + 1
 		if operator == 'NOT':
 			if rOP_type == 'BOOL':
-				add_quad(operator,'',rightOperand,cont)
-				add_pilaO(cont)
+				nextT = nextTemp(rOP_type)
+				add_quad(operator,'',rightOperand,'(' + str(nextT) + ')')
+				memoria[nextT] = 0
+				add_pilaO('(' + str(nextT) + ')')
 				add_pType('BOOL')
 			else:
 				print('Error de tipo en negacion')
@@ -616,8 +674,10 @@ def p_megaExp(p):
 			lOP_type = pop_pType()
 			result_type = semantic_check(lOP_type, rOP_type, operator)
 			if result_type != 'error':
-				add_quad(operator,leftOperand,rightOperand,cont)
-				add_pilaO(cont)
+				nextT = nextTemp(result_type)
+				add_quad(operator,leftOperand,rightOperand,'(' + str(nextT) + ')')
+				memoria[nextT] = 0
+				add_pilaO('(' + str(nextT) + ')')
 				add_pType(result_type)
 				#for q in quad: print q
 				#print(pType)
@@ -654,10 +714,12 @@ def p_maybeRel(p):
 		operator = pop_pOper()
 		result_type = semantic_check(lOP_type, rOP_type, operator)
 		if result_type != 'error':
+			nextT = nextTemp(result_type)
 			global cont
 			cont = cont + 1
-			add_quad(operator,leftOperand,rightOperand,cont)
-			add_pilaO(cont)
+			add_quad(operator,leftOperand,rightOperand,'(' + str(nextT) + ')')
+			memoria[nextT] = 0
+			add_pilaO('(' + str(nextT) + ')')
 			add_pType(result_type)
 			#for q in quad: print q
 			#print(pType)
@@ -677,10 +739,12 @@ def p_exp(p):
 		operator = pop_pOper()
 		result_type = semantic_check(lOP_type, rOP_type, operator)
 		if result_type != 'error':
+			nextT = nextTemp(result_type)
 			global cont
 			cont = cont + 1
-			add_quad(operator,leftOperand,rightOperand,cont)
-			add_pilaO(cont)
+			add_quad(operator,leftOperand,rightOperand,'(' + str(nextT) + ')')
+			memoria[nextT] = 0
+			add_pilaO('(' + str(nextT) + ')')
 			add_pType(result_type)
 			#for q in quad: print q
 			#print(pType)
@@ -712,10 +776,13 @@ def p_term(p):
 		operator = pop_pOper()
 		result_type = semantic_check(lOP_type, rOP_type, operator)
 		if result_type != 'error':
+			nextT = nextTemp(result_type)
+			#cont de termporales
 			global cont
 			cont = cont + 1
-			add_quad(operator,leftOperand,rightOperand,cont)
-			add_pilaO(cont)
+			add_quad(operator,leftOperand,rightOperand,'(' + str(nextT) + ')')
+			memoria[nextT] = 0
+			add_pilaO('(' + str(nextT) + ')')
 			add_pType(result_type)
 			#for q in quad: print q
 			#print(pType)
@@ -750,19 +817,114 @@ def p_error(p):
     sys.exit()
 
 
+def retrieveValueAt(address):
+	
+	if not isinstance(address,basestring):
+		return address
 
+	if address[0]=='(':
+		address = int(address[1:len(address)-1])
+	else:
+		for func in dir_func:
+			if address in dir_func.get(func).get('scope').keys():
+				address = dir_func.get(func).get('scope').get(address).get('address')
 
+	if not address in memoria.keys():
+		print(address)
+		print('Variable no inicializada')
+		sys.exit()
+	
+	return memoria.get(address)
+
+def translateString(address):
+	
+	if not isinstance(address,basestring):
+		return address
+
+	if address[0]=='(':
+		address = int(address[1:len(address)-1])
+	else:
+		for func in dir_func:
+			if address in dir_func.get(func).get('scope').keys():
+				address = dir_func.get(func).get('scope').get(address).get('address')
+
+	if not address in memoria.keys():
+		print(address)
+		print('Variable no inicializada')
+		sys.exit()
+	
+	return address
+
+def maqVirtual():
+	
+	global currentQuad
+
+	while currentQuad < contQuads:
+		executeQuad= quad[currentQuad]
+		operation = executeQuad.get('operator')
+
+		if operation == 'GOTO':
+			currentQuad = executeQuad.get('result')
+
+		elif operation == 'GOTOF':
+			mem = executeQuad.get('leftOperand')
+			val = retrieveValueAt(mem)
+			if not val:
+				currentQuad = executeQuad.get('result')
+
+		elif operation == '+':
+			left = executeQuad.get('leftOperand')
+			right = executeQuad.get('rightOperand')
+			leftval = retrieveValueAt(left)
+			rightval = retrieveValueAt(right)
+			result = translateString(executeQuad.get('result'))
+			memoria[result] = leftval + rightval
+			currentQuad = currentQuad + 1
+
+		elif operation == '-':
+			left = executeQuad.get('leftOperand')
+			right = executeQuad.get('rightOperand')
+			leftval = retrieveValueAt(left)
+			rightval = retrieveValueAt(right)
+			result = translateString(executeQuad.get('result'))
+			memoria[result] = leftval - rightval
+			currentQuad = currentQuad + 1
+
+		elif operation == '*':
+			left = executeQuad.get('leftOperand')
+			right = executeQuad.get('rightOperand')
+			leftval = retrieveValueAt(left)
+			rightval = retrieveValueAt(right)
+			result = translateString(executeQuad.get('result'))
+			memoria[result] = leftval * rightval
+			currentQuad = currentQuad + 1
+
+		elif operation == '/':
+			left = executeQuad.get('leftOperand')
+			right = executeQuad.get('rightOperand')
+			leftval = retrieveValueAt(left)
+			rightval = retrieveValueAt(right)
+			result = translateString(executeQuad.get('result'))
+			memoria[result] = leftval / rightval 
+			currentQuad = currentQuad + 1
+
+		elif operation == '=':
+			right = executeQuad.get('rightOperand')
+			rightval = retrieveValueAt(right)
+			result = translateString(executeQuad.get('result'))
+			memoria[result] = rightval
+			currentQuad = currentQuad + 1
+		
 
 parser = yacc.yacc()
-
-
-
-
 
 archivo = sys.argv[1]
 f = open(archivo, 'r')
 s = f.read()
 parser.parse(s)
+maqVirtual()
+for r in memoria:
+	print (str(r)+':'+str(memoria.get(r)))
 
 
 if aprobado == True:
