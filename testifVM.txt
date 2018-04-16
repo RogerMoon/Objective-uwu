@@ -1,0 +1,20 @@
+PROG{
+
+	VAR NUM num1
+	VAR NUM num2
+	MAIN{
+
+	
+		num1 = 10
+		num2 = 5 + 2 * 3
+
+		IF(num2>15){
+			num1 = num2 + num1
+			#uwu
+		}
+
+		num1 = num1-num2
+		#uwu
+
+	}
+}

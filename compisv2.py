@@ -1,6 +1,11 @@
 import ply.lex as lex
 import ply.yacc as yacc
 import sys
+import turtle
+
+wn = turtle.Screen()
+tur = turtle.Turtle()
+tur.shape("turtle")
 
 aprobado = True
 
@@ -11,7 +16,7 @@ pType = []
 pilaO = []
 quad = []
 pJumps = []
-cont = 0
+pIterator = []
 contQuads = 0
 contParam = 0
 funcToCall = ''
@@ -27,7 +32,6 @@ dir_func[actual_scope] = { 'type' : 'void', 'scope' : {}, 'numParams' : 0, 'quad
 #direcciones
 nextAvailable = {'gNum':1000,'gFlot':2000,'gBool':3000,
 		   		'tNum':4000,'tFlot':5000,'tBool':6000 }
-
 
 # memoria = {'gNum':{},'gFlot':{},'gBool':{},
 # 		   'tNum':{},'tFlot':{},'tBool':{} }
@@ -107,6 +111,21 @@ def top_pOper():
         return temp
     else:
         return -1
+
+def add_pIterator(iterator):
+	pIterator.append(iterator)
+
+def pop_pIterator():
+	if (len(pIterator) > 0):
+		return pIterator.pop()
+
+def top_pIterator():
+	if (len(pIterator) > 0):
+		temp = pop_pIterator()
+		add_pIterator(temp)
+		return temp
+	else:
+		return -1
 
 
 def add_quad(operator,leftOperand,rightOperand,result):
@@ -385,7 +404,12 @@ def p_assign(p):
 	rOP_type = pop_pType()
 
 	if varia == 'KAMER' or varia == 'KAMEF' or varia == 'KAMEB':
-		print('palabra reservada, FALTA HACERLO')
+		result_check = semantic_check('FLOT',rOP_type,'=')
+		if result_check != 'error':
+			add_quad(varia,'',rightOperand,'')
+		else:
+			print('Error de tipo al intentar mover a la tortuga')
+			sys.exit()
 	else:
 		try:
 			varscope = dir_func[actual_scope]['scope'][varia]
@@ -485,24 +509,30 @@ def p_loop(p):
 	'loop : loop1 loop2 loop3'
 	fin = pop_pJumps()
 	inicio = pop_pJumps()
-	add_quad('+','iterator',1,'iterator')
+	iterator = pop_pIterator()
+	add_quad('+',iterator,1,iterator)
 	add_quad('GOTO', '','',inicio)
 	global contQuads
 	updateQuad(fin,'result',contQuads)
+	add_quad('=','',1,iterator)
 
 def p_loop1(p):
 	'loop1 : PR_loop'
 	add_pJumps(contQuads)
+	nextT = nextTemp('NUM')
+	add_pIterator('(' + str(nextT) + ')')
+	memoria[nextT] = 1
 
 def p_loop2(p):
 	'loop2 : TO_PARABRE exp TO_PARCIERRA'
 	exp_type = pop_pType()
 	if exp_type == 'NUM':
 		resultado = pop_pilaO()
-		global cont
-		cont = cont + 1
-		add_quad('<=','iterator',resultado,cont)
-		add_quad('GOTOF',cont,'','')
+		nextT = nextTemp('BOOL')
+		memoria[nextT]= False
+		iterator = top_pIterator()
+		add_quad('<=', iterator, resultado,'(' + str(nextT) + ')')
+		add_quad('GOTOF','(' + str(nextT) + ')','','')
 		global contQuads
 		add_pJumps(contQuads - 1)
 	else:
@@ -544,6 +574,12 @@ def p_funcCall(p):
 				| PR_square TO_PARABRE exp TO_PARCIERRA 
 				| PR_size TO_PARABRE exp TO_PARCIERRA 
 				| PR_color TO_PARABRE colorChoice TO_PARCIERRA '''
+	if len(p) == 5:
+		rightOperand = pop_pilaO()
+		rOP_type = pop_pType()
+		if(p[1] != 'DRAW' or p[1] != 'COLOR'):
+			result_check = semantic_check('FLOT',rOP_type,'=')
+			add_quad(p[1],'',rightOperand,'')
 def p_funcCall1(p):
 	'funcCall1 : ID TO_PARABRE'
 	if p[1] in dir_func:
@@ -657,8 +693,6 @@ def p_megaExp(p):
 		rightOperand = pop_pilaO()
 		rOP_type = pop_pType()
 		operator = pop_pOper()
-		global cont
-		cont = cont + 1
 		if operator == 'NOT':
 			if rOP_type == 'BOOL':
 				nextT = nextTemp(rOP_type)
@@ -715,8 +749,6 @@ def p_maybeRel(p):
 		result_type = semantic_check(lOP_type, rOP_type, operator)
 		if result_type != 'error':
 			nextT = nextTemp(result_type)
-			global cont
-			cont = cont + 1
 			add_quad(operator,leftOperand,rightOperand,'(' + str(nextT) + ')')
 			memoria[nextT] = 0
 			add_pilaO('(' + str(nextT) + ')')
@@ -740,8 +772,6 @@ def p_exp(p):
 		result_type = semantic_check(lOP_type, rOP_type, operator)
 		if result_type != 'error':
 			nextT = nextTemp(result_type)
-			global cont
-			cont = cont + 1
 			add_quad(operator,leftOperand,rightOperand,'(' + str(nextT) + ')')
 			memoria[nextT] = 0
 			add_pilaO('(' + str(nextT) + ')')
@@ -778,8 +808,6 @@ def p_term(p):
 		if result_type != 'error':
 			nextT = nextTemp(result_type)
 			#cont de termporales
-			global cont
-			cont = cont + 1
 			add_quad(operator,leftOperand,rightOperand,'(' + str(nextT) + ')')
 			memoria[nextT] = 0
 			add_pilaO('(' + str(nextT) + ')')
@@ -830,7 +858,7 @@ def retrieveValueAt(address):
 				address = dir_func.get(func).get('scope').get(address).get('address')
 
 	if not address in memoria.keys():
-		print(address)
+		print(str(address)+' '+str(currentQuad))
 		print('Variable no inicializada')
 		sys.exit()
 	
@@ -849,7 +877,6 @@ def translateString(address):
 				address = dir_func.get(func).get('scope').get(address).get('address')
 
 	if not address in memoria.keys():
-		print(address)
 		print('Variable no inicializada')
 		sys.exit()
 	
@@ -871,6 +898,69 @@ def maqVirtual():
 			val = retrieveValueAt(mem)
 			if not val:
 				currentQuad = executeQuad.get('result')
+			else:
+				currentQuad = currentQuad + 1
+
+		elif operation == 'KAMEF':
+			right = executeQuad.get('rightOperand')
+			rightval = retrieveValueAt(right)
+			tur.forward(float(rightval))
+			currentQuad = currentQuad + 1
+
+		elif operation == 'KAMEB':
+			right = executeQuad.get('rightOperand')
+			rightval = retrieveValueAt(right)
+			tur.backward(float(rightval))
+			currentQuad = currentQuad + 1
+
+		elif operation == 'KAMER':
+			right = executeQuad.get('rightOperand')
+			rightval = retrieveValueAt(right)
+			tur.left(float(rightval))
+			currentQuad = currentQuad + 1
+
+		elif operation == 'CIRCLE':
+			right = executeQuad.get('rightOperand')
+			rightval = retrieveValueAt(right)
+			tur.speed('slowest')
+			tur.speed(1)
+			tur.right(90)
+			tur.penup()
+			tur.forward(float(rightval))
+			tur.left(90)
+			tur.pendown()
+			tur.circle(rightval)
+			tur.penup()
+			tur.left(90)
+			tur.forward(float(rightval))
+			tur.right(90)
+			tur.pendown()
+			currentQuad = currentQuad + 1
+
+		elif operation == 'SQUARE':
+			right = executeQuad.get('rightOperand')
+			rightval = retrieveValueAt(right)
+
+			tur.penup()
+			tur.right(90)
+			tur.forward(float(rightval)/2)
+			tur.left(90)
+			tur.pendown()
+			tur.forward(float(rightval)/2)
+			tur.left(90)
+			tur.forward(float(rightval))
+			tur.left(90)
+			tur.forward(float(rightval))
+			tur.left(90)
+			tur.forward(float(rightval))
+			tur.left(90)
+			tur.forward(float(rightval)/2)
+			tur.penup()
+			tur.left(90)
+			tur.forward(float(rightval)/2)
+			tur.right(90)
+			tur.pendown()
+			currentQuad = currentQuad + 1
 
 		elif operation == '+':
 			left = executeQuad.get('leftOperand')
@@ -914,6 +1004,78 @@ def maqVirtual():
 			result = translateString(executeQuad.get('result'))
 			memoria[result] = rightval
 			currentQuad = currentQuad + 1
+
+		elif operation == '<':
+			left = executeQuad.get('leftOperand')
+			right = executeQuad.get('rightOperand')
+			leftval = retrieveValueAt(left)
+			rightval = retrieveValueAt(right)
+			result = translateString(executeQuad.get('result'))
+			memoria[result] = leftval < rightval 
+			currentQuad = currentQuad + 1
+
+		elif operation == '<=':
+			left = executeQuad.get('leftOperand')
+			right = executeQuad.get('rightOperand')
+			leftval = retrieveValueAt(left)
+			rightval = retrieveValueAt(right)
+			result = translateString(executeQuad.get('result'))
+			memoria[result] = leftval <= rightval
+			currentQuad = currentQuad + 1
+
+		elif operation == '>':
+			left = executeQuad.get('leftOperand')
+			right = executeQuad.get('rightOperand')
+			leftval = retrieveValueAt(left)
+			rightval = retrieveValueAt(right)
+			result = translateString(executeQuad.get('result'))
+			memoria[result] = leftval > rightval 
+			currentQuad = currentQuad + 1
+
+		elif operation == '>=':
+			left = executeQuad.get('leftOperand')
+			right = executeQuad.get('rightOperand')
+			leftval = retrieveValueAt(left)
+			rightval = retrieveValueAt(right)
+			result = translateString(executeQuad.get('result'))
+			memoria[result] = leftval >= rightval 
+			currentQuad = currentQuad + 1
+
+		elif operation == '==':
+			left = executeQuad.get('leftOperand')
+			right = executeQuad.get('rightOperand')
+			leftval = retrieveValueAt(left)
+			rightval = retrieveValueAt(right)
+			result = translateString(executeQuad.get('result'))
+			memoria[result] = leftval == rightval 
+			currentQuad = currentQuad + 1
+
+		elif operation == 'AND':
+			left = executeQuad.get('leftOperand')
+			right = executeQuad.get('rightOperand')
+			leftval = retrieveValueAt(left)
+			rightval = retrieveValueAt(right)
+			result = translateString(executeQuad.get('result'))
+			memoria[result] = leftval and rightval 
+			currentQuad = currentQuad + 1
+
+		elif operation == 'OR':
+			left = executeQuad.get('leftOperand')
+			right = executeQuad.get('rightOperand')
+			leftval = retrieveValueAt(left)
+			rightval = retrieveValueAt(right)
+			result = translateString(executeQuad.get('result'))
+			memoria[result] = leftval or rightval 
+			currentQuad = currentQuad + 1
+
+		elif operation == 'NOT':
+			right = executeQuad.get('rightOperand')
+			rightval = retrieveValueAt(right)
+			result = translateString(executeQuad.get('result'))
+			memoria[result] = not rightval 
+			currentQuad = currentQuad + 1
+
+
 		
 
 parser = yacc.yacc()
@@ -928,8 +1090,10 @@ for r in memoria:
 
 
 if aprobado == True:
-    print("Archivo aprobado")
-    sys.exit()
+	
+	print("Archivo aprobado")
+	turtle.mainloop()
+	sys.exit()
 else: 
     print("Archivo no aprobado")
     sys.exit()

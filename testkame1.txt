@@ -1,0 +1,12 @@
+PROG{
+
+	MAIN{
+
+		KAMEF = 100
+		SQUARE(50)
+		CIRCLE(100)	
+
+		#uwu
+
+	}
+}
