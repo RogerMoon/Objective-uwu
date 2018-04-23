@@ -118,8 +118,9 @@ Rule 106   anotherTerm -> OP_RESID term
 Rule 107   anotherTerm -> empty
 Rule 108   fact -> TO_PARABRE megaExp TO_PARCIERRA
 Rule 109   fact -> ID arrayIndex
-Rule 110   fact -> val
-Rule 111   empty -> <empty>
+Rule 110   fact -> funcCall
+Rule 111   fact -> val
+Rule 112   empty -> <empty>
 
 Terminals, with rules where they appear
 
@@ -215,7 +216,7 @@ func1                : 27
 func11               : 28
 func12               : 28
 func2                : 27
-funcCall             : 58
+funcCall             : 58 110
 funcCall1            : 60
 funcCall2            : 60
 loop                 : 55
@@ -240,7 +241,7 @@ superExp             : 91
 term                 : 99 104 105 106
 tipo                 : 12 32 34 36
 unParam              : 78 80
-val                  : 110
+val                  : 111
 var                  : 8
 
 Parsing method: LALR
@@ -274,11 +275,11 @@ state 3
     (8) decVar -> . var decVar
     (9) decVar -> . empty
     (12) var -> . PR_var tipo ID arrayCreate
-    (111) empty -> .
+    (112) empty -> .
 
     PR_var          shift and go to state 5
-    PR_function     reduce using rule 111 (empty -> .)
-    PR_main         reduce using rule 111 (empty -> .)
+    PR_function     reduce using rule 112 (empty -> .)
+    PR_main         reduce using rule 112 (empty -> .)
 
     decVar                         shift and go to state 4
     declare                        shift and go to state 7
@@ -291,11 +292,11 @@ state 4
     (10) decFunc -> . func decFunc
     (11) decFunc -> . empty
     (27) func -> . func1 func2
-    (111) empty -> .
+    (112) empty -> .
     (28) func1 -> . func11 func12
     (29) func11 -> . PR_function decideType ID TO_PARABRE
 
-    PR_main         reduce using rule 111 (empty -> .)
+    PR_main         reduce using rule 112 (empty -> .)
     PR_function     shift and go to state 10
 
     func1                          shift and go to state 9
@@ -323,27 +324,27 @@ state 6
     (8) decVar -> . var decVar
     (9) decVar -> . empty
     (12) var -> . PR_var tipo ID arrayCreate
-    (111) empty -> .
+    (112) empty -> .
 
   ! shift/reduce conflict for PR_var resolved as shift
     PR_var          shift and go to state 5
-    PR_function     reduce using rule 111 (empty -> .)
-    PR_main         reduce using rule 111 (empty -> .)
-    TO_UWU          reduce using rule 111 (empty -> .)
-    PR_return       reduce using rule 111 (empty -> .)
-    PR_draw         reduce using rule 111 (empty -> .)
-    PR_circle       reduce using rule 111 (empty -> .)
-    PR_square       reduce using rule 111 (empty -> .)
-    PR_size         reduce using rule 111 (empty -> .)
-    PR_color        reduce using rule 111 (empty -> .)
-    ID              reduce using rule 111 (empty -> .)
-    PR_kameForw     reduce using rule 111 (empty -> .)
-    PR_kameBack     reduce using rule 111 (empty -> .)
-    PR_kameRot      reduce using rule 111 (empty -> .)
-    PR_loop         reduce using rule 111 (empty -> .)
-    PR_if           reduce using rule 111 (empty -> .)
+    PR_function     reduce using rule 112 (empty -> .)
+    PR_main         reduce using rule 112 (empty -> .)
+    TO_UWU          reduce using rule 112 (empty -> .)
+    PR_return       reduce using rule 112 (empty -> .)
+    PR_draw         reduce using rule 112 (empty -> .)
+    PR_circle       reduce using rule 112 (empty -> .)
+    PR_square       reduce using rule 112 (empty -> .)
+    PR_size         reduce using rule 112 (empty -> .)
+    PR_color        reduce using rule 112 (empty -> .)
+    ID              reduce using rule 112 (empty -> .)
+    PR_kameForw     reduce using rule 112 (empty -> .)
+    PR_kameBack     reduce using rule 112 (empty -> .)
+    PR_kameRot      reduce using rule 112 (empty -> .)
+    PR_loop         reduce using rule 112 (empty -> .)
+    PR_if           reduce using rule 112 (empty -> .)
 
-  ! PR_var          [ reduce using rule 111 (empty -> .) ]
+  ! PR_var          [ reduce using rule 112 (empty -> .) ]
 
     var                            shift and go to state 6
     decVar                         shift and go to state 19
@@ -389,25 +390,25 @@ state 9
     (8) decVar -> . var decVar
     (9) decVar -> . empty
     (12) var -> . PR_var tipo ID arrayCreate
-    (111) empty -> .
+    (112) empty -> .
 
   ! shift/reduce conflict for PR_var resolved as shift
     PR_var          shift and go to state 5
-    TO_UWU          reduce using rule 111 (empty -> .)
-    PR_return       reduce using rule 111 (empty -> .)
-    PR_draw         reduce using rule 111 (empty -> .)
-    PR_circle       reduce using rule 111 (empty -> .)
-    PR_square       reduce using rule 111 (empty -> .)
-    PR_size         reduce using rule 111 (empty -> .)
-    PR_color        reduce using rule 111 (empty -> .)
-    ID              reduce using rule 111 (empty -> .)
-    PR_kameForw     reduce using rule 111 (empty -> .)
-    PR_kameBack     reduce using rule 111 (empty -> .)
-    PR_kameRot      reduce using rule 111 (empty -> .)
-    PR_loop         reduce using rule 111 (empty -> .)
-    PR_if           reduce using rule 111 (empty -> .)
+    TO_UWU          reduce using rule 112 (empty -> .)
+    PR_return       reduce using rule 112 (empty -> .)
+    PR_draw         reduce using rule 112 (empty -> .)
+    PR_circle       reduce using rule 112 (empty -> .)
+    PR_square       reduce using rule 112 (empty -> .)
+    PR_size         reduce using rule 112 (empty -> .)
+    PR_color        reduce using rule 112 (empty -> .)
+    ID              reduce using rule 112 (empty -> .)
+    PR_kameForw     reduce using rule 112 (empty -> .)
+    PR_kameBack     reduce using rule 112 (empty -> .)
+    PR_kameRot      reduce using rule 112 (empty -> .)
+    PR_loop         reduce using rule 112 (empty -> .)
+    PR_if           reduce using rule 112 (empty -> .)
 
-  ! PR_var          [ reduce using rule 111 (empty -> .) ]
+  ! PR_var          [ reduce using rule 112 (empty -> .) ]
 
     func2                          shift and go to state 23
     decVar                         shift and go to state 24
@@ -440,12 +441,12 @@ state 11
     (19) tipo -> . PR_num
     (20) tipo -> . PR_flot
     (21) tipo -> . PR_bool
-    (111) empty -> .
+    (112) empty -> .
 
     PR_num          shift and go to state 15
     PR_flot         shift and go to state 18
     PR_bool         shift and go to state 17
-    TO_PARCIERRA    reduce using rule 111 (empty -> .)
+    TO_PARCIERRA    reduce using rule 112 (empty -> .)
 
     func12                         shift and go to state 28
     tipo                           shift and go to state 29
@@ -458,11 +459,11 @@ state 12
     (10) decFunc -> . func decFunc
     (11) decFunc -> . empty
     (27) func -> . func1 func2
-    (111) empty -> .
+    (112) empty -> .
     (28) func1 -> . func11 func12
     (29) func11 -> . PR_function decideType ID TO_PARABRE
 
-    PR_main         reduce using rule 111 (empty -> .)
+    PR_main         reduce using rule 112 (empty -> .)
     PR_function     shift and go to state 10
 
     func1                          shift and go to state 9
@@ -573,7 +574,7 @@ state 21
     (85) compara1 -> . PR_if TO_PARABRE megaExp TO_PARCIERRA TO_LLAABRE
     (66) funcCall1 -> . ID TO_PARABRE
     (12) var -> . PR_var tipo ID arrayCreate
-    (111) empty -> .
+    (112) empty -> .
 
   ! shift/reduce conflict for TO_UWU resolved as shift
   ! shift/reduce conflict for PR_return resolved as shift
@@ -604,20 +605,20 @@ state 21
     PR_if           shift and go to state 53
     PR_var          shift and go to state 5
 
-  ! TO_UWU          [ reduce using rule 111 (empty -> .) ]
-  ! PR_return       [ reduce using rule 111 (empty -> .) ]
-  ! PR_draw         [ reduce using rule 111 (empty -> .) ]
-  ! PR_circle       [ reduce using rule 111 (empty -> .) ]
-  ! PR_square       [ reduce using rule 111 (empty -> .) ]
-  ! PR_size         [ reduce using rule 111 (empty -> .) ]
-  ! PR_color        [ reduce using rule 111 (empty -> .) ]
-  ! ID              [ reduce using rule 111 (empty -> .) ]
-  ! PR_kameForw     [ reduce using rule 111 (empty -> .) ]
-  ! PR_kameBack     [ reduce using rule 111 (empty -> .) ]
-  ! PR_kameRot      [ reduce using rule 111 (empty -> .) ]
-  ! PR_loop         [ reduce using rule 111 (empty -> .) ]
-  ! PR_if           [ reduce using rule 111 (empty -> .) ]
-  ! PR_var          [ reduce using rule 111 (empty -> .) ]
+  ! TO_UWU          [ reduce using rule 112 (empty -> .) ]
+  ! PR_return       [ reduce using rule 112 (empty -> .) ]
+  ! PR_draw         [ reduce using rule 112 (empty -> .) ]
+  ! PR_circle       [ reduce using rule 112 (empty -> .) ]
+  ! PR_square       [ reduce using rule 112 (empty -> .) ]
+  ! PR_size         [ reduce using rule 112 (empty -> .) ]
+  ! PR_color        [ reduce using rule 112 (empty -> .) ]
+  ! ID              [ reduce using rule 112 (empty -> .) ]
+  ! PR_kameForw     [ reduce using rule 112 (empty -> .) ]
+  ! PR_kameBack     [ reduce using rule 112 (empty -> .) ]
+  ! PR_kameRot      [ reduce using rule 112 (empty -> .) ]
+  ! PR_loop         [ reduce using rule 112 (empty -> .) ]
+  ! PR_if           [ reduce using rule 112 (empty -> .) ]
+  ! PR_var          [ reduce using rule 112 (empty -> .) ]
 
     assignTo                       shift and go to state 35
     bloque                         shift and go to state 38
@@ -680,7 +681,7 @@ state 24
     (85) compara1 -> . PR_if TO_PARABRE megaExp TO_PARCIERRA TO_LLAABRE
     (66) funcCall1 -> . ID TO_PARABRE
     (12) var -> . PR_var tipo ID arrayCreate
-    (111) empty -> .
+    (112) empty -> .
 
   ! shift/reduce conflict for TO_UWU resolved as shift
   ! shift/reduce conflict for PR_return resolved as shift
@@ -711,20 +712,20 @@ state 24
     PR_if           shift and go to state 53
     PR_var          shift and go to state 5
 
-  ! TO_UWU          [ reduce using rule 111 (empty -> .) ]
-  ! PR_return       [ reduce using rule 111 (empty -> .) ]
-  ! PR_draw         [ reduce using rule 111 (empty -> .) ]
-  ! PR_circle       [ reduce using rule 111 (empty -> .) ]
-  ! PR_square       [ reduce using rule 111 (empty -> .) ]
-  ! PR_size         [ reduce using rule 111 (empty -> .) ]
-  ! PR_color        [ reduce using rule 111 (empty -> .) ]
-  ! ID              [ reduce using rule 111 (empty -> .) ]
-  ! PR_kameForw     [ reduce using rule 111 (empty -> .) ]
-  ! PR_kameBack     [ reduce using rule 111 (empty -> .) ]
-  ! PR_kameRot      [ reduce using rule 111 (empty -> .) ]
-  ! PR_loop         [ reduce using rule 111 (empty -> .) ]
-  ! PR_if           [ reduce using rule 111 (empty -> .) ]
-  ! PR_var          [ reduce using rule 111 (empty -> .) ]
+  ! TO_UWU          [ reduce using rule 112 (empty -> .) ]
+  ! PR_return       [ reduce using rule 112 (empty -> .) ]
+  ! PR_draw         [ reduce using rule 112 (empty -> .) ]
+  ! PR_circle       [ reduce using rule 112 (empty -> .) ]
+  ! PR_square       [ reduce using rule 112 (empty -> .) ]
+  ! PR_size         [ reduce using rule 112 (empty -> .) ]
+  ! PR_color        [ reduce using rule 112 (empty -> .) ]
+  ! ID              [ reduce using rule 112 (empty -> .) ]
+  ! PR_kameForw     [ reduce using rule 112 (empty -> .) ]
+  ! PR_kameBack     [ reduce using rule 112 (empty -> .) ]
+  ! PR_kameRot      [ reduce using rule 112 (empty -> .) ]
+  ! PR_loop         [ reduce using rule 112 (empty -> .) ]
+  ! PR_if           [ reduce using rule 112 (empty -> .) ]
+  ! PR_var          [ reduce using rule 112 (empty -> .) ]
 
     assignTo                       shift and go to state 35
     bloque                         shift and go to state 61
@@ -816,25 +817,25 @@ state 33
     (13) arrayCreate -> . TO_CORABRE TO_NUM TO_CORCIERRA
     (14) arrayCreate -> . TO_CORABRE TO_NUM TO_CORCIERRA TO_CORABRE TO_NUM TO_CORCIERRA
     (15) arrayCreate -> . empty
-    (111) empty -> .
+    (112) empty -> .
 
     TO_CORABRE      shift and go to state 65
-    PR_var          reduce using rule 111 (empty -> .)
-    PR_function     reduce using rule 111 (empty -> .)
-    PR_main         reduce using rule 111 (empty -> .)
-    TO_UWU          reduce using rule 111 (empty -> .)
-    PR_return       reduce using rule 111 (empty -> .)
-    PR_draw         reduce using rule 111 (empty -> .)
-    PR_circle       reduce using rule 111 (empty -> .)
-    PR_square       reduce using rule 111 (empty -> .)
-    PR_size         reduce using rule 111 (empty -> .)
-    PR_color        reduce using rule 111 (empty -> .)
-    ID              reduce using rule 111 (empty -> .)
-    PR_kameForw     reduce using rule 111 (empty -> .)
-    PR_kameBack     reduce using rule 111 (empty -> .)
-    PR_kameRot      reduce using rule 111 (empty -> .)
-    PR_loop         reduce using rule 111 (empty -> .)
-    PR_if           reduce using rule 111 (empty -> .)
+    PR_var          reduce using rule 112 (empty -> .)
+    PR_function     reduce using rule 112 (empty -> .)
+    PR_main         reduce using rule 112 (empty -> .)
+    TO_UWU          reduce using rule 112 (empty -> .)
+    PR_return       reduce using rule 112 (empty -> .)
+    PR_draw         reduce using rule 112 (empty -> .)
+    PR_circle       reduce using rule 112 (empty -> .)
+    PR_square       reduce using rule 112 (empty -> .)
+    PR_size         reduce using rule 112 (empty -> .)
+    PR_color        reduce using rule 112 (empty -> .)
+    ID              reduce using rule 112 (empty -> .)
+    PR_kameForw     reduce using rule 112 (empty -> .)
+    PR_kameBack     reduce using rule 112 (empty -> .)
+    PR_kameRot      reduce using rule 112 (empty -> .)
+    PR_loop         reduce using rule 112 (empty -> .)
+    PR_if           reduce using rule 112 (empty -> .)
 
     arrayCreate                    shift and go to state 66
     empty                          shift and go to state 67
@@ -953,7 +954,7 @@ state 44
     (85) compara1 -> . PR_if TO_PARABRE megaExp TO_PARCIERRA TO_LLAABRE
     (66) funcCall1 -> . ID TO_PARABRE
     (12) var -> . PR_var tipo ID arrayCreate
-    (111) empty -> .
+    (112) empty -> .
 
   ! shift/reduce conflict for TO_UWU resolved as shift
   ! shift/reduce conflict for PR_return resolved as shift
@@ -984,20 +985,20 @@ state 44
     PR_if           shift and go to state 53
     PR_var          shift and go to state 5
 
-  ! TO_UWU          [ reduce using rule 111 (empty -> .) ]
-  ! PR_return       [ reduce using rule 111 (empty -> .) ]
-  ! PR_draw         [ reduce using rule 111 (empty -> .) ]
-  ! PR_circle       [ reduce using rule 111 (empty -> .) ]
-  ! PR_square       [ reduce using rule 111 (empty -> .) ]
-  ! PR_size         [ reduce using rule 111 (empty -> .) ]
-  ! PR_color        [ reduce using rule 111 (empty -> .) ]
-  ! ID              [ reduce using rule 111 (empty -> .) ]
-  ! PR_kameForw     [ reduce using rule 111 (empty -> .) ]
-  ! PR_kameBack     [ reduce using rule 111 (empty -> .) ]
-  ! PR_kameRot      [ reduce using rule 111 (empty -> .) ]
-  ! PR_loop         [ reduce using rule 111 (empty -> .) ]
-  ! PR_if           [ reduce using rule 111 (empty -> .) ]
-  ! PR_var          [ reduce using rule 111 (empty -> .) ]
+  ! TO_UWU          [ reduce using rule 112 (empty -> .) ]
+  ! PR_return       [ reduce using rule 112 (empty -> .) ]
+  ! PR_draw         [ reduce using rule 112 (empty -> .) ]
+  ! PR_circle       [ reduce using rule 112 (empty -> .) ]
+  ! PR_square       [ reduce using rule 112 (empty -> .) ]
+  ! PR_size         [ reduce using rule 112 (empty -> .) ]
+  ! PR_color        [ reduce using rule 112 (empty -> .) ]
+  ! ID              [ reduce using rule 112 (empty -> .) ]
+  ! PR_kameForw     [ reduce using rule 112 (empty -> .) ]
+  ! PR_kameBack     [ reduce using rule 112 (empty -> .) ]
+  ! PR_kameRot      [ reduce using rule 112 (empty -> .) ]
+  ! PR_loop         [ reduce using rule 112 (empty -> .) ]
+  ! PR_if           [ reduce using rule 112 (empty -> .) ]
+  ! PR_var          [ reduce using rule 112 (empty -> .) ]
 
     assignTo                       shift and go to state 35
     bloque                         shift and go to state 74
@@ -1020,15 +1021,20 @@ state 45
     (91) megaExp -> . maybeNot superExp anotherMega
     (92) maybeNot -> . PR_negacion
     (93) maybeNot -> . empty
-    (111) empty -> .
+    (112) empty -> .
 
     PR_negacion     shift and go to state 77
-    TO_PARABRE      reduce using rule 111 (empty -> .)
-    ID              reduce using rule 111 (empty -> .)
-    TO_NUM          reduce using rule 111 (empty -> .)
-    TO_FLOT         reduce using rule 111 (empty -> .)
-    PR_true         reduce using rule 111 (empty -> .)
-    PR_false        reduce using rule 111 (empty -> .)
+    TO_PARABRE      reduce using rule 112 (empty -> .)
+    ID              reduce using rule 112 (empty -> .)
+    PR_draw         reduce using rule 112 (empty -> .)
+    PR_circle       reduce using rule 112 (empty -> .)
+    PR_square       reduce using rule 112 (empty -> .)
+    PR_size         reduce using rule 112 (empty -> .)
+    PR_color        reduce using rule 112 (empty -> .)
+    TO_NUM          reduce using rule 112 (empty -> .)
+    TO_FLOT         reduce using rule 112 (empty -> .)
+    PR_true         reduce using rule 112 (empty -> .)
+    PR_false        reduce using rule 112 (empty -> .)
 
     megaExp                        shift and go to state 76
     empty                          shift and go to state 78
@@ -1104,11 +1110,11 @@ state 51
     (16) arrayIndex -> . TO_CORABRE exp TO_CORCIERRA
     (17) arrayIndex -> . TO_CORABRE exp TO_CORCIERRA TO_CORABRE exp TO_CORCIERRA
     (18) arrayIndex -> . empty
-    (111) empty -> .
+    (112) empty -> .
 
     TO_PARABRE      shift and go to state 83
     TO_CORABRE      shift and go to state 81
-    OP_IGUAL        reduce using rule 111 (empty -> .)
+    OP_IGUAL        reduce using rule 112 (empty -> .)
 
     arrayIndex                     shift and go to state 82
     empty                          shift and go to state 84
@@ -1154,10 +1160,10 @@ state 55
     (78) paramVals -> . unParam moreParamVals
     (79) paramVals -> . empty
     (82) unParam -> . ID TO_DOSPTOS megaExp
-    (111) empty -> .
+    (112) empty -> .
 
     ID              shift and go to state 90
-    TO_PARCIERRA    reduce using rule 111 (empty -> .)
+    TO_PARCIERRA    reduce using rule 112 (empty -> .)
 
     funcCall2                      shift and go to state 87
     unParam                        shift and go to state 88
@@ -1203,7 +1209,7 @@ state 57
     (85) compara1 -> . PR_if TO_PARABRE megaExp TO_PARCIERRA TO_LLAABRE
     (66) funcCall1 -> . ID TO_PARABRE
     (12) var -> . PR_var tipo ID arrayCreate
-    (111) empty -> .
+    (112) empty -> .
 
   ! shift/reduce conflict for TO_UWU resolved as shift
   ! shift/reduce conflict for PR_return resolved as shift
@@ -1234,20 +1240,20 @@ state 57
     PR_if           shift and go to state 53
     PR_var          shift and go to state 5
 
-  ! TO_UWU          [ reduce using rule 111 (empty -> .) ]
-  ! PR_return       [ reduce using rule 111 (empty -> .) ]
-  ! PR_draw         [ reduce using rule 111 (empty -> .) ]
-  ! PR_circle       [ reduce using rule 111 (empty -> .) ]
-  ! PR_square       [ reduce using rule 111 (empty -> .) ]
-  ! PR_size         [ reduce using rule 111 (empty -> .) ]
-  ! PR_color        [ reduce using rule 111 (empty -> .) ]
-  ! ID              [ reduce using rule 111 (empty -> .) ]
-  ! PR_kameForw     [ reduce using rule 111 (empty -> .) ]
-  ! PR_kameBack     [ reduce using rule 111 (empty -> .) ]
-  ! PR_kameRot      [ reduce using rule 111 (empty -> .) ]
-  ! PR_loop         [ reduce using rule 111 (empty -> .) ]
-  ! PR_if           [ reduce using rule 111 (empty -> .) ]
-  ! PR_var          [ reduce using rule 111 (empty -> .) ]
+  ! TO_UWU          [ reduce using rule 112 (empty -> .) ]
+  ! PR_return       [ reduce using rule 112 (empty -> .) ]
+  ! PR_draw         [ reduce using rule 112 (empty -> .) ]
+  ! PR_circle       [ reduce using rule 112 (empty -> .) ]
+  ! PR_square       [ reduce using rule 112 (empty -> .) ]
+  ! PR_size         [ reduce using rule 112 (empty -> .) ]
+  ! PR_color        [ reduce using rule 112 (empty -> .) ]
+  ! ID              [ reduce using rule 112 (empty -> .) ]
+  ! PR_kameForw     [ reduce using rule 112 (empty -> .) ]
+  ! PR_kameBack     [ reduce using rule 112 (empty -> .) ]
+  ! PR_kameRot      [ reduce using rule 112 (empty -> .) ]
+  ! PR_loop         [ reduce using rule 112 (empty -> .) ]
+  ! PR_if           [ reduce using rule 112 (empty -> .) ]
+  ! PR_var          [ reduce using rule 112 (empty -> .) ]
 
     assignTo                       shift and go to state 35
     bloque                         shift and go to state 92
@@ -1344,10 +1350,10 @@ state 63
     (34) params -> tipo ID . moreParams
     (36) moreParams -> . TO_COMA tipo ID moreParams
     (37) moreParams -> . empty
-    (111) empty -> .
+    (112) empty -> .
 
     TO_COMA         shift and go to state 96
-    TO_PARCIERRA    reduce using rule 111 (empty -> .)
+    TO_PARCIERRA    reduce using rule 112 (empty -> .)
 
     empty                          shift and go to state 97
     moreParams                     shift and go to state 98
@@ -1417,15 +1423,20 @@ state 68
     (91) megaExp -> . maybeNot superExp anotherMega
     (92) maybeNot -> . PR_negacion
     (93) maybeNot -> . empty
-    (111) empty -> .
+    (112) empty -> .
 
     PR_negacion     shift and go to state 77
-    TO_PARABRE      reduce using rule 111 (empty -> .)
-    ID              reduce using rule 111 (empty -> .)
-    TO_NUM          reduce using rule 111 (empty -> .)
-    TO_FLOT         reduce using rule 111 (empty -> .)
-    PR_true         reduce using rule 111 (empty -> .)
-    PR_false        reduce using rule 111 (empty -> .)
+    TO_PARABRE      reduce using rule 112 (empty -> .)
+    ID              reduce using rule 112 (empty -> .)
+    PR_draw         reduce using rule 112 (empty -> .)
+    PR_circle       reduce using rule 112 (empty -> .)
+    PR_square       reduce using rule 112 (empty -> .)
+    PR_size         reduce using rule 112 (empty -> .)
+    PR_color        reduce using rule 112 (empty -> .)
+    TO_NUM          reduce using rule 112 (empty -> .)
+    TO_FLOT         reduce using rule 112 (empty -> .)
+    PR_true         reduce using rule 112 (empty -> .)
+    PR_false        reduce using rule 112 (empty -> .)
 
     maybeNot                       shift and go to state 75
     megaExp                        shift and go to state 101
@@ -1437,15 +1448,20 @@ state 69
     (91) megaExp -> . maybeNot superExp anotherMega
     (92) maybeNot -> . PR_negacion
     (93) maybeNot -> . empty
-    (111) empty -> .
+    (112) empty -> .
 
     PR_negacion     shift and go to state 77
-    TO_PARABRE      reduce using rule 111 (empty -> .)
-    ID              reduce using rule 111 (empty -> .)
-    TO_NUM          reduce using rule 111 (empty -> .)
-    TO_FLOT         reduce using rule 111 (empty -> .)
-    PR_true         reduce using rule 111 (empty -> .)
-    PR_false        reduce using rule 111 (empty -> .)
+    TO_PARABRE      reduce using rule 112 (empty -> .)
+    ID              reduce using rule 112 (empty -> .)
+    PR_draw         reduce using rule 112 (empty -> .)
+    PR_circle       reduce using rule 112 (empty -> .)
+    PR_square       reduce using rule 112 (empty -> .)
+    PR_size         reduce using rule 112 (empty -> .)
+    PR_color        reduce using rule 112 (empty -> .)
+    TO_NUM          reduce using rule 112 (empty -> .)
+    TO_FLOT         reduce using rule 112 (empty -> .)
+    PR_true         reduce using rule 112 (empty -> .)
+    PR_false        reduce using rule 112 (empty -> .)
 
     megaExp                        shift and go to state 102
     empty                          shift and go to state 78
@@ -1488,24 +1504,39 @@ state 72
     (103) term -> . fact anotherTerm
     (108) fact -> . TO_PARABRE megaExp TO_PARCIERRA
     (109) fact -> . ID arrayIndex
-    (110) fact -> . val
+    (110) fact -> . funcCall
+    (111) fact -> . val
+    (60) funcCall -> . funcCall1 funcCall2
+    (61) funcCall -> . PR_draw TO_PARABRE megaExp TO_PARCIERRA
+    (62) funcCall -> . PR_circle TO_PARABRE exp TO_PARCIERRA
+    (63) funcCall -> . PR_square TO_PARABRE exp TO_PARCIERRA
+    (64) funcCall -> . PR_size TO_PARABRE exp TO_PARCIERRA
+    (65) funcCall -> . PR_color TO_PARABRE colorChoice TO_PARCIERRA
     (2) val -> . TO_NUM
     (3) val -> . TO_FLOT
     (4) val -> . PR_true
     (5) val -> . PR_false
     (6) val -> . ID
+    (66) funcCall1 -> . ID TO_PARABRE
 
-    TO_PARABRE      shift and go to state 119
-    ID              shift and go to state 120
+    TO_PARABRE      shift and go to state 116
+    ID              shift and go to state 118
+    PR_draw         shift and go to state 37
+    PR_circle       shift and go to state 41
+    PR_square       shift and go to state 52
+    PR_size         shift and go to state 42
+    PR_color        shift and go to state 40
     TO_NUM          shift and go to state 117
-    TO_FLOT         shift and go to state 116
-    PR_true         shift and go to state 115
-    PR_false        shift and go to state 113
+    TO_FLOT         shift and go to state 113
+    PR_true         shift and go to state 112
+    PR_false        shift and go to state 115
 
-    term                           shift and go to state 112
+    term                           shift and go to state 119
     val                            shift and go to state 114
-    exp                            shift and go to state 118
-    fact                           shift and go to state 121
+    funcCall                       shift and go to state 120
+    funcCall1                      shift and go to state 55
+    exp                            shift and go to state 121
+    fact                           shift and go to state 122
 
 state 73
 
@@ -1514,24 +1545,39 @@ state 73
     (103) term -> . fact anotherTerm
     (108) fact -> . TO_PARABRE megaExp TO_PARCIERRA
     (109) fact -> . ID arrayIndex
-    (110) fact -> . val
+    (110) fact -> . funcCall
+    (111) fact -> . val
+    (60) funcCall -> . funcCall1 funcCall2
+    (61) funcCall -> . PR_draw TO_PARABRE megaExp TO_PARCIERRA
+    (62) funcCall -> . PR_circle TO_PARABRE exp TO_PARCIERRA
+    (63) funcCall -> . PR_square TO_PARABRE exp TO_PARCIERRA
+    (64) funcCall -> . PR_size TO_PARABRE exp TO_PARCIERRA
+    (65) funcCall -> . PR_color TO_PARABRE colorChoice TO_PARCIERRA
     (2) val -> . TO_NUM
     (3) val -> . TO_FLOT
     (4) val -> . PR_true
     (5) val -> . PR_false
     (6) val -> . ID
+    (66) funcCall1 -> . ID TO_PARABRE
 
-    TO_PARABRE      shift and go to state 119
-    ID              shift and go to state 120
+    TO_PARABRE      shift and go to state 116
+    ID              shift and go to state 118
+    PR_draw         shift and go to state 37
+    PR_circle       shift and go to state 41
+    PR_square       shift and go to state 52
+    PR_size         shift and go to state 42
+    PR_color        shift and go to state 40
     TO_NUM          shift and go to state 117
-    TO_FLOT         shift and go to state 116
-    PR_true         shift and go to state 115
-    PR_false        shift and go to state 113
+    TO_FLOT         shift and go to state 113
+    PR_true         shift and go to state 112
+    PR_false        shift and go to state 115
 
-    term                           shift and go to state 112
+    term                           shift and go to state 119
     val                            shift and go to state 114
-    exp                            shift and go to state 122
-    fact                           shift and go to state 121
+    funcCall                       shift and go to state 120
+    funcCall1                      shift and go to state 55
+    exp                            shift and go to state 123
+    fact                           shift and go to state 122
 
 state 74
 
@@ -1548,25 +1594,40 @@ state 75
     (103) term -> . fact anotherTerm
     (108) fact -> . TO_PARABRE megaExp TO_PARCIERRA
     (109) fact -> . ID arrayIndex
-    (110) fact -> . val
+    (110) fact -> . funcCall
+    (111) fact -> . val
+    (60) funcCall -> . funcCall1 funcCall2
+    (61) funcCall -> . PR_draw TO_PARABRE megaExp TO_PARCIERRA
+    (62) funcCall -> . PR_circle TO_PARABRE exp TO_PARCIERRA
+    (63) funcCall -> . PR_square TO_PARABRE exp TO_PARCIERRA
+    (64) funcCall -> . PR_size TO_PARABRE exp TO_PARCIERRA
+    (65) funcCall -> . PR_color TO_PARABRE colorChoice TO_PARCIERRA
     (2) val -> . TO_NUM
     (3) val -> . TO_FLOT
     (4) val -> . PR_true
     (5) val -> . PR_false
     (6) val -> . ID
+    (66) funcCall1 -> . ID TO_PARABRE
 
-    TO_PARABRE      shift and go to state 119
-    ID              shift and go to state 120
+    TO_PARABRE      shift and go to state 116
+    ID              shift and go to state 118
+    PR_draw         shift and go to state 37
+    PR_circle       shift and go to state 41
+    PR_square       shift and go to state 52
+    PR_size         shift and go to state 42
+    PR_color        shift and go to state 40
     TO_NUM          shift and go to state 117
-    TO_FLOT         shift and go to state 116
-    PR_true         shift and go to state 115
-    PR_false        shift and go to state 113
+    TO_FLOT         shift and go to state 113
+    PR_true         shift and go to state 112
+    PR_false        shift and go to state 115
 
-    term                           shift and go to state 112
+    term                           shift and go to state 119
     val                            shift and go to state 114
-    superExp                       shift and go to state 123
-    exp                            shift and go to state 124
-    fact                           shift and go to state 121
+    funcCall                       shift and go to state 120
+    superExp                       shift and go to state 124
+    funcCall1                      shift and go to state 55
+    exp                            shift and go to state 125
+    fact                           shift and go to state 122
 
 state 76
 
@@ -1594,6 +1655,11 @@ state 77
 
     TO_PARABRE      reduce using rule 92 (maybeNot -> PR_negacion .)
     ID              reduce using rule 92 (maybeNot -> PR_negacion .)
+    PR_draw         reduce using rule 92 (maybeNot -> PR_negacion .)
+    PR_circle       reduce using rule 92 (maybeNot -> PR_negacion .)
+    PR_square       reduce using rule 92 (maybeNot -> PR_negacion .)
+    PR_size         reduce using rule 92 (maybeNot -> PR_negacion .)
+    PR_color        reduce using rule 92 (maybeNot -> PR_negacion .)
     TO_NUM          reduce using rule 92 (maybeNot -> PR_negacion .)
     TO_FLOT         reduce using rule 92 (maybeNot -> PR_negacion .)
     PR_true         reduce using rule 92 (maybeNot -> PR_negacion .)
@@ -1606,6 +1672,11 @@ state 78
 
     TO_PARABRE      reduce using rule 93 (maybeNot -> empty .)
     ID              reduce using rule 93 (maybeNot -> empty .)
+    PR_draw         reduce using rule 93 (maybeNot -> empty .)
+    PR_circle       reduce using rule 93 (maybeNot -> empty .)
+    PR_square       reduce using rule 93 (maybeNot -> empty .)
+    PR_size         reduce using rule 93 (maybeNot -> empty .)
+    PR_color        reduce using rule 93 (maybeNot -> empty .)
     TO_NUM          reduce using rule 93 (maybeNot -> empty .)
     TO_FLOT         reduce using rule 93 (maybeNot -> empty .)
     PR_true         reduce using rule 93 (maybeNot -> empty .)
@@ -1619,33 +1690,48 @@ state 79
     (103) term -> . fact anotherTerm
     (108) fact -> . TO_PARABRE megaExp TO_PARCIERRA
     (109) fact -> . ID arrayIndex
-    (110) fact -> . val
+    (110) fact -> . funcCall
+    (111) fact -> . val
+    (60) funcCall -> . funcCall1 funcCall2
+    (61) funcCall -> . PR_draw TO_PARABRE megaExp TO_PARCIERRA
+    (62) funcCall -> . PR_circle TO_PARABRE exp TO_PARCIERRA
+    (63) funcCall -> . PR_square TO_PARABRE exp TO_PARCIERRA
+    (64) funcCall -> . PR_size TO_PARABRE exp TO_PARCIERRA
+    (65) funcCall -> . PR_color TO_PARABRE colorChoice TO_PARCIERRA
     (2) val -> . TO_NUM
     (3) val -> . TO_FLOT
     (4) val -> . PR_true
     (5) val -> . PR_false
     (6) val -> . ID
+    (66) funcCall1 -> . ID TO_PARABRE
 
-    TO_PARABRE      shift and go to state 119
-    ID              shift and go to state 120
+    TO_PARABRE      shift and go to state 116
+    ID              shift and go to state 118
+    PR_draw         shift and go to state 37
+    PR_circle       shift and go to state 41
+    PR_square       shift and go to state 52
+    PR_size         shift and go to state 42
+    PR_color        shift and go to state 40
     TO_NUM          shift and go to state 117
-    TO_FLOT         shift and go to state 116
-    PR_true         shift and go to state 115
-    PR_false        shift and go to state 113
+    TO_FLOT         shift and go to state 113
+    PR_true         shift and go to state 112
+    PR_false        shift and go to state 115
 
-    term                           shift and go to state 112
+    term                           shift and go to state 119
     val                            shift and go to state 114
-    exp                            shift and go to state 125
-    fact                           shift and go to state 121
+    funcCall                       shift and go to state 120
+    funcCall1                      shift and go to state 55
+    exp                            shift and go to state 126
+    fact                           shift and go to state 122
 
 state 80
 
     (42) loop -> loop1 loop2 . loop3
     (45) loop3 -> . TO_LLAABRE bloque TO_LLACIERRA
 
-    TO_LLAABRE      shift and go to state 127
+    TO_LLAABRE      shift and go to state 128
 
-    loop3                          shift and go to state 126
+    loop3                          shift and go to state 127
 
 state 81
 
@@ -1655,24 +1741,39 @@ state 81
     (103) term -> . fact anotherTerm
     (108) fact -> . TO_PARABRE megaExp TO_PARCIERRA
     (109) fact -> . ID arrayIndex
-    (110) fact -> . val
+    (110) fact -> . funcCall
+    (111) fact -> . val
+    (60) funcCall -> . funcCall1 funcCall2
+    (61) funcCall -> . PR_draw TO_PARABRE megaExp TO_PARCIERRA
+    (62) funcCall -> . PR_circle TO_PARABRE exp TO_PARCIERRA
+    (63) funcCall -> . PR_square TO_PARABRE exp TO_PARCIERRA
+    (64) funcCall -> . PR_size TO_PARABRE exp TO_PARCIERRA
+    (65) funcCall -> . PR_color TO_PARABRE colorChoice TO_PARCIERRA
     (2) val -> . TO_NUM
     (3) val -> . TO_FLOT
     (4) val -> . PR_true
     (5) val -> . PR_false
     (6) val -> . ID
+    (66) funcCall1 -> . ID TO_PARABRE
 
-    TO_PARABRE      shift and go to state 119
-    ID              shift and go to state 120
+    TO_PARABRE      shift and go to state 116
+    ID              shift and go to state 118
+    PR_draw         shift and go to state 37
+    PR_circle       shift and go to state 41
+    PR_square       shift and go to state 52
+    PR_size         shift and go to state 42
+    PR_color        shift and go to state 40
     TO_NUM          shift and go to state 117
-    TO_FLOT         shift and go to state 116
-    PR_true         shift and go to state 115
-    PR_false        shift and go to state 113
+    TO_FLOT         shift and go to state 113
+    PR_true         shift and go to state 112
+    PR_false        shift and go to state 115
 
-    term                           shift and go to state 112
+    term                           shift and go to state 119
     val                            shift and go to state 114
-    exp                            shift and go to state 128
-    fact                           shift and go to state 121
+    funcCall                       shift and go to state 120
+    funcCall1                      shift and go to state 55
+    exp                            shift and go to state 129
+    fact                           shift and go to state 122
 
 state 82
 
@@ -1733,24 +1834,39 @@ state 85
     (103) term -> . fact anotherTerm
     (108) fact -> . TO_PARABRE megaExp TO_PARCIERRA
     (109) fact -> . ID arrayIndex
-    (110) fact -> . val
+    (110) fact -> . funcCall
+    (111) fact -> . val
+    (60) funcCall -> . funcCall1 funcCall2
+    (61) funcCall -> . PR_draw TO_PARABRE megaExp TO_PARCIERRA
+    (62) funcCall -> . PR_circle TO_PARABRE exp TO_PARCIERRA
+    (63) funcCall -> . PR_square TO_PARABRE exp TO_PARCIERRA
+    (64) funcCall -> . PR_size TO_PARABRE exp TO_PARCIERRA
+    (65) funcCall -> . PR_color TO_PARABRE colorChoice TO_PARCIERRA
     (2) val -> . TO_NUM
     (3) val -> . TO_FLOT
     (4) val -> . PR_true
     (5) val -> . PR_false
     (6) val -> . ID
+    (66) funcCall1 -> . ID TO_PARABRE
 
-    TO_PARABRE      shift and go to state 119
-    ID              shift and go to state 120
+    TO_PARABRE      shift and go to state 116
+    ID              shift and go to state 118
+    PR_draw         shift and go to state 37
+    PR_circle       shift and go to state 41
+    PR_square       shift and go to state 52
+    PR_size         shift and go to state 42
+    PR_color        shift and go to state 40
     TO_NUM          shift and go to state 117
-    TO_FLOT         shift and go to state 116
-    PR_true         shift and go to state 115
-    PR_false        shift and go to state 113
+    TO_FLOT         shift and go to state 113
+    PR_true         shift and go to state 112
+    PR_false        shift and go to state 115
 
-    term                           shift and go to state 112
+    term                           shift and go to state 119
     val                            shift and go to state 114
-    exp                            shift and go to state 129
-    fact                           shift and go to state 121
+    funcCall                       shift and go to state 120
+    funcCall1                      shift and go to state 55
+    exp                            shift and go to state 130
+    fact                           shift and go to state 122
 
 state 86
 
@@ -1758,17 +1874,22 @@ state 86
     (91) megaExp -> . maybeNot superExp anotherMega
     (92) maybeNot -> . PR_negacion
     (93) maybeNot -> . empty
-    (111) empty -> .
+    (112) empty -> .
 
     PR_negacion     shift and go to state 77
-    TO_PARABRE      reduce using rule 111 (empty -> .)
-    ID              reduce using rule 111 (empty -> .)
-    TO_NUM          reduce using rule 111 (empty -> .)
-    TO_FLOT         reduce using rule 111 (empty -> .)
-    PR_true         reduce using rule 111 (empty -> .)
-    PR_false        reduce using rule 111 (empty -> .)
+    TO_PARABRE      reduce using rule 112 (empty -> .)
+    ID              reduce using rule 112 (empty -> .)
+    PR_draw         reduce using rule 112 (empty -> .)
+    PR_circle       reduce using rule 112 (empty -> .)
+    PR_square       reduce using rule 112 (empty -> .)
+    PR_size         reduce using rule 112 (empty -> .)
+    PR_color        reduce using rule 112 (empty -> .)
+    TO_NUM          reduce using rule 112 (empty -> .)
+    TO_FLOT         reduce using rule 112 (empty -> .)
+    PR_true         reduce using rule 112 (empty -> .)
+    PR_false        reduce using rule 112 (empty -> .)
 
-    megaExp                        shift and go to state 130
+    megaExp                        shift and go to state 131
     empty                          shift and go to state 78
     maybeNot                       shift and go to state 75
 
@@ -1790,6 +1911,22 @@ state 87
     PR_loop         reduce using rule 60 (funcCall -> funcCall1 funcCall2 .)
     PR_if           reduce using rule 60 (funcCall -> funcCall1 funcCall2 .)
     PR_var          reduce using rule 60 (funcCall -> funcCall1 funcCall2 .)
+    OP_MULT         reduce using rule 60 (funcCall -> funcCall1 funcCall2 .)
+    OP_DIV          reduce using rule 60 (funcCall -> funcCall1 funcCall2 .)
+    OP_RESID        reduce using rule 60 (funcCall -> funcCall1 funcCall2 .)
+    OP_MAS          reduce using rule 60 (funcCall -> funcCall1 funcCall2 .)
+    OP_MENOS        reduce using rule 60 (funcCall -> funcCall1 funcCall2 .)
+    PR_interseccion reduce using rule 60 (funcCall -> funcCall1 funcCall2 .)
+    PR_union        reduce using rule 60 (funcCall -> funcCall1 funcCall2 .)
+    TO_PARCIERRA    reduce using rule 60 (funcCall -> funcCall1 funcCall2 .)
+    TO_COMA         reduce using rule 60 (funcCall -> funcCall1 funcCall2 .)
+    TO_CORCIERRA    reduce using rule 60 (funcCall -> funcCall1 funcCall2 .)
+    OP_DOBLEIGUAL   reduce using rule 60 (funcCall -> funcCall1 funcCall2 .)
+    OP_DIFDE        reduce using rule 60 (funcCall -> funcCall1 funcCall2 .)
+    OP_MENORQUE     reduce using rule 60 (funcCall -> funcCall1 funcCall2 .)
+    OP_MENOROIGUAL  reduce using rule 60 (funcCall -> funcCall1 funcCall2 .)
+    OP_MAYORQUE     reduce using rule 60 (funcCall -> funcCall1 funcCall2 .)
+    OP_MAYOROIGUAL  reduce using rule 60 (funcCall -> funcCall1 funcCall2 .)
 
 
 state 88
@@ -1797,26 +1934,26 @@ state 88
     (78) paramVals -> unParam . moreParamVals
     (80) moreParamVals -> . TO_COMA unParam moreParamVals
     (81) moreParamVals -> . empty
-    (111) empty -> .
+    (112) empty -> .
 
-    TO_COMA         shift and go to state 132
-    TO_PARCIERRA    reduce using rule 111 (empty -> .)
+    TO_COMA         shift and go to state 133
+    TO_PARCIERRA    reduce using rule 112 (empty -> .)
 
-    moreParamVals                  shift and go to state 131
-    empty                          shift and go to state 133
+    moreParamVals                  shift and go to state 132
+    empty                          shift and go to state 134
 
 state 89
 
     (67) funcCall2 -> paramVals . TO_PARCIERRA
 
-    TO_PARCIERRA    shift and go to state 134
+    TO_PARCIERRA    shift and go to state 135
 
 
 state 90
 
     (82) unParam -> ID . TO_DOSPTOS megaExp
 
-    TO_DOSPTOS      shift and go to state 135
+    TO_DOSPTOS      shift and go to state 136
 
 
 state 91
@@ -1830,7 +1967,7 @@ state 92
 
     (86) compara2 -> bloque . TO_LLACIERRA maybeElse
 
-    TO_LLACIERRA    shift and go to state 136
+    TO_LLACIERRA    shift and go to state 137
 
 
 state 93
@@ -1882,7 +2019,7 @@ state 96
     PR_flot         shift and go to state 18
     PR_bool         shift and go to state 17
 
-    tipo                           shift and go to state 137
+    tipo                           shift and go to state 138
 
 state 97
 
@@ -1923,7 +2060,7 @@ state 100
     (13) arrayCreate -> TO_CORABRE TO_NUM . TO_CORCIERRA
     (14) arrayCreate -> TO_CORABRE TO_NUM . TO_CORCIERRA TO_CORABRE TO_NUM TO_CORCIERRA
 
-    TO_CORCIERRA    shift and go to state 138
+    TO_CORCIERRA    shift and go to state 139
 
 
 state 101
@@ -1950,7 +2087,7 @@ state 102
 
     (61) funcCall -> PR_draw TO_PARABRE megaExp . TO_PARCIERRA
 
-    TO_PARCIERRA    shift and go to state 139
+    TO_PARCIERRA    shift and go to state 140
 
 
 state 103
@@ -1971,7 +2108,7 @@ state 105
 
     (65) funcCall -> PR_color TO_PARABRE colorChoice . TO_PARCIERRA
 
-    TO_PARCIERRA    shift and go to state 140
+    TO_PARCIERRA    shift and go to state 141
 
 
 state 106
@@ -2018,117 +2155,6 @@ state 111
 
 state 112
 
-    (99) exp -> term . anotherExp
-    (100) anotherExp -> . OP_MAS exp
-    (101) anotherExp -> . OP_MENOS exp
-    (102) anotherExp -> . empty
-    (111) empty -> .
-
-    OP_MAS          shift and go to state 141
-    OP_MENOS        shift and go to state 143
-    TO_PARCIERRA    reduce using rule 111 (empty -> .)
-    OP_DOBLEIGUAL   reduce using rule 111 (empty -> .)
-    OP_DIFDE        reduce using rule 111 (empty -> .)
-    OP_MENORQUE     reduce using rule 111 (empty -> .)
-    OP_MENOROIGUAL  reduce using rule 111 (empty -> .)
-    OP_MAYORQUE     reduce using rule 111 (empty -> .)
-    OP_MAYOROIGUAL  reduce using rule 111 (empty -> .)
-    PR_interseccion reduce using rule 111 (empty -> .)
-    PR_union        reduce using rule 111 (empty -> .)
-    TO_UWU          reduce using rule 111 (empty -> .)
-    PR_return       reduce using rule 111 (empty -> .)
-    PR_draw         reduce using rule 111 (empty -> .)
-    PR_circle       reduce using rule 111 (empty -> .)
-    PR_square       reduce using rule 111 (empty -> .)
-    PR_size         reduce using rule 111 (empty -> .)
-    PR_color        reduce using rule 111 (empty -> .)
-    ID              reduce using rule 111 (empty -> .)
-    PR_kameForw     reduce using rule 111 (empty -> .)
-    PR_kameBack     reduce using rule 111 (empty -> .)
-    PR_kameRot      reduce using rule 111 (empty -> .)
-    PR_loop         reduce using rule 111 (empty -> .)
-    PR_if           reduce using rule 111 (empty -> .)
-    PR_var          reduce using rule 111 (empty -> .)
-    TO_COMA         reduce using rule 111 (empty -> .)
-    TO_CORCIERRA    reduce using rule 111 (empty -> .)
-
-    anotherExp                     shift and go to state 142
-    empty                          shift and go to state 144
-
-state 113
-
-    (5) val -> PR_false .
-
-    OP_MULT         reduce using rule 5 (val -> PR_false .)
-    OP_DIV          reduce using rule 5 (val -> PR_false .)
-    OP_RESID        reduce using rule 5 (val -> PR_false .)
-    OP_MAS          reduce using rule 5 (val -> PR_false .)
-    OP_MENOS        reduce using rule 5 (val -> PR_false .)
-    TO_PARCIERRA    reduce using rule 5 (val -> PR_false .)
-    OP_DOBLEIGUAL   reduce using rule 5 (val -> PR_false .)
-    OP_DIFDE        reduce using rule 5 (val -> PR_false .)
-    OP_MENORQUE     reduce using rule 5 (val -> PR_false .)
-    OP_MENOROIGUAL  reduce using rule 5 (val -> PR_false .)
-    OP_MAYORQUE     reduce using rule 5 (val -> PR_false .)
-    OP_MAYOROIGUAL  reduce using rule 5 (val -> PR_false .)
-    PR_interseccion reduce using rule 5 (val -> PR_false .)
-    PR_union        reduce using rule 5 (val -> PR_false .)
-    TO_UWU          reduce using rule 5 (val -> PR_false .)
-    PR_return       reduce using rule 5 (val -> PR_false .)
-    PR_draw         reduce using rule 5 (val -> PR_false .)
-    PR_circle       reduce using rule 5 (val -> PR_false .)
-    PR_square       reduce using rule 5 (val -> PR_false .)
-    PR_size         reduce using rule 5 (val -> PR_false .)
-    PR_color        reduce using rule 5 (val -> PR_false .)
-    ID              reduce using rule 5 (val -> PR_false .)
-    PR_kameForw     reduce using rule 5 (val -> PR_false .)
-    PR_kameBack     reduce using rule 5 (val -> PR_false .)
-    PR_kameRot      reduce using rule 5 (val -> PR_false .)
-    PR_loop         reduce using rule 5 (val -> PR_false .)
-    PR_if           reduce using rule 5 (val -> PR_false .)
-    PR_var          reduce using rule 5 (val -> PR_false .)
-    TO_COMA         reduce using rule 5 (val -> PR_false .)
-    TO_CORCIERRA    reduce using rule 5 (val -> PR_false .)
-
-
-state 114
-
-    (110) fact -> val .
-
-    OP_MULT         reduce using rule 110 (fact -> val .)
-    OP_DIV          reduce using rule 110 (fact -> val .)
-    OP_RESID        reduce using rule 110 (fact -> val .)
-    OP_MAS          reduce using rule 110 (fact -> val .)
-    OP_MENOS        reduce using rule 110 (fact -> val .)
-    TO_CORCIERRA    reduce using rule 110 (fact -> val .)
-    TO_PARCIERRA    reduce using rule 110 (fact -> val .)
-    OP_DOBLEIGUAL   reduce using rule 110 (fact -> val .)
-    OP_DIFDE        reduce using rule 110 (fact -> val .)
-    OP_MENORQUE     reduce using rule 110 (fact -> val .)
-    OP_MENOROIGUAL  reduce using rule 110 (fact -> val .)
-    OP_MAYORQUE     reduce using rule 110 (fact -> val .)
-    OP_MAYOROIGUAL  reduce using rule 110 (fact -> val .)
-    PR_interseccion reduce using rule 110 (fact -> val .)
-    PR_union        reduce using rule 110 (fact -> val .)
-    TO_UWU          reduce using rule 110 (fact -> val .)
-    PR_return       reduce using rule 110 (fact -> val .)
-    PR_draw         reduce using rule 110 (fact -> val .)
-    PR_circle       reduce using rule 110 (fact -> val .)
-    PR_square       reduce using rule 110 (fact -> val .)
-    PR_size         reduce using rule 110 (fact -> val .)
-    PR_color        reduce using rule 110 (fact -> val .)
-    ID              reduce using rule 110 (fact -> val .)
-    PR_kameForw     reduce using rule 110 (fact -> val .)
-    PR_kameBack     reduce using rule 110 (fact -> val .)
-    PR_kameRot      reduce using rule 110 (fact -> val .)
-    PR_loop         reduce using rule 110 (fact -> val .)
-    PR_if           reduce using rule 110 (fact -> val .)
-    PR_var          reduce using rule 110 (fact -> val .)
-    TO_COMA         reduce using rule 110 (fact -> val .)
-
-
-state 115
-
     (4) val -> PR_true .
 
     OP_MULT         reduce using rule 4 (val -> PR_true .)
@@ -2136,13 +2162,6 @@ state 115
     OP_RESID        reduce using rule 4 (val -> PR_true .)
     OP_MAS          reduce using rule 4 (val -> PR_true .)
     OP_MENOS        reduce using rule 4 (val -> PR_true .)
-    TO_PARCIERRA    reduce using rule 4 (val -> PR_true .)
-    OP_DOBLEIGUAL   reduce using rule 4 (val -> PR_true .)
-    OP_DIFDE        reduce using rule 4 (val -> PR_true .)
-    OP_MENORQUE     reduce using rule 4 (val -> PR_true .)
-    OP_MENOROIGUAL  reduce using rule 4 (val -> PR_true .)
-    OP_MAYORQUE     reduce using rule 4 (val -> PR_true .)
-    OP_MAYOROIGUAL  reduce using rule 4 (val -> PR_true .)
     PR_interseccion reduce using rule 4 (val -> PR_true .)
     PR_union        reduce using rule 4 (val -> PR_true .)
     TO_UWU          reduce using rule 4 (val -> PR_true .)
@@ -2159,11 +2178,18 @@ state 115
     PR_loop         reduce using rule 4 (val -> PR_true .)
     PR_if           reduce using rule 4 (val -> PR_true .)
     PR_var          reduce using rule 4 (val -> PR_true .)
+    TO_PARCIERRA    reduce using rule 4 (val -> PR_true .)
     TO_COMA         reduce using rule 4 (val -> PR_true .)
+    OP_DOBLEIGUAL   reduce using rule 4 (val -> PR_true .)
+    OP_DIFDE        reduce using rule 4 (val -> PR_true .)
+    OP_MENORQUE     reduce using rule 4 (val -> PR_true .)
+    OP_MENOROIGUAL  reduce using rule 4 (val -> PR_true .)
+    OP_MAYORQUE     reduce using rule 4 (val -> PR_true .)
+    OP_MAYOROIGUAL  reduce using rule 4 (val -> PR_true .)
     TO_CORCIERRA    reduce using rule 4 (val -> PR_true .)
 
 
-state 116
+state 113
 
     (3) val -> TO_FLOT .
 
@@ -2172,13 +2198,6 @@ state 116
     OP_RESID        reduce using rule 3 (val -> TO_FLOT .)
     OP_MAS          reduce using rule 3 (val -> TO_FLOT .)
     OP_MENOS        reduce using rule 3 (val -> TO_FLOT .)
-    TO_PARCIERRA    reduce using rule 3 (val -> TO_FLOT .)
-    OP_DOBLEIGUAL   reduce using rule 3 (val -> TO_FLOT .)
-    OP_DIFDE        reduce using rule 3 (val -> TO_FLOT .)
-    OP_MENORQUE     reduce using rule 3 (val -> TO_FLOT .)
-    OP_MENOROIGUAL  reduce using rule 3 (val -> TO_FLOT .)
-    OP_MAYORQUE     reduce using rule 3 (val -> TO_FLOT .)
-    OP_MAYOROIGUAL  reduce using rule 3 (val -> TO_FLOT .)
     PR_interseccion reduce using rule 3 (val -> TO_FLOT .)
     PR_union        reduce using rule 3 (val -> TO_FLOT .)
     TO_UWU          reduce using rule 3 (val -> TO_FLOT .)
@@ -2195,9 +2214,113 @@ state 116
     PR_loop         reduce using rule 3 (val -> TO_FLOT .)
     PR_if           reduce using rule 3 (val -> TO_FLOT .)
     PR_var          reduce using rule 3 (val -> TO_FLOT .)
+    TO_PARCIERRA    reduce using rule 3 (val -> TO_FLOT .)
     TO_COMA         reduce using rule 3 (val -> TO_FLOT .)
+    OP_DOBLEIGUAL   reduce using rule 3 (val -> TO_FLOT .)
+    OP_DIFDE        reduce using rule 3 (val -> TO_FLOT .)
+    OP_MENORQUE     reduce using rule 3 (val -> TO_FLOT .)
+    OP_MENOROIGUAL  reduce using rule 3 (val -> TO_FLOT .)
+    OP_MAYORQUE     reduce using rule 3 (val -> TO_FLOT .)
+    OP_MAYOROIGUAL  reduce using rule 3 (val -> TO_FLOT .)
     TO_CORCIERRA    reduce using rule 3 (val -> TO_FLOT .)
 
+
+state 114
+
+    (111) fact -> val .
+
+    OP_MULT         reduce using rule 111 (fact -> val .)
+    OP_DIV          reduce using rule 111 (fact -> val .)
+    OP_RESID        reduce using rule 111 (fact -> val .)
+    OP_MAS          reduce using rule 111 (fact -> val .)
+    OP_MENOS        reduce using rule 111 (fact -> val .)
+    TO_CORCIERRA    reduce using rule 111 (fact -> val .)
+    TO_PARCIERRA    reduce using rule 111 (fact -> val .)
+    OP_DOBLEIGUAL   reduce using rule 111 (fact -> val .)
+    OP_DIFDE        reduce using rule 111 (fact -> val .)
+    OP_MENORQUE     reduce using rule 111 (fact -> val .)
+    OP_MENOROIGUAL  reduce using rule 111 (fact -> val .)
+    OP_MAYORQUE     reduce using rule 111 (fact -> val .)
+    OP_MAYOROIGUAL  reduce using rule 111 (fact -> val .)
+    PR_interseccion reduce using rule 111 (fact -> val .)
+    PR_union        reduce using rule 111 (fact -> val .)
+    TO_UWU          reduce using rule 111 (fact -> val .)
+    PR_return       reduce using rule 111 (fact -> val .)
+    PR_draw         reduce using rule 111 (fact -> val .)
+    PR_circle       reduce using rule 111 (fact -> val .)
+    PR_square       reduce using rule 111 (fact -> val .)
+    PR_size         reduce using rule 111 (fact -> val .)
+    PR_color        reduce using rule 111 (fact -> val .)
+    ID              reduce using rule 111 (fact -> val .)
+    PR_kameForw     reduce using rule 111 (fact -> val .)
+    PR_kameBack     reduce using rule 111 (fact -> val .)
+    PR_kameRot      reduce using rule 111 (fact -> val .)
+    PR_loop         reduce using rule 111 (fact -> val .)
+    PR_if           reduce using rule 111 (fact -> val .)
+    PR_var          reduce using rule 111 (fact -> val .)
+    TO_COMA         reduce using rule 111 (fact -> val .)
+
+
+state 115
+
+    (5) val -> PR_false .
+
+    OP_MULT         reduce using rule 5 (val -> PR_false .)
+    OP_DIV          reduce using rule 5 (val -> PR_false .)
+    OP_RESID        reduce using rule 5 (val -> PR_false .)
+    OP_MAS          reduce using rule 5 (val -> PR_false .)
+    OP_MENOS        reduce using rule 5 (val -> PR_false .)
+    PR_interseccion reduce using rule 5 (val -> PR_false .)
+    PR_union        reduce using rule 5 (val -> PR_false .)
+    TO_UWU          reduce using rule 5 (val -> PR_false .)
+    PR_return       reduce using rule 5 (val -> PR_false .)
+    PR_draw         reduce using rule 5 (val -> PR_false .)
+    PR_circle       reduce using rule 5 (val -> PR_false .)
+    PR_square       reduce using rule 5 (val -> PR_false .)
+    PR_size         reduce using rule 5 (val -> PR_false .)
+    PR_color        reduce using rule 5 (val -> PR_false .)
+    ID              reduce using rule 5 (val -> PR_false .)
+    PR_kameForw     reduce using rule 5 (val -> PR_false .)
+    PR_kameBack     reduce using rule 5 (val -> PR_false .)
+    PR_kameRot      reduce using rule 5 (val -> PR_false .)
+    PR_loop         reduce using rule 5 (val -> PR_false .)
+    PR_if           reduce using rule 5 (val -> PR_false .)
+    PR_var          reduce using rule 5 (val -> PR_false .)
+    TO_PARCIERRA    reduce using rule 5 (val -> PR_false .)
+    TO_COMA         reduce using rule 5 (val -> PR_false .)
+    OP_DOBLEIGUAL   reduce using rule 5 (val -> PR_false .)
+    OP_DIFDE        reduce using rule 5 (val -> PR_false .)
+    OP_MENORQUE     reduce using rule 5 (val -> PR_false .)
+    OP_MENOROIGUAL  reduce using rule 5 (val -> PR_false .)
+    OP_MAYORQUE     reduce using rule 5 (val -> PR_false .)
+    OP_MAYOROIGUAL  reduce using rule 5 (val -> PR_false .)
+    TO_CORCIERRA    reduce using rule 5 (val -> PR_false .)
+
+
+state 116
+
+    (108) fact -> TO_PARABRE . megaExp TO_PARCIERRA
+    (91) megaExp -> . maybeNot superExp anotherMega
+    (92) maybeNot -> . PR_negacion
+    (93) maybeNot -> . empty
+    (112) empty -> .
+
+    PR_negacion     shift and go to state 77
+    TO_PARABRE      reduce using rule 112 (empty -> .)
+    ID              reduce using rule 112 (empty -> .)
+    PR_draw         reduce using rule 112 (empty -> .)
+    PR_circle       reduce using rule 112 (empty -> .)
+    PR_square       reduce using rule 112 (empty -> .)
+    PR_size         reduce using rule 112 (empty -> .)
+    PR_color        reduce using rule 112 (empty -> .)
+    TO_NUM          reduce using rule 112 (empty -> .)
+    TO_FLOT         reduce using rule 112 (empty -> .)
+    PR_true         reduce using rule 112 (empty -> .)
+    PR_false        reduce using rule 112 (empty -> .)
+
+    megaExp                        shift and go to state 142
+    empty                          shift and go to state 78
+    maybeNot                       shift and go to state 75
 
 state 117
 
@@ -2208,13 +2331,6 @@ state 117
     OP_RESID        reduce using rule 2 (val -> TO_NUM .)
     OP_MAS          reduce using rule 2 (val -> TO_NUM .)
     OP_MENOS        reduce using rule 2 (val -> TO_NUM .)
-    TO_PARCIERRA    reduce using rule 2 (val -> TO_NUM .)
-    OP_DOBLEIGUAL   reduce using rule 2 (val -> TO_NUM .)
-    OP_DIFDE        reduce using rule 2 (val -> TO_NUM .)
-    OP_MENORQUE     reduce using rule 2 (val -> TO_NUM .)
-    OP_MENOROIGUAL  reduce using rule 2 (val -> TO_NUM .)
-    OP_MAYORQUE     reduce using rule 2 (val -> TO_NUM .)
-    OP_MAYOROIGUAL  reduce using rule 2 (val -> TO_NUM .)
     PR_interseccion reduce using rule 2 (val -> TO_NUM .)
     PR_union        reduce using rule 2 (val -> TO_NUM .)
     TO_UWU          reduce using rule 2 (val -> TO_NUM .)
@@ -2231,45 +2347,26 @@ state 117
     PR_loop         reduce using rule 2 (val -> TO_NUM .)
     PR_if           reduce using rule 2 (val -> TO_NUM .)
     PR_var          reduce using rule 2 (val -> TO_NUM .)
+    TO_PARCIERRA    reduce using rule 2 (val -> TO_NUM .)
     TO_COMA         reduce using rule 2 (val -> TO_NUM .)
+    OP_DOBLEIGUAL   reduce using rule 2 (val -> TO_NUM .)
+    OP_DIFDE        reduce using rule 2 (val -> TO_NUM .)
+    OP_MENORQUE     reduce using rule 2 (val -> TO_NUM .)
+    OP_MENOROIGUAL  reduce using rule 2 (val -> TO_NUM .)
+    OP_MAYORQUE     reduce using rule 2 (val -> TO_NUM .)
+    OP_MAYOROIGUAL  reduce using rule 2 (val -> TO_NUM .)
     TO_CORCIERRA    reduce using rule 2 (val -> TO_NUM .)
 
 
 state 118
 
-    (62) funcCall -> PR_circle TO_PARABRE exp . TO_PARCIERRA
-
-    TO_PARCIERRA    shift and go to state 145
-
-
-state 119
-
-    (108) fact -> TO_PARABRE . megaExp TO_PARCIERRA
-    (91) megaExp -> . maybeNot superExp anotherMega
-    (92) maybeNot -> . PR_negacion
-    (93) maybeNot -> . empty
-    (111) empty -> .
-
-    PR_negacion     shift and go to state 77
-    TO_PARABRE      reduce using rule 111 (empty -> .)
-    ID              reduce using rule 111 (empty -> .)
-    TO_NUM          reduce using rule 111 (empty -> .)
-    TO_FLOT         reduce using rule 111 (empty -> .)
-    PR_true         reduce using rule 111 (empty -> .)
-    PR_false        reduce using rule 111 (empty -> .)
-
-    megaExp                        shift and go to state 146
-    empty                          shift and go to state 78
-    maybeNot                       shift and go to state 75
-
-state 120
-
     (109) fact -> ID . arrayIndex
     (6) val -> ID .
+    (66) funcCall1 -> ID . TO_PARABRE
     (16) arrayIndex -> . TO_CORABRE exp TO_CORCIERRA
     (17) arrayIndex -> . TO_CORABRE exp TO_CORCIERRA TO_CORABRE exp TO_CORCIERRA
     (18) arrayIndex -> . empty
-    (111) empty -> .
+    (112) empty -> .
 
   ! reduce/reduce conflict for OP_MULT resolved using rule 6 (val -> ID .)
   ! reduce/reduce conflict for OP_DIV resolved using rule 6 (val -> ID .)
@@ -2306,13 +2403,6 @@ state 120
     OP_RESID        reduce using rule 6 (val -> ID .)
     OP_MAS          reduce using rule 6 (val -> ID .)
     OP_MENOS        reduce using rule 6 (val -> ID .)
-    TO_PARCIERRA    reduce using rule 6 (val -> ID .)
-    OP_DOBLEIGUAL   reduce using rule 6 (val -> ID .)
-    OP_DIFDE        reduce using rule 6 (val -> ID .)
-    OP_MENORQUE     reduce using rule 6 (val -> ID .)
-    OP_MENOROIGUAL  reduce using rule 6 (val -> ID .)
-    OP_MAYORQUE     reduce using rule 6 (val -> ID .)
-    OP_MAYOROIGUAL  reduce using rule 6 (val -> ID .)
     PR_interseccion reduce using rule 6 (val -> ID .)
     PR_union        reduce using rule 6 (val -> ID .)
     TO_UWU          reduce using rule 6 (val -> ID .)
@@ -2329,127 +2419,217 @@ state 120
     PR_loop         reduce using rule 6 (val -> ID .)
     PR_if           reduce using rule 6 (val -> ID .)
     PR_var          reduce using rule 6 (val -> ID .)
+    TO_PARCIERRA    reduce using rule 6 (val -> ID .)
     TO_COMA         reduce using rule 6 (val -> ID .)
+    OP_DOBLEIGUAL   reduce using rule 6 (val -> ID .)
+    OP_DIFDE        reduce using rule 6 (val -> ID .)
+    OP_MENORQUE     reduce using rule 6 (val -> ID .)
+    OP_MENOROIGUAL  reduce using rule 6 (val -> ID .)
+    OP_MAYORQUE     reduce using rule 6 (val -> ID .)
+    OP_MAYOROIGUAL  reduce using rule 6 (val -> ID .)
     TO_CORCIERRA    reduce using rule 6 (val -> ID .)
+    TO_PARABRE      shift and go to state 83
     TO_CORABRE      shift and go to state 81
 
-  ! OP_MULT         [ reduce using rule 111 (empty -> .) ]
-  ! OP_DIV          [ reduce using rule 111 (empty -> .) ]
-  ! OP_RESID        [ reduce using rule 111 (empty -> .) ]
-  ! OP_MAS          [ reduce using rule 111 (empty -> .) ]
-  ! OP_MENOS        [ reduce using rule 111 (empty -> .) ]
-  ! TO_PARCIERRA    [ reduce using rule 111 (empty -> .) ]
-  ! OP_DOBLEIGUAL   [ reduce using rule 111 (empty -> .) ]
-  ! OP_DIFDE        [ reduce using rule 111 (empty -> .) ]
-  ! OP_MENORQUE     [ reduce using rule 111 (empty -> .) ]
-  ! OP_MENOROIGUAL  [ reduce using rule 111 (empty -> .) ]
-  ! OP_MAYORQUE     [ reduce using rule 111 (empty -> .) ]
-  ! OP_MAYOROIGUAL  [ reduce using rule 111 (empty -> .) ]
-  ! PR_interseccion [ reduce using rule 111 (empty -> .) ]
-  ! PR_union        [ reduce using rule 111 (empty -> .) ]
-  ! TO_UWU          [ reduce using rule 111 (empty -> .) ]
-  ! PR_return       [ reduce using rule 111 (empty -> .) ]
-  ! PR_draw         [ reduce using rule 111 (empty -> .) ]
-  ! PR_circle       [ reduce using rule 111 (empty -> .) ]
-  ! PR_square       [ reduce using rule 111 (empty -> .) ]
-  ! PR_size         [ reduce using rule 111 (empty -> .) ]
-  ! PR_color        [ reduce using rule 111 (empty -> .) ]
-  ! ID              [ reduce using rule 111 (empty -> .) ]
-  ! PR_kameForw     [ reduce using rule 111 (empty -> .) ]
-  ! PR_kameBack     [ reduce using rule 111 (empty -> .) ]
-  ! PR_kameRot      [ reduce using rule 111 (empty -> .) ]
-  ! PR_loop         [ reduce using rule 111 (empty -> .) ]
-  ! PR_if           [ reduce using rule 111 (empty -> .) ]
-  ! PR_var          [ reduce using rule 111 (empty -> .) ]
-  ! TO_COMA         [ reduce using rule 111 (empty -> .) ]
-  ! TO_CORCIERRA    [ reduce using rule 111 (empty -> .) ]
+  ! OP_MULT         [ reduce using rule 112 (empty -> .) ]
+  ! OP_DIV          [ reduce using rule 112 (empty -> .) ]
+  ! OP_RESID        [ reduce using rule 112 (empty -> .) ]
+  ! OP_MAS          [ reduce using rule 112 (empty -> .) ]
+  ! OP_MENOS        [ reduce using rule 112 (empty -> .) ]
+  ! TO_PARCIERRA    [ reduce using rule 112 (empty -> .) ]
+  ! OP_DOBLEIGUAL   [ reduce using rule 112 (empty -> .) ]
+  ! OP_DIFDE        [ reduce using rule 112 (empty -> .) ]
+  ! OP_MENORQUE     [ reduce using rule 112 (empty -> .) ]
+  ! OP_MENOROIGUAL  [ reduce using rule 112 (empty -> .) ]
+  ! OP_MAYORQUE     [ reduce using rule 112 (empty -> .) ]
+  ! OP_MAYOROIGUAL  [ reduce using rule 112 (empty -> .) ]
+  ! PR_interseccion [ reduce using rule 112 (empty -> .) ]
+  ! PR_union        [ reduce using rule 112 (empty -> .) ]
+  ! TO_UWU          [ reduce using rule 112 (empty -> .) ]
+  ! PR_return       [ reduce using rule 112 (empty -> .) ]
+  ! PR_draw         [ reduce using rule 112 (empty -> .) ]
+  ! PR_circle       [ reduce using rule 112 (empty -> .) ]
+  ! PR_square       [ reduce using rule 112 (empty -> .) ]
+  ! PR_size         [ reduce using rule 112 (empty -> .) ]
+  ! PR_color        [ reduce using rule 112 (empty -> .) ]
+  ! ID              [ reduce using rule 112 (empty -> .) ]
+  ! PR_kameForw     [ reduce using rule 112 (empty -> .) ]
+  ! PR_kameBack     [ reduce using rule 112 (empty -> .) ]
+  ! PR_kameRot      [ reduce using rule 112 (empty -> .) ]
+  ! PR_loop         [ reduce using rule 112 (empty -> .) ]
+  ! PR_if           [ reduce using rule 112 (empty -> .) ]
+  ! PR_var          [ reduce using rule 112 (empty -> .) ]
+  ! TO_COMA         [ reduce using rule 112 (empty -> .) ]
+  ! TO_CORCIERRA    [ reduce using rule 112 (empty -> .) ]
 
-    arrayIndex                     shift and go to state 147
+    arrayIndex                     shift and go to state 143
     empty                          shift and go to state 84
 
+state 119
+
+    (99) exp -> term . anotherExp
+    (100) anotherExp -> . OP_MAS exp
+    (101) anotherExp -> . OP_MENOS exp
+    (102) anotherExp -> . empty
+    (112) empty -> .
+
+    OP_MAS          shift and go to state 144
+    OP_MENOS        shift and go to state 146
+    TO_PARCIERRA    reduce using rule 112 (empty -> .)
+    OP_DOBLEIGUAL   reduce using rule 112 (empty -> .)
+    OP_DIFDE        reduce using rule 112 (empty -> .)
+    OP_MENORQUE     reduce using rule 112 (empty -> .)
+    OP_MENOROIGUAL  reduce using rule 112 (empty -> .)
+    OP_MAYORQUE     reduce using rule 112 (empty -> .)
+    OP_MAYOROIGUAL  reduce using rule 112 (empty -> .)
+    PR_interseccion reduce using rule 112 (empty -> .)
+    PR_union        reduce using rule 112 (empty -> .)
+    TO_UWU          reduce using rule 112 (empty -> .)
+    PR_return       reduce using rule 112 (empty -> .)
+    PR_draw         reduce using rule 112 (empty -> .)
+    PR_circle       reduce using rule 112 (empty -> .)
+    PR_square       reduce using rule 112 (empty -> .)
+    PR_size         reduce using rule 112 (empty -> .)
+    PR_color        reduce using rule 112 (empty -> .)
+    ID              reduce using rule 112 (empty -> .)
+    PR_kameForw     reduce using rule 112 (empty -> .)
+    PR_kameBack     reduce using rule 112 (empty -> .)
+    PR_kameRot      reduce using rule 112 (empty -> .)
+    PR_loop         reduce using rule 112 (empty -> .)
+    PR_if           reduce using rule 112 (empty -> .)
+    PR_var          reduce using rule 112 (empty -> .)
+    TO_COMA         reduce using rule 112 (empty -> .)
+    TO_CORCIERRA    reduce using rule 112 (empty -> .)
+
+    anotherExp                     shift and go to state 145
+    empty                          shift and go to state 147
+
+state 120
+
+    (110) fact -> funcCall .
+
+    OP_MULT         reduce using rule 110 (fact -> funcCall .)
+    OP_DIV          reduce using rule 110 (fact -> funcCall .)
+    OP_RESID        reduce using rule 110 (fact -> funcCall .)
+    OP_MAS          reduce using rule 110 (fact -> funcCall .)
+    OP_MENOS        reduce using rule 110 (fact -> funcCall .)
+    TO_CORCIERRA    reduce using rule 110 (fact -> funcCall .)
+    TO_PARCIERRA    reduce using rule 110 (fact -> funcCall .)
+    OP_DOBLEIGUAL   reduce using rule 110 (fact -> funcCall .)
+    OP_DIFDE        reduce using rule 110 (fact -> funcCall .)
+    OP_MENORQUE     reduce using rule 110 (fact -> funcCall .)
+    OP_MENOROIGUAL  reduce using rule 110 (fact -> funcCall .)
+    OP_MAYORQUE     reduce using rule 110 (fact -> funcCall .)
+    OP_MAYOROIGUAL  reduce using rule 110 (fact -> funcCall .)
+    PR_interseccion reduce using rule 110 (fact -> funcCall .)
+    PR_union        reduce using rule 110 (fact -> funcCall .)
+    TO_UWU          reduce using rule 110 (fact -> funcCall .)
+    PR_return       reduce using rule 110 (fact -> funcCall .)
+    PR_draw         reduce using rule 110 (fact -> funcCall .)
+    PR_circle       reduce using rule 110 (fact -> funcCall .)
+    PR_square       reduce using rule 110 (fact -> funcCall .)
+    PR_size         reduce using rule 110 (fact -> funcCall .)
+    PR_color        reduce using rule 110 (fact -> funcCall .)
+    ID              reduce using rule 110 (fact -> funcCall .)
+    PR_kameForw     reduce using rule 110 (fact -> funcCall .)
+    PR_kameBack     reduce using rule 110 (fact -> funcCall .)
+    PR_kameRot      reduce using rule 110 (fact -> funcCall .)
+    PR_loop         reduce using rule 110 (fact -> funcCall .)
+    PR_if           reduce using rule 110 (fact -> funcCall .)
+    PR_var          reduce using rule 110 (fact -> funcCall .)
+    TO_COMA         reduce using rule 110 (fact -> funcCall .)
+
+
 state 121
+
+    (62) funcCall -> PR_circle TO_PARABRE exp . TO_PARCIERRA
+
+    TO_PARCIERRA    shift and go to state 148
+
+
+state 122
 
     (103) term -> fact . anotherTerm
     (104) anotherTerm -> . OP_MULT term
     (105) anotherTerm -> . OP_DIV term
     (106) anotherTerm -> . OP_RESID term
     (107) anotherTerm -> . empty
-    (111) empty -> .
+    (112) empty -> .
 
-    OP_MULT         shift and go to state 150
-    OP_DIV          shift and go to state 151
-    OP_RESID        shift and go to state 149
-    OP_MAS          reduce using rule 111 (empty -> .)
-    OP_MENOS        reduce using rule 111 (empty -> .)
-    TO_PARCIERRA    reduce using rule 111 (empty -> .)
-    OP_DOBLEIGUAL   reduce using rule 111 (empty -> .)
-    OP_DIFDE        reduce using rule 111 (empty -> .)
-    OP_MENORQUE     reduce using rule 111 (empty -> .)
-    OP_MENOROIGUAL  reduce using rule 111 (empty -> .)
-    OP_MAYORQUE     reduce using rule 111 (empty -> .)
-    OP_MAYOROIGUAL  reduce using rule 111 (empty -> .)
-    PR_interseccion reduce using rule 111 (empty -> .)
-    PR_union        reduce using rule 111 (empty -> .)
-    TO_UWU          reduce using rule 111 (empty -> .)
-    PR_return       reduce using rule 111 (empty -> .)
-    PR_draw         reduce using rule 111 (empty -> .)
-    PR_circle       reduce using rule 111 (empty -> .)
-    PR_square       reduce using rule 111 (empty -> .)
-    PR_size         reduce using rule 111 (empty -> .)
-    PR_color        reduce using rule 111 (empty -> .)
-    ID              reduce using rule 111 (empty -> .)
-    PR_kameForw     reduce using rule 111 (empty -> .)
-    PR_kameBack     reduce using rule 111 (empty -> .)
-    PR_kameRot      reduce using rule 111 (empty -> .)
-    PR_loop         reduce using rule 111 (empty -> .)
-    PR_if           reduce using rule 111 (empty -> .)
-    PR_var          reduce using rule 111 (empty -> .)
-    TO_COMA         reduce using rule 111 (empty -> .)
-    TO_CORCIERRA    reduce using rule 111 (empty -> .)
+    OP_MULT         shift and go to state 151
+    OP_DIV          shift and go to state 152
+    OP_RESID        shift and go to state 150
+    OP_MAS          reduce using rule 112 (empty -> .)
+    OP_MENOS        reduce using rule 112 (empty -> .)
+    TO_PARCIERRA    reduce using rule 112 (empty -> .)
+    OP_DOBLEIGUAL   reduce using rule 112 (empty -> .)
+    OP_DIFDE        reduce using rule 112 (empty -> .)
+    OP_MENORQUE     reduce using rule 112 (empty -> .)
+    OP_MENOROIGUAL  reduce using rule 112 (empty -> .)
+    OP_MAYORQUE     reduce using rule 112 (empty -> .)
+    OP_MAYOROIGUAL  reduce using rule 112 (empty -> .)
+    PR_interseccion reduce using rule 112 (empty -> .)
+    PR_union        reduce using rule 112 (empty -> .)
+    TO_UWU          reduce using rule 112 (empty -> .)
+    PR_return       reduce using rule 112 (empty -> .)
+    PR_draw         reduce using rule 112 (empty -> .)
+    PR_circle       reduce using rule 112 (empty -> .)
+    PR_square       reduce using rule 112 (empty -> .)
+    PR_size         reduce using rule 112 (empty -> .)
+    PR_color        reduce using rule 112 (empty -> .)
+    ID              reduce using rule 112 (empty -> .)
+    PR_kameForw     reduce using rule 112 (empty -> .)
+    PR_kameBack     reduce using rule 112 (empty -> .)
+    PR_kameRot      reduce using rule 112 (empty -> .)
+    PR_loop         reduce using rule 112 (empty -> .)
+    PR_if           reduce using rule 112 (empty -> .)
+    PR_var          reduce using rule 112 (empty -> .)
+    TO_COMA         reduce using rule 112 (empty -> .)
+    TO_CORCIERRA    reduce using rule 112 (empty -> .)
 
-    anotherTerm                    shift and go to state 148
-    empty                          shift and go to state 152
+    anotherTerm                    shift and go to state 149
+    empty                          shift and go to state 153
 
-state 122
+state 123
 
     (64) funcCall -> PR_size TO_PARABRE exp . TO_PARCIERRA
 
-    TO_PARCIERRA    shift and go to state 153
+    TO_PARCIERRA    shift and go to state 154
 
 
-state 123
+state 124
 
     (91) megaExp -> maybeNot superExp . anotherMega
     (94) anotherMega -> . opLogico megaExp
     (95) anotherMega -> . empty
     (40) opLogico -> . PR_interseccion
     (41) opLogico -> . PR_union
-    (111) empty -> .
+    (112) empty -> .
 
-    PR_interseccion shift and go to state 155
-    PR_union        shift and go to state 156
-    TO_UWU          reduce using rule 111 (empty -> .)
-    PR_return       reduce using rule 111 (empty -> .)
-    PR_draw         reduce using rule 111 (empty -> .)
-    PR_circle       reduce using rule 111 (empty -> .)
-    PR_square       reduce using rule 111 (empty -> .)
-    PR_size         reduce using rule 111 (empty -> .)
-    PR_color        reduce using rule 111 (empty -> .)
-    ID              reduce using rule 111 (empty -> .)
-    PR_kameForw     reduce using rule 111 (empty -> .)
-    PR_kameBack     reduce using rule 111 (empty -> .)
-    PR_kameRot      reduce using rule 111 (empty -> .)
-    PR_loop         reduce using rule 111 (empty -> .)
-    PR_if           reduce using rule 111 (empty -> .)
-    PR_var          reduce using rule 111 (empty -> .)
-    TO_PARCIERRA    reduce using rule 111 (empty -> .)
-    TO_COMA         reduce using rule 111 (empty -> .)
+    PR_interseccion shift and go to state 156
+    PR_union        shift and go to state 157
+    TO_UWU          reduce using rule 112 (empty -> .)
+    PR_return       reduce using rule 112 (empty -> .)
+    PR_draw         reduce using rule 112 (empty -> .)
+    PR_circle       reduce using rule 112 (empty -> .)
+    PR_square       reduce using rule 112 (empty -> .)
+    PR_size         reduce using rule 112 (empty -> .)
+    PR_color        reduce using rule 112 (empty -> .)
+    ID              reduce using rule 112 (empty -> .)
+    PR_kameForw     reduce using rule 112 (empty -> .)
+    PR_kameBack     reduce using rule 112 (empty -> .)
+    PR_kameRot      reduce using rule 112 (empty -> .)
+    PR_loop         reduce using rule 112 (empty -> .)
+    PR_if           reduce using rule 112 (empty -> .)
+    PR_var          reduce using rule 112 (empty -> .)
+    TO_PARCIERRA    reduce using rule 112 (empty -> .)
+    TO_COMA         reduce using rule 112 (empty -> .)
 
-    opLogico                       shift and go to state 154
-    anotherMega                    shift and go to state 157
-    empty                          shift and go to state 158
+    opLogico                       shift and go to state 155
+    anotherMega                    shift and go to state 158
+    empty                          shift and go to state 159
 
-state 124
+state 125
 
     (96) superExp -> exp . maybeRel
     (97) maybeRel -> . opRelacional exp
@@ -2460,45 +2640,45 @@ state 124
     (49) opRelacional -> . OP_MENOROIGUAL
     (50) opRelacional -> . OP_MAYORQUE
     (51) opRelacional -> . OP_MAYOROIGUAL
-    (111) empty -> .
+    (112) empty -> .
 
-    OP_DOBLEIGUAL   shift and go to state 164
-    OP_DIFDE        shift and go to state 159
-    OP_MENORQUE     shift and go to state 166
-    OP_MENOROIGUAL  shift and go to state 161
-    OP_MAYORQUE     shift and go to state 165
-    OP_MAYOROIGUAL  shift and go to state 162
-    PR_interseccion reduce using rule 111 (empty -> .)
-    PR_union        reduce using rule 111 (empty -> .)
-    TO_UWU          reduce using rule 111 (empty -> .)
-    PR_return       reduce using rule 111 (empty -> .)
-    PR_draw         reduce using rule 111 (empty -> .)
-    PR_circle       reduce using rule 111 (empty -> .)
-    PR_square       reduce using rule 111 (empty -> .)
-    PR_size         reduce using rule 111 (empty -> .)
-    PR_color        reduce using rule 111 (empty -> .)
-    ID              reduce using rule 111 (empty -> .)
-    PR_kameForw     reduce using rule 111 (empty -> .)
-    PR_kameBack     reduce using rule 111 (empty -> .)
-    PR_kameRot      reduce using rule 111 (empty -> .)
-    PR_loop         reduce using rule 111 (empty -> .)
-    PR_if           reduce using rule 111 (empty -> .)
-    PR_var          reduce using rule 111 (empty -> .)
-    TO_PARCIERRA    reduce using rule 111 (empty -> .)
-    TO_COMA         reduce using rule 111 (empty -> .)
+    OP_DOBLEIGUAL   shift and go to state 165
+    OP_DIFDE        shift and go to state 160
+    OP_MENORQUE     shift and go to state 167
+    OP_MENOROIGUAL  shift and go to state 162
+    OP_MAYORQUE     shift and go to state 166
+    OP_MAYOROIGUAL  shift and go to state 163
+    PR_interseccion reduce using rule 112 (empty -> .)
+    PR_union        reduce using rule 112 (empty -> .)
+    TO_UWU          reduce using rule 112 (empty -> .)
+    PR_return       reduce using rule 112 (empty -> .)
+    PR_draw         reduce using rule 112 (empty -> .)
+    PR_circle       reduce using rule 112 (empty -> .)
+    PR_square       reduce using rule 112 (empty -> .)
+    PR_size         reduce using rule 112 (empty -> .)
+    PR_color        reduce using rule 112 (empty -> .)
+    ID              reduce using rule 112 (empty -> .)
+    PR_kameForw     reduce using rule 112 (empty -> .)
+    PR_kameBack     reduce using rule 112 (empty -> .)
+    PR_kameRot      reduce using rule 112 (empty -> .)
+    PR_loop         reduce using rule 112 (empty -> .)
+    PR_if           reduce using rule 112 (empty -> .)
+    PR_var          reduce using rule 112 (empty -> .)
+    TO_PARCIERRA    reduce using rule 112 (empty -> .)
+    TO_COMA         reduce using rule 112 (empty -> .)
 
-    maybeRel                       shift and go to state 160
-    empty                          shift and go to state 167
-    opRelacional                   shift and go to state 163
+    maybeRel                       shift and go to state 161
+    empty                          shift and go to state 168
+    opRelacional                   shift and go to state 164
 
-state 125
+state 126
 
     (44) loop2 -> TO_PARABRE exp . TO_PARCIERRA
 
-    TO_PARCIERRA    shift and go to state 168
+    TO_PARCIERRA    shift and go to state 169
 
 
-state 126
+state 127
 
     (42) loop -> loop1 loop2 loop3 .
 
@@ -2518,7 +2698,7 @@ state 126
     PR_var          reduce using rule 42 (loop -> loop1 loop2 loop3 .)
 
 
-state 127
+state 128
 
     (45) loop3 -> TO_LLAABRE . bloque TO_LLACIERRA
     (52) bloque -> . estructura bloque
@@ -2549,7 +2729,7 @@ state 127
     (85) compara1 -> . PR_if TO_PARABRE megaExp TO_PARCIERRA TO_LLAABRE
     (66) funcCall1 -> . ID TO_PARABRE
     (12) var -> . PR_var tipo ID arrayCreate
-    (111) empty -> .
+    (112) empty -> .
 
   ! shift/reduce conflict for TO_UWU resolved as shift
   ! shift/reduce conflict for PR_return resolved as shift
@@ -2580,23 +2760,23 @@ state 127
     PR_if           shift and go to state 53
     PR_var          shift and go to state 5
 
-  ! TO_UWU          [ reduce using rule 111 (empty -> .) ]
-  ! PR_return       [ reduce using rule 111 (empty -> .) ]
-  ! PR_draw         [ reduce using rule 111 (empty -> .) ]
-  ! PR_circle       [ reduce using rule 111 (empty -> .) ]
-  ! PR_square       [ reduce using rule 111 (empty -> .) ]
-  ! PR_size         [ reduce using rule 111 (empty -> .) ]
-  ! PR_color        [ reduce using rule 111 (empty -> .) ]
-  ! ID              [ reduce using rule 111 (empty -> .) ]
-  ! PR_kameForw     [ reduce using rule 111 (empty -> .) ]
-  ! PR_kameBack     [ reduce using rule 111 (empty -> .) ]
-  ! PR_kameRot      [ reduce using rule 111 (empty -> .) ]
-  ! PR_loop         [ reduce using rule 111 (empty -> .) ]
-  ! PR_if           [ reduce using rule 111 (empty -> .) ]
-  ! PR_var          [ reduce using rule 111 (empty -> .) ]
+  ! TO_UWU          [ reduce using rule 112 (empty -> .) ]
+  ! PR_return       [ reduce using rule 112 (empty -> .) ]
+  ! PR_draw         [ reduce using rule 112 (empty -> .) ]
+  ! PR_circle       [ reduce using rule 112 (empty -> .) ]
+  ! PR_square       [ reduce using rule 112 (empty -> .) ]
+  ! PR_size         [ reduce using rule 112 (empty -> .) ]
+  ! PR_color        [ reduce using rule 112 (empty -> .) ]
+  ! ID              [ reduce using rule 112 (empty -> .) ]
+  ! PR_kameForw     [ reduce using rule 112 (empty -> .) ]
+  ! PR_kameBack     [ reduce using rule 112 (empty -> .) ]
+  ! PR_kameRot      [ reduce using rule 112 (empty -> .) ]
+  ! PR_loop         [ reduce using rule 112 (empty -> .) ]
+  ! PR_if           [ reduce using rule 112 (empty -> .) ]
+  ! PR_var          [ reduce using rule 112 (empty -> .) ]
 
     assignTo                       shift and go to state 35
-    bloque                         shift and go to state 169
+    bloque                         shift and go to state 170
     decVar                         shift and go to state 39
     estructura                     shift and go to state 44
     var                            shift and go to state 6
@@ -2610,52 +2790,52 @@ state 127
     assign                         shift and go to state 58
     loop                           shift and go to state 59
 
-state 128
+state 129
 
     (16) arrayIndex -> TO_CORABRE exp . TO_CORCIERRA
     (17) arrayIndex -> TO_CORABRE exp . TO_CORCIERRA TO_CORABRE exp TO_CORCIERRA
 
-    TO_CORCIERRA    shift and go to state 170
-
-
-state 129
-
-    (63) funcCall -> PR_square TO_PARABRE exp . TO_PARCIERRA
-
-    TO_PARCIERRA    shift and go to state 171
+    TO_CORCIERRA    shift and go to state 171
 
 
 state 130
 
-    (85) compara1 -> PR_if TO_PARABRE megaExp . TO_PARCIERRA TO_LLAABRE
+    (63) funcCall -> PR_square TO_PARABRE exp . TO_PARCIERRA
 
     TO_PARCIERRA    shift and go to state 172
 
 
 state 131
 
+    (85) compara1 -> PR_if TO_PARABRE megaExp . TO_PARCIERRA TO_LLAABRE
+
+    TO_PARCIERRA    shift and go to state 173
+
+
+state 132
+
     (78) paramVals -> unParam moreParamVals .
 
     TO_PARCIERRA    reduce using rule 78 (paramVals -> unParam moreParamVals .)
 
 
-state 132
+state 133
 
     (80) moreParamVals -> TO_COMA . unParam moreParamVals
     (82) unParam -> . ID TO_DOSPTOS megaExp
 
     ID              shift and go to state 90
 
-    unParam                        shift and go to state 173
+    unParam                        shift and go to state 174
 
-state 133
+state 134
 
     (81) moreParamVals -> empty .
 
     TO_PARCIERRA    reduce using rule 81 (moreParamVals -> empty .)
 
 
-state 134
+state 135
 
     (67) funcCall2 -> paramVals TO_PARCIERRA .
 
@@ -2673,64 +2853,85 @@ state 134
     PR_loop         reduce using rule 67 (funcCall2 -> paramVals TO_PARCIERRA .)
     PR_if           reduce using rule 67 (funcCall2 -> paramVals TO_PARCIERRA .)
     PR_var          reduce using rule 67 (funcCall2 -> paramVals TO_PARCIERRA .)
+    OP_MULT         reduce using rule 67 (funcCall2 -> paramVals TO_PARCIERRA .)
+    OP_DIV          reduce using rule 67 (funcCall2 -> paramVals TO_PARCIERRA .)
+    OP_RESID        reduce using rule 67 (funcCall2 -> paramVals TO_PARCIERRA .)
+    OP_MAS          reduce using rule 67 (funcCall2 -> paramVals TO_PARCIERRA .)
+    OP_MENOS        reduce using rule 67 (funcCall2 -> paramVals TO_PARCIERRA .)
+    TO_PARCIERRA    reduce using rule 67 (funcCall2 -> paramVals TO_PARCIERRA .)
+    OP_DOBLEIGUAL   reduce using rule 67 (funcCall2 -> paramVals TO_PARCIERRA .)
+    OP_DIFDE        reduce using rule 67 (funcCall2 -> paramVals TO_PARCIERRA .)
+    OP_MENORQUE     reduce using rule 67 (funcCall2 -> paramVals TO_PARCIERRA .)
+    OP_MENOROIGUAL  reduce using rule 67 (funcCall2 -> paramVals TO_PARCIERRA .)
+    OP_MAYORQUE     reduce using rule 67 (funcCall2 -> paramVals TO_PARCIERRA .)
+    OP_MAYOROIGUAL  reduce using rule 67 (funcCall2 -> paramVals TO_PARCIERRA .)
+    PR_interseccion reduce using rule 67 (funcCall2 -> paramVals TO_PARCIERRA .)
+    PR_union        reduce using rule 67 (funcCall2 -> paramVals TO_PARCIERRA .)
+    TO_COMA         reduce using rule 67 (funcCall2 -> paramVals TO_PARCIERRA .)
+    TO_CORCIERRA    reduce using rule 67 (funcCall2 -> paramVals TO_PARCIERRA .)
 
 
-state 135
+state 136
 
     (82) unParam -> ID TO_DOSPTOS . megaExp
     (91) megaExp -> . maybeNot superExp anotherMega
     (92) maybeNot -> . PR_negacion
     (93) maybeNot -> . empty
-    (111) empty -> .
+    (112) empty -> .
 
     PR_negacion     shift and go to state 77
-    TO_PARABRE      reduce using rule 111 (empty -> .)
-    ID              reduce using rule 111 (empty -> .)
-    TO_NUM          reduce using rule 111 (empty -> .)
-    TO_FLOT         reduce using rule 111 (empty -> .)
-    PR_true         reduce using rule 111 (empty -> .)
-    PR_false        reduce using rule 111 (empty -> .)
+    TO_PARABRE      reduce using rule 112 (empty -> .)
+    ID              reduce using rule 112 (empty -> .)
+    PR_draw         reduce using rule 112 (empty -> .)
+    PR_circle       reduce using rule 112 (empty -> .)
+    PR_square       reduce using rule 112 (empty -> .)
+    PR_size         reduce using rule 112 (empty -> .)
+    PR_color        reduce using rule 112 (empty -> .)
+    TO_NUM          reduce using rule 112 (empty -> .)
+    TO_FLOT         reduce using rule 112 (empty -> .)
+    PR_true         reduce using rule 112 (empty -> .)
+    PR_false        reduce using rule 112 (empty -> .)
 
-    megaExp                        shift and go to state 174
+    megaExp                        shift and go to state 175
     empty                          shift and go to state 78
     maybeNot                       shift and go to state 75
 
-state 136
+state 137
 
     (86) compara2 -> bloque TO_LLACIERRA . maybeElse
     (87) maybeElse -> . checkElse doElse
     (88) maybeElse -> . empty
     (89) checkElse -> . PR_else TO_LLAABRE
-    (111) empty -> .
+    (112) empty -> .
 
-    PR_else         shift and go to state 175
-    TO_UWU          reduce using rule 111 (empty -> .)
-    PR_return       reduce using rule 111 (empty -> .)
-    PR_draw         reduce using rule 111 (empty -> .)
-    PR_circle       reduce using rule 111 (empty -> .)
-    PR_square       reduce using rule 111 (empty -> .)
-    PR_size         reduce using rule 111 (empty -> .)
-    PR_color        reduce using rule 111 (empty -> .)
-    ID              reduce using rule 111 (empty -> .)
-    PR_kameForw     reduce using rule 111 (empty -> .)
-    PR_kameBack     reduce using rule 111 (empty -> .)
-    PR_kameRot      reduce using rule 111 (empty -> .)
-    PR_loop         reduce using rule 111 (empty -> .)
-    PR_if           reduce using rule 111 (empty -> .)
-    PR_var          reduce using rule 111 (empty -> .)
+    PR_else         shift and go to state 176
+    TO_UWU          reduce using rule 112 (empty -> .)
+    PR_return       reduce using rule 112 (empty -> .)
+    PR_draw         reduce using rule 112 (empty -> .)
+    PR_circle       reduce using rule 112 (empty -> .)
+    PR_square       reduce using rule 112 (empty -> .)
+    PR_size         reduce using rule 112 (empty -> .)
+    PR_color        reduce using rule 112 (empty -> .)
+    ID              reduce using rule 112 (empty -> .)
+    PR_kameForw     reduce using rule 112 (empty -> .)
+    PR_kameBack     reduce using rule 112 (empty -> .)
+    PR_kameRot      reduce using rule 112 (empty -> .)
+    PR_loop         reduce using rule 112 (empty -> .)
+    PR_if           reduce using rule 112 (empty -> .)
+    PR_var          reduce using rule 112 (empty -> .)
 
-    empty                          shift and go to state 178
-    checkElse                      shift and go to state 177
-    maybeElse                      shift and go to state 176
+    empty                          shift and go to state 179
+    checkElse                      shift and go to state 178
+    maybeElse                      shift and go to state 177
 
-state 137
+state 138
 
     (36) moreParams -> TO_COMA tipo . ID moreParams
 
-    ID              shift and go to state 179
+    ID              shift and go to state 180
 
 
-state 138
+state 139
 
     (13) arrayCreate -> TO_CORABRE TO_NUM TO_CORCIERRA .
     (14) arrayCreate -> TO_CORABRE TO_NUM TO_CORCIERRA . TO_CORABRE TO_NUM TO_CORCIERRA
@@ -2751,10 +2952,10 @@ state 138
     PR_kameRot      reduce using rule 13 (arrayCreate -> TO_CORABRE TO_NUM TO_CORCIERRA .)
     PR_loop         reduce using rule 13 (arrayCreate -> TO_CORABRE TO_NUM TO_CORCIERRA .)
     PR_if           reduce using rule 13 (arrayCreate -> TO_CORABRE TO_NUM TO_CORCIERRA .)
-    TO_CORABRE      shift and go to state 180
+    TO_CORABRE      shift and go to state 181
 
 
-state 139
+state 140
 
     (61) funcCall -> PR_draw TO_PARABRE megaExp TO_PARCIERRA .
 
@@ -2772,9 +2973,25 @@ state 139
     PR_loop         reduce using rule 61 (funcCall -> PR_draw TO_PARABRE megaExp TO_PARCIERRA .)
     PR_if           reduce using rule 61 (funcCall -> PR_draw TO_PARABRE megaExp TO_PARCIERRA .)
     PR_var          reduce using rule 61 (funcCall -> PR_draw TO_PARABRE megaExp TO_PARCIERRA .)
+    OP_MULT         reduce using rule 61 (funcCall -> PR_draw TO_PARABRE megaExp TO_PARCIERRA .)
+    OP_DIV          reduce using rule 61 (funcCall -> PR_draw TO_PARABRE megaExp TO_PARCIERRA .)
+    OP_RESID        reduce using rule 61 (funcCall -> PR_draw TO_PARABRE megaExp TO_PARCIERRA .)
+    OP_MAS          reduce using rule 61 (funcCall -> PR_draw TO_PARABRE megaExp TO_PARCIERRA .)
+    OP_MENOS        reduce using rule 61 (funcCall -> PR_draw TO_PARABRE megaExp TO_PARCIERRA .)
+    PR_interseccion reduce using rule 61 (funcCall -> PR_draw TO_PARABRE megaExp TO_PARCIERRA .)
+    PR_union        reduce using rule 61 (funcCall -> PR_draw TO_PARABRE megaExp TO_PARCIERRA .)
+    TO_PARCIERRA    reduce using rule 61 (funcCall -> PR_draw TO_PARABRE megaExp TO_PARCIERRA .)
+    TO_COMA         reduce using rule 61 (funcCall -> PR_draw TO_PARABRE megaExp TO_PARCIERRA .)
+    TO_CORCIERRA    reduce using rule 61 (funcCall -> PR_draw TO_PARABRE megaExp TO_PARCIERRA .)
+    OP_DOBLEIGUAL   reduce using rule 61 (funcCall -> PR_draw TO_PARABRE megaExp TO_PARCIERRA .)
+    OP_DIFDE        reduce using rule 61 (funcCall -> PR_draw TO_PARABRE megaExp TO_PARCIERRA .)
+    OP_MENORQUE     reduce using rule 61 (funcCall -> PR_draw TO_PARABRE megaExp TO_PARCIERRA .)
+    OP_MENOROIGUAL  reduce using rule 61 (funcCall -> PR_draw TO_PARABRE megaExp TO_PARCIERRA .)
+    OP_MAYORQUE     reduce using rule 61 (funcCall -> PR_draw TO_PARABRE megaExp TO_PARCIERRA .)
+    OP_MAYOROIGUAL  reduce using rule 61 (funcCall -> PR_draw TO_PARABRE megaExp TO_PARCIERRA .)
 
 
-state 140
+state 141
 
     (65) funcCall -> PR_color TO_PARABRE colorChoice TO_PARCIERRA .
 
@@ -2792,150 +3009,32 @@ state 140
     PR_loop         reduce using rule 65 (funcCall -> PR_color TO_PARABRE colorChoice TO_PARCIERRA .)
     PR_if           reduce using rule 65 (funcCall -> PR_color TO_PARABRE colorChoice TO_PARCIERRA .)
     PR_var          reduce using rule 65 (funcCall -> PR_color TO_PARABRE colorChoice TO_PARCIERRA .)
+    OP_MULT         reduce using rule 65 (funcCall -> PR_color TO_PARABRE colorChoice TO_PARCIERRA .)
+    OP_DIV          reduce using rule 65 (funcCall -> PR_color TO_PARABRE colorChoice TO_PARCIERRA .)
+    OP_RESID        reduce using rule 65 (funcCall -> PR_color TO_PARABRE colorChoice TO_PARCIERRA .)
+    OP_MAS          reduce using rule 65 (funcCall -> PR_color TO_PARABRE colorChoice TO_PARCIERRA .)
+    OP_MENOS        reduce using rule 65 (funcCall -> PR_color TO_PARABRE colorChoice TO_PARCIERRA .)
+    PR_interseccion reduce using rule 65 (funcCall -> PR_color TO_PARABRE colorChoice TO_PARCIERRA .)
+    PR_union        reduce using rule 65 (funcCall -> PR_color TO_PARABRE colorChoice TO_PARCIERRA .)
+    TO_PARCIERRA    reduce using rule 65 (funcCall -> PR_color TO_PARABRE colorChoice TO_PARCIERRA .)
+    TO_COMA         reduce using rule 65 (funcCall -> PR_color TO_PARABRE colorChoice TO_PARCIERRA .)
+    TO_CORCIERRA    reduce using rule 65 (funcCall -> PR_color TO_PARABRE colorChoice TO_PARCIERRA .)
+    OP_DOBLEIGUAL   reduce using rule 65 (funcCall -> PR_color TO_PARABRE colorChoice TO_PARCIERRA .)
+    OP_DIFDE        reduce using rule 65 (funcCall -> PR_color TO_PARABRE colorChoice TO_PARCIERRA .)
+    OP_MENORQUE     reduce using rule 65 (funcCall -> PR_color TO_PARABRE colorChoice TO_PARCIERRA .)
+    OP_MENOROIGUAL  reduce using rule 65 (funcCall -> PR_color TO_PARABRE colorChoice TO_PARCIERRA .)
+    OP_MAYORQUE     reduce using rule 65 (funcCall -> PR_color TO_PARABRE colorChoice TO_PARCIERRA .)
+    OP_MAYOROIGUAL  reduce using rule 65 (funcCall -> PR_color TO_PARABRE colorChoice TO_PARCIERRA .)
 
-
-state 141
-
-    (100) anotherExp -> OP_MAS . exp
-    (99) exp -> . term anotherExp
-    (103) term -> . fact anotherTerm
-    (108) fact -> . TO_PARABRE megaExp TO_PARCIERRA
-    (109) fact -> . ID arrayIndex
-    (110) fact -> . val
-    (2) val -> . TO_NUM
-    (3) val -> . TO_FLOT
-    (4) val -> . PR_true
-    (5) val -> . PR_false
-    (6) val -> . ID
-
-    TO_PARABRE      shift and go to state 119
-    ID              shift and go to state 120
-    TO_NUM          shift and go to state 117
-    TO_FLOT         shift and go to state 116
-    PR_true         shift and go to state 115
-    PR_false        shift and go to state 113
-
-    term                           shift and go to state 112
-    val                            shift and go to state 114
-    exp                            shift and go to state 181
-    fact                           shift and go to state 121
 
 state 142
 
-    (99) exp -> term anotherExp .
+    (108) fact -> TO_PARABRE megaExp . TO_PARCIERRA
 
-    OP_DOBLEIGUAL   reduce using rule 99 (exp -> term anotherExp .)
-    OP_DIFDE        reduce using rule 99 (exp -> term anotherExp .)
-    OP_MENORQUE     reduce using rule 99 (exp -> term anotherExp .)
-    OP_MENOROIGUAL  reduce using rule 99 (exp -> term anotherExp .)
-    OP_MAYORQUE     reduce using rule 99 (exp -> term anotherExp .)
-    OP_MAYOROIGUAL  reduce using rule 99 (exp -> term anotherExp .)
-    PR_interseccion reduce using rule 99 (exp -> term anotherExp .)
-    PR_union        reduce using rule 99 (exp -> term anotherExp .)
-    TO_UWU          reduce using rule 99 (exp -> term anotherExp .)
-    PR_return       reduce using rule 99 (exp -> term anotherExp .)
-    PR_draw         reduce using rule 99 (exp -> term anotherExp .)
-    PR_circle       reduce using rule 99 (exp -> term anotherExp .)
-    PR_square       reduce using rule 99 (exp -> term anotherExp .)
-    PR_size         reduce using rule 99 (exp -> term anotherExp .)
-    PR_color        reduce using rule 99 (exp -> term anotherExp .)
-    ID              reduce using rule 99 (exp -> term anotherExp .)
-    PR_kameForw     reduce using rule 99 (exp -> term anotherExp .)
-    PR_kameBack     reduce using rule 99 (exp -> term anotherExp .)
-    PR_kameRot      reduce using rule 99 (exp -> term anotherExp .)
-    PR_loop         reduce using rule 99 (exp -> term anotherExp .)
-    PR_if           reduce using rule 99 (exp -> term anotherExp .)
-    PR_var          reduce using rule 99 (exp -> term anotherExp .)
-    TO_PARCIERRA    reduce using rule 99 (exp -> term anotherExp .)
-    TO_COMA         reduce using rule 99 (exp -> term anotherExp .)
-    TO_CORCIERRA    reduce using rule 99 (exp -> term anotherExp .)
+    TO_PARCIERRA    shift and go to state 182
 
 
 state 143
-
-    (101) anotherExp -> OP_MENOS . exp
-    (99) exp -> . term anotherExp
-    (103) term -> . fact anotherTerm
-    (108) fact -> . TO_PARABRE megaExp TO_PARCIERRA
-    (109) fact -> . ID arrayIndex
-    (110) fact -> . val
-    (2) val -> . TO_NUM
-    (3) val -> . TO_FLOT
-    (4) val -> . PR_true
-    (5) val -> . PR_false
-    (6) val -> . ID
-
-    TO_PARABRE      shift and go to state 119
-    ID              shift and go to state 120
-    TO_NUM          shift and go to state 117
-    TO_FLOT         shift and go to state 116
-    PR_true         shift and go to state 115
-    PR_false        shift and go to state 113
-
-    term                           shift and go to state 112
-    val                            shift and go to state 114
-    exp                            shift and go to state 182
-    fact                           shift and go to state 121
-
-state 144
-
-    (102) anotherExp -> empty .
-
-    TO_PARCIERRA    reduce using rule 102 (anotherExp -> empty .)
-    OP_DOBLEIGUAL   reduce using rule 102 (anotherExp -> empty .)
-    OP_DIFDE        reduce using rule 102 (anotherExp -> empty .)
-    OP_MENORQUE     reduce using rule 102 (anotherExp -> empty .)
-    OP_MENOROIGUAL  reduce using rule 102 (anotherExp -> empty .)
-    OP_MAYORQUE     reduce using rule 102 (anotherExp -> empty .)
-    OP_MAYOROIGUAL  reduce using rule 102 (anotherExp -> empty .)
-    PR_interseccion reduce using rule 102 (anotherExp -> empty .)
-    PR_union        reduce using rule 102 (anotherExp -> empty .)
-    TO_UWU          reduce using rule 102 (anotherExp -> empty .)
-    PR_return       reduce using rule 102 (anotherExp -> empty .)
-    PR_draw         reduce using rule 102 (anotherExp -> empty .)
-    PR_circle       reduce using rule 102 (anotherExp -> empty .)
-    PR_square       reduce using rule 102 (anotherExp -> empty .)
-    PR_size         reduce using rule 102 (anotherExp -> empty .)
-    PR_color        reduce using rule 102 (anotherExp -> empty .)
-    ID              reduce using rule 102 (anotherExp -> empty .)
-    PR_kameForw     reduce using rule 102 (anotherExp -> empty .)
-    PR_kameBack     reduce using rule 102 (anotherExp -> empty .)
-    PR_kameRot      reduce using rule 102 (anotherExp -> empty .)
-    PR_loop         reduce using rule 102 (anotherExp -> empty .)
-    PR_if           reduce using rule 102 (anotherExp -> empty .)
-    PR_var          reduce using rule 102 (anotherExp -> empty .)
-    TO_COMA         reduce using rule 102 (anotherExp -> empty .)
-    TO_CORCIERRA    reduce using rule 102 (anotherExp -> empty .)
-
-
-state 145
-
-    (62) funcCall -> PR_circle TO_PARABRE exp TO_PARCIERRA .
-
-    TO_UWU          reduce using rule 62 (funcCall -> PR_circle TO_PARABRE exp TO_PARCIERRA .)
-    PR_return       reduce using rule 62 (funcCall -> PR_circle TO_PARABRE exp TO_PARCIERRA .)
-    PR_draw         reduce using rule 62 (funcCall -> PR_circle TO_PARABRE exp TO_PARCIERRA .)
-    PR_circle       reduce using rule 62 (funcCall -> PR_circle TO_PARABRE exp TO_PARCIERRA .)
-    PR_square       reduce using rule 62 (funcCall -> PR_circle TO_PARABRE exp TO_PARCIERRA .)
-    PR_size         reduce using rule 62 (funcCall -> PR_circle TO_PARABRE exp TO_PARCIERRA .)
-    PR_color        reduce using rule 62 (funcCall -> PR_circle TO_PARABRE exp TO_PARCIERRA .)
-    ID              reduce using rule 62 (funcCall -> PR_circle TO_PARABRE exp TO_PARCIERRA .)
-    PR_kameForw     reduce using rule 62 (funcCall -> PR_circle TO_PARABRE exp TO_PARCIERRA .)
-    PR_kameBack     reduce using rule 62 (funcCall -> PR_circle TO_PARABRE exp TO_PARCIERRA .)
-    PR_kameRot      reduce using rule 62 (funcCall -> PR_circle TO_PARABRE exp TO_PARCIERRA .)
-    PR_loop         reduce using rule 62 (funcCall -> PR_circle TO_PARABRE exp TO_PARCIERRA .)
-    PR_if           reduce using rule 62 (funcCall -> PR_circle TO_PARABRE exp TO_PARCIERRA .)
-    PR_var          reduce using rule 62 (funcCall -> PR_circle TO_PARABRE exp TO_PARCIERRA .)
-
-
-state 146
-
-    (108) fact -> TO_PARABRE megaExp . TO_PARCIERRA
-
-    TO_PARCIERRA    shift and go to state 183
-
-
-state 147
 
     (109) fact -> ID arrayIndex .
 
@@ -2971,13 +3070,193 @@ state 147
     TO_COMA         reduce using rule 109 (fact -> ID arrayIndex .)
 
 
+state 144
+
+    (100) anotherExp -> OP_MAS . exp
+    (99) exp -> . term anotherExp
+    (103) term -> . fact anotherTerm
+    (108) fact -> . TO_PARABRE megaExp TO_PARCIERRA
+    (109) fact -> . ID arrayIndex
+    (110) fact -> . funcCall
+    (111) fact -> . val
+    (60) funcCall -> . funcCall1 funcCall2
+    (61) funcCall -> . PR_draw TO_PARABRE megaExp TO_PARCIERRA
+    (62) funcCall -> . PR_circle TO_PARABRE exp TO_PARCIERRA
+    (63) funcCall -> . PR_square TO_PARABRE exp TO_PARCIERRA
+    (64) funcCall -> . PR_size TO_PARABRE exp TO_PARCIERRA
+    (65) funcCall -> . PR_color TO_PARABRE colorChoice TO_PARCIERRA
+    (2) val -> . TO_NUM
+    (3) val -> . TO_FLOT
+    (4) val -> . PR_true
+    (5) val -> . PR_false
+    (6) val -> . ID
+    (66) funcCall1 -> . ID TO_PARABRE
+
+    TO_PARABRE      shift and go to state 116
+    ID              shift and go to state 118
+    PR_draw         shift and go to state 37
+    PR_circle       shift and go to state 41
+    PR_square       shift and go to state 52
+    PR_size         shift and go to state 42
+    PR_color        shift and go to state 40
+    TO_NUM          shift and go to state 117
+    TO_FLOT         shift and go to state 113
+    PR_true         shift and go to state 112
+    PR_false        shift and go to state 115
+
+    term                           shift and go to state 119
+    val                            shift and go to state 114
+    funcCall                       shift and go to state 120
+    funcCall1                      shift and go to state 55
+    exp                            shift and go to state 183
+    fact                           shift and go to state 122
+
+state 145
+
+    (99) exp -> term anotherExp .
+
+    OP_DOBLEIGUAL   reduce using rule 99 (exp -> term anotherExp .)
+    OP_DIFDE        reduce using rule 99 (exp -> term anotherExp .)
+    OP_MENORQUE     reduce using rule 99 (exp -> term anotherExp .)
+    OP_MENOROIGUAL  reduce using rule 99 (exp -> term anotherExp .)
+    OP_MAYORQUE     reduce using rule 99 (exp -> term anotherExp .)
+    OP_MAYOROIGUAL  reduce using rule 99 (exp -> term anotherExp .)
+    PR_interseccion reduce using rule 99 (exp -> term anotherExp .)
+    PR_union        reduce using rule 99 (exp -> term anotherExp .)
+    TO_UWU          reduce using rule 99 (exp -> term anotherExp .)
+    PR_return       reduce using rule 99 (exp -> term anotherExp .)
+    PR_draw         reduce using rule 99 (exp -> term anotherExp .)
+    PR_circle       reduce using rule 99 (exp -> term anotherExp .)
+    PR_square       reduce using rule 99 (exp -> term anotherExp .)
+    PR_size         reduce using rule 99 (exp -> term anotherExp .)
+    PR_color        reduce using rule 99 (exp -> term anotherExp .)
+    ID              reduce using rule 99 (exp -> term anotherExp .)
+    PR_kameForw     reduce using rule 99 (exp -> term anotherExp .)
+    PR_kameBack     reduce using rule 99 (exp -> term anotherExp .)
+    PR_kameRot      reduce using rule 99 (exp -> term anotherExp .)
+    PR_loop         reduce using rule 99 (exp -> term anotherExp .)
+    PR_if           reduce using rule 99 (exp -> term anotherExp .)
+    PR_var          reduce using rule 99 (exp -> term anotherExp .)
+    TO_PARCIERRA    reduce using rule 99 (exp -> term anotherExp .)
+    TO_COMA         reduce using rule 99 (exp -> term anotherExp .)
+    TO_CORCIERRA    reduce using rule 99 (exp -> term anotherExp .)
+
+
+state 146
+
+    (101) anotherExp -> OP_MENOS . exp
+    (99) exp -> . term anotherExp
+    (103) term -> . fact anotherTerm
+    (108) fact -> . TO_PARABRE megaExp TO_PARCIERRA
+    (109) fact -> . ID arrayIndex
+    (110) fact -> . funcCall
+    (111) fact -> . val
+    (60) funcCall -> . funcCall1 funcCall2
+    (61) funcCall -> . PR_draw TO_PARABRE megaExp TO_PARCIERRA
+    (62) funcCall -> . PR_circle TO_PARABRE exp TO_PARCIERRA
+    (63) funcCall -> . PR_square TO_PARABRE exp TO_PARCIERRA
+    (64) funcCall -> . PR_size TO_PARABRE exp TO_PARCIERRA
+    (65) funcCall -> . PR_color TO_PARABRE colorChoice TO_PARCIERRA
+    (2) val -> . TO_NUM
+    (3) val -> . TO_FLOT
+    (4) val -> . PR_true
+    (5) val -> . PR_false
+    (6) val -> . ID
+    (66) funcCall1 -> . ID TO_PARABRE
+
+    TO_PARABRE      shift and go to state 116
+    ID              shift and go to state 118
+    PR_draw         shift and go to state 37
+    PR_circle       shift and go to state 41
+    PR_square       shift and go to state 52
+    PR_size         shift and go to state 42
+    PR_color        shift and go to state 40
+    TO_NUM          shift and go to state 117
+    TO_FLOT         shift and go to state 113
+    PR_true         shift and go to state 112
+    PR_false        shift and go to state 115
+
+    term                           shift and go to state 119
+    val                            shift and go to state 114
+    funcCall                       shift and go to state 120
+    funcCall1                      shift and go to state 55
+    exp                            shift and go to state 184
+    fact                           shift and go to state 122
+
+state 147
+
+    (102) anotherExp -> empty .
+
+    TO_PARCIERRA    reduce using rule 102 (anotherExp -> empty .)
+    OP_DOBLEIGUAL   reduce using rule 102 (anotherExp -> empty .)
+    OP_DIFDE        reduce using rule 102 (anotherExp -> empty .)
+    OP_MENORQUE     reduce using rule 102 (anotherExp -> empty .)
+    OP_MENOROIGUAL  reduce using rule 102 (anotherExp -> empty .)
+    OP_MAYORQUE     reduce using rule 102 (anotherExp -> empty .)
+    OP_MAYOROIGUAL  reduce using rule 102 (anotherExp -> empty .)
+    PR_interseccion reduce using rule 102 (anotherExp -> empty .)
+    PR_union        reduce using rule 102 (anotherExp -> empty .)
+    TO_UWU          reduce using rule 102 (anotherExp -> empty .)
+    PR_return       reduce using rule 102 (anotherExp -> empty .)
+    PR_draw         reduce using rule 102 (anotherExp -> empty .)
+    PR_circle       reduce using rule 102 (anotherExp -> empty .)
+    PR_square       reduce using rule 102 (anotherExp -> empty .)
+    PR_size         reduce using rule 102 (anotherExp -> empty .)
+    PR_color        reduce using rule 102 (anotherExp -> empty .)
+    ID              reduce using rule 102 (anotherExp -> empty .)
+    PR_kameForw     reduce using rule 102 (anotherExp -> empty .)
+    PR_kameBack     reduce using rule 102 (anotherExp -> empty .)
+    PR_kameRot      reduce using rule 102 (anotherExp -> empty .)
+    PR_loop         reduce using rule 102 (anotherExp -> empty .)
+    PR_if           reduce using rule 102 (anotherExp -> empty .)
+    PR_var          reduce using rule 102 (anotherExp -> empty .)
+    TO_COMA         reduce using rule 102 (anotherExp -> empty .)
+    TO_CORCIERRA    reduce using rule 102 (anotherExp -> empty .)
+
+
 state 148
+
+    (62) funcCall -> PR_circle TO_PARABRE exp TO_PARCIERRA .
+
+    TO_UWU          reduce using rule 62 (funcCall -> PR_circle TO_PARABRE exp TO_PARCIERRA .)
+    PR_return       reduce using rule 62 (funcCall -> PR_circle TO_PARABRE exp TO_PARCIERRA .)
+    PR_draw         reduce using rule 62 (funcCall -> PR_circle TO_PARABRE exp TO_PARCIERRA .)
+    PR_circle       reduce using rule 62 (funcCall -> PR_circle TO_PARABRE exp TO_PARCIERRA .)
+    PR_square       reduce using rule 62 (funcCall -> PR_circle TO_PARABRE exp TO_PARCIERRA .)
+    PR_size         reduce using rule 62 (funcCall -> PR_circle TO_PARABRE exp TO_PARCIERRA .)
+    PR_color        reduce using rule 62 (funcCall -> PR_circle TO_PARABRE exp TO_PARCIERRA .)
+    ID              reduce using rule 62 (funcCall -> PR_circle TO_PARABRE exp TO_PARCIERRA .)
+    PR_kameForw     reduce using rule 62 (funcCall -> PR_circle TO_PARABRE exp TO_PARCIERRA .)
+    PR_kameBack     reduce using rule 62 (funcCall -> PR_circle TO_PARABRE exp TO_PARCIERRA .)
+    PR_kameRot      reduce using rule 62 (funcCall -> PR_circle TO_PARABRE exp TO_PARCIERRA .)
+    PR_loop         reduce using rule 62 (funcCall -> PR_circle TO_PARABRE exp TO_PARCIERRA .)
+    PR_if           reduce using rule 62 (funcCall -> PR_circle TO_PARABRE exp TO_PARCIERRA .)
+    PR_var          reduce using rule 62 (funcCall -> PR_circle TO_PARABRE exp TO_PARCIERRA .)
+    OP_MULT         reduce using rule 62 (funcCall -> PR_circle TO_PARABRE exp TO_PARCIERRA .)
+    OP_DIV          reduce using rule 62 (funcCall -> PR_circle TO_PARABRE exp TO_PARCIERRA .)
+    OP_RESID        reduce using rule 62 (funcCall -> PR_circle TO_PARABRE exp TO_PARCIERRA .)
+    OP_MAS          reduce using rule 62 (funcCall -> PR_circle TO_PARABRE exp TO_PARCIERRA .)
+    OP_MENOS        reduce using rule 62 (funcCall -> PR_circle TO_PARABRE exp TO_PARCIERRA .)
+    PR_interseccion reduce using rule 62 (funcCall -> PR_circle TO_PARABRE exp TO_PARCIERRA .)
+    PR_union        reduce using rule 62 (funcCall -> PR_circle TO_PARABRE exp TO_PARCIERRA .)
+    TO_PARCIERRA    reduce using rule 62 (funcCall -> PR_circle TO_PARABRE exp TO_PARCIERRA .)
+    TO_COMA         reduce using rule 62 (funcCall -> PR_circle TO_PARABRE exp TO_PARCIERRA .)
+    TO_CORCIERRA    reduce using rule 62 (funcCall -> PR_circle TO_PARABRE exp TO_PARCIERRA .)
+    OP_DOBLEIGUAL   reduce using rule 62 (funcCall -> PR_circle TO_PARABRE exp TO_PARCIERRA .)
+    OP_DIFDE        reduce using rule 62 (funcCall -> PR_circle TO_PARABRE exp TO_PARCIERRA .)
+    OP_MENORQUE     reduce using rule 62 (funcCall -> PR_circle TO_PARABRE exp TO_PARCIERRA .)
+    OP_MENOROIGUAL  reduce using rule 62 (funcCall -> PR_circle TO_PARABRE exp TO_PARCIERRA .)
+    OP_MAYORQUE     reduce using rule 62 (funcCall -> PR_circle TO_PARABRE exp TO_PARCIERRA .)
+    OP_MAYOROIGUAL  reduce using rule 62 (funcCall -> PR_circle TO_PARABRE exp TO_PARCIERRA .)
+
+
+state 149
 
     (103) term -> fact anotherTerm .
 
     OP_MAS          reduce using rule 103 (term -> fact anotherTerm .)
     OP_MENOS        reduce using rule 103 (term -> fact anotherTerm .)
-    TO_CORCIERRA    reduce using rule 103 (term -> fact anotherTerm .)
+    TO_PARCIERRA    reduce using rule 103 (term -> fact anotherTerm .)
     OP_DOBLEIGUAL   reduce using rule 103 (term -> fact anotherTerm .)
     OP_DIFDE        reduce using rule 103 (term -> fact anotherTerm .)
     OP_MENORQUE     reduce using rule 103 (term -> fact anotherTerm .)
@@ -3000,83 +3279,128 @@ state 148
     PR_loop         reduce using rule 103 (term -> fact anotherTerm .)
     PR_if           reduce using rule 103 (term -> fact anotherTerm .)
     PR_var          reduce using rule 103 (term -> fact anotherTerm .)
-    TO_PARCIERRA    reduce using rule 103 (term -> fact anotherTerm .)
     TO_COMA         reduce using rule 103 (term -> fact anotherTerm .)
+    TO_CORCIERRA    reduce using rule 103 (term -> fact anotherTerm .)
 
 
-state 149
+state 150
 
     (106) anotherTerm -> OP_RESID . term
     (103) term -> . fact anotherTerm
     (108) fact -> . TO_PARABRE megaExp TO_PARCIERRA
     (109) fact -> . ID arrayIndex
-    (110) fact -> . val
+    (110) fact -> . funcCall
+    (111) fact -> . val
+    (60) funcCall -> . funcCall1 funcCall2
+    (61) funcCall -> . PR_draw TO_PARABRE megaExp TO_PARCIERRA
+    (62) funcCall -> . PR_circle TO_PARABRE exp TO_PARCIERRA
+    (63) funcCall -> . PR_square TO_PARABRE exp TO_PARCIERRA
+    (64) funcCall -> . PR_size TO_PARABRE exp TO_PARCIERRA
+    (65) funcCall -> . PR_color TO_PARABRE colorChoice TO_PARCIERRA
     (2) val -> . TO_NUM
     (3) val -> . TO_FLOT
     (4) val -> . PR_true
     (5) val -> . PR_false
     (6) val -> . ID
+    (66) funcCall1 -> . ID TO_PARABRE
 
-    TO_PARABRE      shift and go to state 119
-    ID              shift and go to state 120
+    TO_PARABRE      shift and go to state 116
+    ID              shift and go to state 118
+    PR_draw         shift and go to state 37
+    PR_circle       shift and go to state 41
+    PR_square       shift and go to state 52
+    PR_size         shift and go to state 42
+    PR_color        shift and go to state 40
     TO_NUM          shift and go to state 117
-    TO_FLOT         shift and go to state 116
-    PR_true         shift and go to state 115
-    PR_false        shift and go to state 113
+    TO_FLOT         shift and go to state 113
+    PR_true         shift and go to state 112
+    PR_false        shift and go to state 115
 
-    term                           shift and go to state 184
+    term                           shift and go to state 185
     val                            shift and go to state 114
-    fact                           shift and go to state 121
+    funcCall                       shift and go to state 120
+    funcCall1                      shift and go to state 55
+    fact                           shift and go to state 122
 
-state 150
+state 151
 
     (104) anotherTerm -> OP_MULT . term
     (103) term -> . fact anotherTerm
     (108) fact -> . TO_PARABRE megaExp TO_PARCIERRA
     (109) fact -> . ID arrayIndex
-    (110) fact -> . val
+    (110) fact -> . funcCall
+    (111) fact -> . val
+    (60) funcCall -> . funcCall1 funcCall2
+    (61) funcCall -> . PR_draw TO_PARABRE megaExp TO_PARCIERRA
+    (62) funcCall -> . PR_circle TO_PARABRE exp TO_PARCIERRA
+    (63) funcCall -> . PR_square TO_PARABRE exp TO_PARCIERRA
+    (64) funcCall -> . PR_size TO_PARABRE exp TO_PARCIERRA
+    (65) funcCall -> . PR_color TO_PARABRE colorChoice TO_PARCIERRA
     (2) val -> . TO_NUM
     (3) val -> . TO_FLOT
     (4) val -> . PR_true
     (5) val -> . PR_false
     (6) val -> . ID
+    (66) funcCall1 -> . ID TO_PARABRE
 
-    TO_PARABRE      shift and go to state 119
-    ID              shift and go to state 120
+    TO_PARABRE      shift and go to state 116
+    ID              shift and go to state 118
+    PR_draw         shift and go to state 37
+    PR_circle       shift and go to state 41
+    PR_square       shift and go to state 52
+    PR_size         shift and go to state 42
+    PR_color        shift and go to state 40
     TO_NUM          shift and go to state 117
-    TO_FLOT         shift and go to state 116
-    PR_true         shift and go to state 115
-    PR_false        shift and go to state 113
+    TO_FLOT         shift and go to state 113
+    PR_true         shift and go to state 112
+    PR_false        shift and go to state 115
 
-    term                           shift and go to state 185
+    term                           shift and go to state 186
     val                            shift and go to state 114
-    fact                           shift and go to state 121
+    funcCall                       shift and go to state 120
+    funcCall1                      shift and go to state 55
+    fact                           shift and go to state 122
 
-state 151
+state 152
 
     (105) anotherTerm -> OP_DIV . term
     (103) term -> . fact anotherTerm
     (108) fact -> . TO_PARABRE megaExp TO_PARCIERRA
     (109) fact -> . ID arrayIndex
-    (110) fact -> . val
+    (110) fact -> . funcCall
+    (111) fact -> . val
+    (60) funcCall -> . funcCall1 funcCall2
+    (61) funcCall -> . PR_draw TO_PARABRE megaExp TO_PARCIERRA
+    (62) funcCall -> . PR_circle TO_PARABRE exp TO_PARCIERRA
+    (63) funcCall -> . PR_square TO_PARABRE exp TO_PARCIERRA
+    (64) funcCall -> . PR_size TO_PARABRE exp TO_PARCIERRA
+    (65) funcCall -> . PR_color TO_PARABRE colorChoice TO_PARCIERRA
     (2) val -> . TO_NUM
     (3) val -> . TO_FLOT
     (4) val -> . PR_true
     (5) val -> . PR_false
     (6) val -> . ID
+    (66) funcCall1 -> . ID TO_PARABRE
 
-    TO_PARABRE      shift and go to state 119
-    ID              shift and go to state 120
+    TO_PARABRE      shift and go to state 116
+    ID              shift and go to state 118
+    PR_draw         shift and go to state 37
+    PR_circle       shift and go to state 41
+    PR_square       shift and go to state 52
+    PR_size         shift and go to state 42
+    PR_color        shift and go to state 40
     TO_NUM          shift and go to state 117
-    TO_FLOT         shift and go to state 116
-    PR_true         shift and go to state 115
-    PR_false        shift and go to state 113
+    TO_FLOT         shift and go to state 113
+    PR_true         shift and go to state 112
+    PR_false        shift and go to state 115
 
-    term                           shift and go to state 186
+    term                           shift and go to state 187
     val                            shift and go to state 114
-    fact                           shift and go to state 121
+    funcCall                       shift and go to state 120
+    funcCall1                      shift and go to state 55
+    fact                           shift and go to state 122
 
-state 152
+state 153
 
     (107) anotherTerm -> empty .
 
@@ -3109,7 +3433,7 @@ state 152
     TO_CORCIERRA    reduce using rule 107 (anotherTerm -> empty .)
 
 
-state 153
+state 154
 
     (64) funcCall -> PR_size TO_PARABRE exp TO_PARCIERRA .
 
@@ -3127,55 +3451,86 @@ state 153
     PR_loop         reduce using rule 64 (funcCall -> PR_size TO_PARABRE exp TO_PARCIERRA .)
     PR_if           reduce using rule 64 (funcCall -> PR_size TO_PARABRE exp TO_PARCIERRA .)
     PR_var          reduce using rule 64 (funcCall -> PR_size TO_PARABRE exp TO_PARCIERRA .)
+    OP_MULT         reduce using rule 64 (funcCall -> PR_size TO_PARABRE exp TO_PARCIERRA .)
+    OP_DIV          reduce using rule 64 (funcCall -> PR_size TO_PARABRE exp TO_PARCIERRA .)
+    OP_RESID        reduce using rule 64 (funcCall -> PR_size TO_PARABRE exp TO_PARCIERRA .)
+    OP_MAS          reduce using rule 64 (funcCall -> PR_size TO_PARABRE exp TO_PARCIERRA .)
+    OP_MENOS        reduce using rule 64 (funcCall -> PR_size TO_PARABRE exp TO_PARCIERRA .)
+    PR_interseccion reduce using rule 64 (funcCall -> PR_size TO_PARABRE exp TO_PARCIERRA .)
+    PR_union        reduce using rule 64 (funcCall -> PR_size TO_PARABRE exp TO_PARCIERRA .)
+    TO_PARCIERRA    reduce using rule 64 (funcCall -> PR_size TO_PARABRE exp TO_PARCIERRA .)
+    TO_COMA         reduce using rule 64 (funcCall -> PR_size TO_PARABRE exp TO_PARCIERRA .)
+    TO_CORCIERRA    reduce using rule 64 (funcCall -> PR_size TO_PARABRE exp TO_PARCIERRA .)
+    OP_DOBLEIGUAL   reduce using rule 64 (funcCall -> PR_size TO_PARABRE exp TO_PARCIERRA .)
+    OP_DIFDE        reduce using rule 64 (funcCall -> PR_size TO_PARABRE exp TO_PARCIERRA .)
+    OP_MENORQUE     reduce using rule 64 (funcCall -> PR_size TO_PARABRE exp TO_PARCIERRA .)
+    OP_MENOROIGUAL  reduce using rule 64 (funcCall -> PR_size TO_PARABRE exp TO_PARCIERRA .)
+    OP_MAYORQUE     reduce using rule 64 (funcCall -> PR_size TO_PARABRE exp TO_PARCIERRA .)
+    OP_MAYOROIGUAL  reduce using rule 64 (funcCall -> PR_size TO_PARABRE exp TO_PARCIERRA .)
 
 
-state 154
+state 155
 
     (94) anotherMega -> opLogico . megaExp
     (91) megaExp -> . maybeNot superExp anotherMega
     (92) maybeNot -> . PR_negacion
     (93) maybeNot -> . empty
-    (111) empty -> .
+    (112) empty -> .
 
     PR_negacion     shift and go to state 77
-    TO_PARABRE      reduce using rule 111 (empty -> .)
-    ID              reduce using rule 111 (empty -> .)
-    TO_NUM          reduce using rule 111 (empty -> .)
-    TO_FLOT         reduce using rule 111 (empty -> .)
-    PR_true         reduce using rule 111 (empty -> .)
-    PR_false        reduce using rule 111 (empty -> .)
+    TO_PARABRE      reduce using rule 112 (empty -> .)
+    ID              reduce using rule 112 (empty -> .)
+    PR_draw         reduce using rule 112 (empty -> .)
+    PR_circle       reduce using rule 112 (empty -> .)
+    PR_square       reduce using rule 112 (empty -> .)
+    PR_size         reduce using rule 112 (empty -> .)
+    PR_color        reduce using rule 112 (empty -> .)
+    TO_NUM          reduce using rule 112 (empty -> .)
+    TO_FLOT         reduce using rule 112 (empty -> .)
+    PR_true         reduce using rule 112 (empty -> .)
+    PR_false        reduce using rule 112 (empty -> .)
 
-    megaExp                        shift and go to state 187
+    megaExp                        shift and go to state 188
     maybeNot                       shift and go to state 75
     empty                          shift and go to state 78
 
-state 155
+state 156
 
     (40) opLogico -> PR_interseccion .
 
     PR_negacion     reduce using rule 40 (opLogico -> PR_interseccion .)
     TO_PARABRE      reduce using rule 40 (opLogico -> PR_interseccion .)
     ID              reduce using rule 40 (opLogico -> PR_interseccion .)
+    PR_draw         reduce using rule 40 (opLogico -> PR_interseccion .)
+    PR_circle       reduce using rule 40 (opLogico -> PR_interseccion .)
+    PR_square       reduce using rule 40 (opLogico -> PR_interseccion .)
+    PR_size         reduce using rule 40 (opLogico -> PR_interseccion .)
+    PR_color        reduce using rule 40 (opLogico -> PR_interseccion .)
     TO_NUM          reduce using rule 40 (opLogico -> PR_interseccion .)
     TO_FLOT         reduce using rule 40 (opLogico -> PR_interseccion .)
     PR_true         reduce using rule 40 (opLogico -> PR_interseccion .)
     PR_false        reduce using rule 40 (opLogico -> PR_interseccion .)
 
 
-state 156
+state 157
 
     (41) opLogico -> PR_union .
 
     PR_negacion     reduce using rule 41 (opLogico -> PR_union .)
     TO_PARABRE      reduce using rule 41 (opLogico -> PR_union .)
     ID              reduce using rule 41 (opLogico -> PR_union .)
+    PR_draw         reduce using rule 41 (opLogico -> PR_union .)
+    PR_circle       reduce using rule 41 (opLogico -> PR_union .)
+    PR_square       reduce using rule 41 (opLogico -> PR_union .)
+    PR_size         reduce using rule 41 (opLogico -> PR_union .)
+    PR_color        reduce using rule 41 (opLogico -> PR_union .)
     TO_NUM          reduce using rule 41 (opLogico -> PR_union .)
     TO_FLOT         reduce using rule 41 (opLogico -> PR_union .)
     PR_true         reduce using rule 41 (opLogico -> PR_union .)
     PR_false        reduce using rule 41 (opLogico -> PR_union .)
 
 
-state 157
+state 158
 
     (91) megaExp -> maybeNot superExp anotherMega .
 
@@ -3197,7 +3552,7 @@ state 157
     TO_COMA         reduce using rule 91 (megaExp -> maybeNot superExp anotherMega .)
 
 
-state 158
+state 159
 
     (95) anotherMega -> empty .
 
@@ -3219,19 +3574,24 @@ state 158
     TO_COMA         reduce using rule 95 (anotherMega -> empty .)
 
 
-state 159
+state 160
 
     (47) opRelacional -> OP_DIFDE .
 
     TO_PARABRE      reduce using rule 47 (opRelacional -> OP_DIFDE .)
     ID              reduce using rule 47 (opRelacional -> OP_DIFDE .)
+    PR_draw         reduce using rule 47 (opRelacional -> OP_DIFDE .)
+    PR_circle       reduce using rule 47 (opRelacional -> OP_DIFDE .)
+    PR_square       reduce using rule 47 (opRelacional -> OP_DIFDE .)
+    PR_size         reduce using rule 47 (opRelacional -> OP_DIFDE .)
+    PR_color        reduce using rule 47 (opRelacional -> OP_DIFDE .)
     TO_NUM          reduce using rule 47 (opRelacional -> OP_DIFDE .)
     TO_FLOT         reduce using rule 47 (opRelacional -> OP_DIFDE .)
     PR_true         reduce using rule 47 (opRelacional -> OP_DIFDE .)
     PR_false        reduce using rule 47 (opRelacional -> OP_DIFDE .)
 
 
-state 160
+state 161
 
     (96) superExp -> exp maybeRel .
 
@@ -3255,93 +3615,133 @@ state 160
     TO_COMA         reduce using rule 96 (superExp -> exp maybeRel .)
 
 
-state 161
+state 162
 
     (49) opRelacional -> OP_MENOROIGUAL .
 
     TO_PARABRE      reduce using rule 49 (opRelacional -> OP_MENOROIGUAL .)
     ID              reduce using rule 49 (opRelacional -> OP_MENOROIGUAL .)
+    PR_draw         reduce using rule 49 (opRelacional -> OP_MENOROIGUAL .)
+    PR_circle       reduce using rule 49 (opRelacional -> OP_MENOROIGUAL .)
+    PR_square       reduce using rule 49 (opRelacional -> OP_MENOROIGUAL .)
+    PR_size         reduce using rule 49 (opRelacional -> OP_MENOROIGUAL .)
+    PR_color        reduce using rule 49 (opRelacional -> OP_MENOROIGUAL .)
     TO_NUM          reduce using rule 49 (opRelacional -> OP_MENOROIGUAL .)
     TO_FLOT         reduce using rule 49 (opRelacional -> OP_MENOROIGUAL .)
     PR_true         reduce using rule 49 (opRelacional -> OP_MENOROIGUAL .)
     PR_false        reduce using rule 49 (opRelacional -> OP_MENOROIGUAL .)
 
 
-state 162
+state 163
 
     (51) opRelacional -> OP_MAYOROIGUAL .
 
     TO_PARABRE      reduce using rule 51 (opRelacional -> OP_MAYOROIGUAL .)
     ID              reduce using rule 51 (opRelacional -> OP_MAYOROIGUAL .)
+    PR_draw         reduce using rule 51 (opRelacional -> OP_MAYOROIGUAL .)
+    PR_circle       reduce using rule 51 (opRelacional -> OP_MAYOROIGUAL .)
+    PR_square       reduce using rule 51 (opRelacional -> OP_MAYOROIGUAL .)
+    PR_size         reduce using rule 51 (opRelacional -> OP_MAYOROIGUAL .)
+    PR_color        reduce using rule 51 (opRelacional -> OP_MAYOROIGUAL .)
     TO_NUM          reduce using rule 51 (opRelacional -> OP_MAYOROIGUAL .)
     TO_FLOT         reduce using rule 51 (opRelacional -> OP_MAYOROIGUAL .)
     PR_true         reduce using rule 51 (opRelacional -> OP_MAYOROIGUAL .)
     PR_false        reduce using rule 51 (opRelacional -> OP_MAYOROIGUAL .)
 
 
-state 163
+state 164
 
     (97) maybeRel -> opRelacional . exp
     (99) exp -> . term anotherExp
     (103) term -> . fact anotherTerm
     (108) fact -> . TO_PARABRE megaExp TO_PARCIERRA
     (109) fact -> . ID arrayIndex
-    (110) fact -> . val
+    (110) fact -> . funcCall
+    (111) fact -> . val
+    (60) funcCall -> . funcCall1 funcCall2
+    (61) funcCall -> . PR_draw TO_PARABRE megaExp TO_PARCIERRA
+    (62) funcCall -> . PR_circle TO_PARABRE exp TO_PARCIERRA
+    (63) funcCall -> . PR_square TO_PARABRE exp TO_PARCIERRA
+    (64) funcCall -> . PR_size TO_PARABRE exp TO_PARCIERRA
+    (65) funcCall -> . PR_color TO_PARABRE colorChoice TO_PARCIERRA
     (2) val -> . TO_NUM
     (3) val -> . TO_FLOT
     (4) val -> . PR_true
     (5) val -> . PR_false
     (6) val -> . ID
+    (66) funcCall1 -> . ID TO_PARABRE
 
-    TO_PARABRE      shift and go to state 119
-    ID              shift and go to state 120
+    TO_PARABRE      shift and go to state 116
+    ID              shift and go to state 118
+    PR_draw         shift and go to state 37
+    PR_circle       shift and go to state 41
+    PR_square       shift and go to state 52
+    PR_size         shift and go to state 42
+    PR_color        shift and go to state 40
     TO_NUM          shift and go to state 117
-    TO_FLOT         shift and go to state 116
-    PR_true         shift and go to state 115
-    PR_false        shift and go to state 113
+    TO_FLOT         shift and go to state 113
+    PR_true         shift and go to state 112
+    PR_false        shift and go to state 115
 
-    term                           shift and go to state 112
+    term                           shift and go to state 119
     val                            shift and go to state 114
-    exp                            shift and go to state 188
-    fact                           shift and go to state 121
+    funcCall                       shift and go to state 120
+    funcCall1                      shift and go to state 55
+    exp                            shift and go to state 189
+    fact                           shift and go to state 122
 
-state 164
+state 165
 
     (46) opRelacional -> OP_DOBLEIGUAL .
 
     TO_PARABRE      reduce using rule 46 (opRelacional -> OP_DOBLEIGUAL .)
     ID              reduce using rule 46 (opRelacional -> OP_DOBLEIGUAL .)
+    PR_draw         reduce using rule 46 (opRelacional -> OP_DOBLEIGUAL .)
+    PR_circle       reduce using rule 46 (opRelacional -> OP_DOBLEIGUAL .)
+    PR_square       reduce using rule 46 (opRelacional -> OP_DOBLEIGUAL .)
+    PR_size         reduce using rule 46 (opRelacional -> OP_DOBLEIGUAL .)
+    PR_color        reduce using rule 46 (opRelacional -> OP_DOBLEIGUAL .)
     TO_NUM          reduce using rule 46 (opRelacional -> OP_DOBLEIGUAL .)
     TO_FLOT         reduce using rule 46 (opRelacional -> OP_DOBLEIGUAL .)
     PR_true         reduce using rule 46 (opRelacional -> OP_DOBLEIGUAL .)
     PR_false        reduce using rule 46 (opRelacional -> OP_DOBLEIGUAL .)
 
 
-state 165
+state 166
 
     (50) opRelacional -> OP_MAYORQUE .
 
     TO_PARABRE      reduce using rule 50 (opRelacional -> OP_MAYORQUE .)
     ID              reduce using rule 50 (opRelacional -> OP_MAYORQUE .)
+    PR_draw         reduce using rule 50 (opRelacional -> OP_MAYORQUE .)
+    PR_circle       reduce using rule 50 (opRelacional -> OP_MAYORQUE .)
+    PR_square       reduce using rule 50 (opRelacional -> OP_MAYORQUE .)
+    PR_size         reduce using rule 50 (opRelacional -> OP_MAYORQUE .)
+    PR_color        reduce using rule 50 (opRelacional -> OP_MAYORQUE .)
     TO_NUM          reduce using rule 50 (opRelacional -> OP_MAYORQUE .)
     TO_FLOT         reduce using rule 50 (opRelacional -> OP_MAYORQUE .)
     PR_true         reduce using rule 50 (opRelacional -> OP_MAYORQUE .)
     PR_false        reduce using rule 50 (opRelacional -> OP_MAYORQUE .)
 
 
-state 166
+state 167
 
     (48) opRelacional -> OP_MENORQUE .
 
     TO_PARABRE      reduce using rule 48 (opRelacional -> OP_MENORQUE .)
     ID              reduce using rule 48 (opRelacional -> OP_MENORQUE .)
+    PR_draw         reduce using rule 48 (opRelacional -> OP_MENORQUE .)
+    PR_circle       reduce using rule 48 (opRelacional -> OP_MENORQUE .)
+    PR_square       reduce using rule 48 (opRelacional -> OP_MENORQUE .)
+    PR_size         reduce using rule 48 (opRelacional -> OP_MENORQUE .)
+    PR_color        reduce using rule 48 (opRelacional -> OP_MENORQUE .)
     TO_NUM          reduce using rule 48 (opRelacional -> OP_MENORQUE .)
     TO_FLOT         reduce using rule 48 (opRelacional -> OP_MENORQUE .)
     PR_true         reduce using rule 48 (opRelacional -> OP_MENORQUE .)
     PR_false        reduce using rule 48 (opRelacional -> OP_MENORQUE .)
 
 
-state 167
+state 168
 
     (98) maybeRel -> empty .
 
@@ -3365,21 +3765,21 @@ state 167
     TO_COMA         reduce using rule 98 (maybeRel -> empty .)
 
 
-state 168
+state 169
 
     (44) loop2 -> TO_PARABRE exp TO_PARCIERRA .
 
     TO_LLAABRE      reduce using rule 44 (loop2 -> TO_PARABRE exp TO_PARCIERRA .)
 
 
-state 169
+state 170
 
     (45) loop3 -> TO_LLAABRE bloque . TO_LLACIERRA
 
-    TO_LLACIERRA    shift and go to state 189
+    TO_LLACIERRA    shift and go to state 190
 
 
-state 170
+state 171
 
     (16) arrayIndex -> TO_CORABRE exp TO_CORCIERRA .
     (17) arrayIndex -> TO_CORABRE exp TO_CORCIERRA . TO_CORABRE exp TO_CORCIERRA
@@ -3415,10 +3815,10 @@ state 170
     PR_var          reduce using rule 16 (arrayIndex -> TO_CORABRE exp TO_CORCIERRA .)
     TO_COMA         reduce using rule 16 (arrayIndex -> TO_CORABRE exp TO_CORCIERRA .)
     TO_CORCIERRA    reduce using rule 16 (arrayIndex -> TO_CORABRE exp TO_CORCIERRA .)
-    TO_CORABRE      shift and go to state 190
+    TO_CORABRE      shift and go to state 191
 
 
-state 171
+state 172
 
     (63) funcCall -> PR_square TO_PARABRE exp TO_PARCIERRA .
 
@@ -3436,29 +3836,45 @@ state 171
     PR_loop         reduce using rule 63 (funcCall -> PR_square TO_PARABRE exp TO_PARCIERRA .)
     PR_if           reduce using rule 63 (funcCall -> PR_square TO_PARABRE exp TO_PARCIERRA .)
     PR_var          reduce using rule 63 (funcCall -> PR_square TO_PARABRE exp TO_PARCIERRA .)
-
-
-state 172
-
-    (85) compara1 -> PR_if TO_PARABRE megaExp TO_PARCIERRA . TO_LLAABRE
-
-    TO_LLAABRE      shift and go to state 191
+    OP_MULT         reduce using rule 63 (funcCall -> PR_square TO_PARABRE exp TO_PARCIERRA .)
+    OP_DIV          reduce using rule 63 (funcCall -> PR_square TO_PARABRE exp TO_PARCIERRA .)
+    OP_RESID        reduce using rule 63 (funcCall -> PR_square TO_PARABRE exp TO_PARCIERRA .)
+    OP_MAS          reduce using rule 63 (funcCall -> PR_square TO_PARABRE exp TO_PARCIERRA .)
+    OP_MENOS        reduce using rule 63 (funcCall -> PR_square TO_PARABRE exp TO_PARCIERRA .)
+    PR_interseccion reduce using rule 63 (funcCall -> PR_square TO_PARABRE exp TO_PARCIERRA .)
+    PR_union        reduce using rule 63 (funcCall -> PR_square TO_PARABRE exp TO_PARCIERRA .)
+    TO_PARCIERRA    reduce using rule 63 (funcCall -> PR_square TO_PARABRE exp TO_PARCIERRA .)
+    TO_COMA         reduce using rule 63 (funcCall -> PR_square TO_PARABRE exp TO_PARCIERRA .)
+    TO_CORCIERRA    reduce using rule 63 (funcCall -> PR_square TO_PARABRE exp TO_PARCIERRA .)
+    OP_DOBLEIGUAL   reduce using rule 63 (funcCall -> PR_square TO_PARABRE exp TO_PARCIERRA .)
+    OP_DIFDE        reduce using rule 63 (funcCall -> PR_square TO_PARABRE exp TO_PARCIERRA .)
+    OP_MENORQUE     reduce using rule 63 (funcCall -> PR_square TO_PARABRE exp TO_PARCIERRA .)
+    OP_MENOROIGUAL  reduce using rule 63 (funcCall -> PR_square TO_PARABRE exp TO_PARCIERRA .)
+    OP_MAYORQUE     reduce using rule 63 (funcCall -> PR_square TO_PARABRE exp TO_PARCIERRA .)
+    OP_MAYOROIGUAL  reduce using rule 63 (funcCall -> PR_square TO_PARABRE exp TO_PARCIERRA .)
 
 
 state 173
 
+    (85) compara1 -> PR_if TO_PARABRE megaExp TO_PARCIERRA . TO_LLAABRE
+
+    TO_LLAABRE      shift and go to state 192
+
+
+state 174
+
     (80) moreParamVals -> TO_COMA unParam . moreParamVals
     (80) moreParamVals -> . TO_COMA unParam moreParamVals
     (81) moreParamVals -> . empty
-    (111) empty -> .
+    (112) empty -> .
 
-    TO_COMA         shift and go to state 132
-    TO_PARCIERRA    reduce using rule 111 (empty -> .)
+    TO_COMA         shift and go to state 133
+    TO_PARCIERRA    reduce using rule 112 (empty -> .)
 
-    moreParamVals                  shift and go to state 192
-    empty                          shift and go to state 133
+    moreParamVals                  shift and go to state 193
+    empty                          shift and go to state 134
 
-state 174
+state 175
 
     (82) unParam -> ID TO_DOSPTOS megaExp .
 
@@ -3466,14 +3882,14 @@ state 174
     TO_PARCIERRA    reduce using rule 82 (unParam -> ID TO_DOSPTOS megaExp .)
 
 
-state 175
+state 176
 
     (89) checkElse -> PR_else . TO_LLAABRE
 
-    TO_LLAABRE      shift and go to state 193
+    TO_LLAABRE      shift and go to state 194
 
 
-state 176
+state 177
 
     (86) compara2 -> bloque TO_LLACIERRA maybeElse .
 
@@ -3493,7 +3909,7 @@ state 176
     PR_var          reduce using rule 86 (compara2 -> bloque TO_LLACIERRA maybeElse .)
 
 
-state 177
+state 178
 
     (87) maybeElse -> checkElse . doElse
     (90) doElse -> . bloque TO_LLACIERRA
@@ -3525,7 +3941,7 @@ state 177
     (85) compara1 -> . PR_if TO_PARABRE megaExp TO_PARCIERRA TO_LLAABRE
     (66) funcCall1 -> . ID TO_PARABRE
     (12) var -> . PR_var tipo ID arrayCreate
-    (111) empty -> .
+    (112) empty -> .
 
   ! shift/reduce conflict for TO_UWU resolved as shift
   ! shift/reduce conflict for PR_return resolved as shift
@@ -3556,23 +3972,23 @@ state 177
     PR_if           shift and go to state 53
     PR_var          shift and go to state 5
 
-  ! TO_UWU          [ reduce using rule 111 (empty -> .) ]
-  ! PR_return       [ reduce using rule 111 (empty -> .) ]
-  ! PR_draw         [ reduce using rule 111 (empty -> .) ]
-  ! PR_circle       [ reduce using rule 111 (empty -> .) ]
-  ! PR_square       [ reduce using rule 111 (empty -> .) ]
-  ! PR_size         [ reduce using rule 111 (empty -> .) ]
-  ! PR_color        [ reduce using rule 111 (empty -> .) ]
-  ! ID              [ reduce using rule 111 (empty -> .) ]
-  ! PR_kameForw     [ reduce using rule 111 (empty -> .) ]
-  ! PR_kameBack     [ reduce using rule 111 (empty -> .) ]
-  ! PR_kameRot      [ reduce using rule 111 (empty -> .) ]
-  ! PR_loop         [ reduce using rule 111 (empty -> .) ]
-  ! PR_if           [ reduce using rule 111 (empty -> .) ]
-  ! PR_var          [ reduce using rule 111 (empty -> .) ]
+  ! TO_UWU          [ reduce using rule 112 (empty -> .) ]
+  ! PR_return       [ reduce using rule 112 (empty -> .) ]
+  ! PR_draw         [ reduce using rule 112 (empty -> .) ]
+  ! PR_circle       [ reduce using rule 112 (empty -> .) ]
+  ! PR_square       [ reduce using rule 112 (empty -> .) ]
+  ! PR_size         [ reduce using rule 112 (empty -> .) ]
+  ! PR_color        [ reduce using rule 112 (empty -> .) ]
+  ! ID              [ reduce using rule 112 (empty -> .) ]
+  ! PR_kameForw     [ reduce using rule 112 (empty -> .) ]
+  ! PR_kameBack     [ reduce using rule 112 (empty -> .) ]
+  ! PR_kameRot      [ reduce using rule 112 (empty -> .) ]
+  ! PR_loop         [ reduce using rule 112 (empty -> .) ]
+  ! PR_if           [ reduce using rule 112 (empty -> .) ]
+  ! PR_var          [ reduce using rule 112 (empty -> .) ]
 
     assignTo                       shift and go to state 35
-    bloque                         shift and go to state 194
+    bloque                         shift and go to state 195
     decVar                         shift and go to state 39
     estructura                     shift and go to state 44
     var                            shift and go to state 6
@@ -3580,14 +3996,14 @@ state 177
     return                         shift and go to state 46
     comparacion                    shift and go to state 49
     loop1                          shift and go to state 50
-    doElse                         shift and go to state 195
+    doElse                         shift and go to state 196
     funcCall                       shift and go to state 54
     funcCall1                      shift and go to state 55
     compara1                       shift and go to state 57
     assign                         shift and go to state 58
     loop                           shift and go to state 59
 
-state 178
+state 179
 
     (88) maybeElse -> empty .
 
@@ -3607,89 +4023,27 @@ state 178
     PR_var          reduce using rule 88 (maybeElse -> empty .)
 
 
-state 179
+state 180
 
     (36) moreParams -> TO_COMA tipo ID . moreParams
     (36) moreParams -> . TO_COMA tipo ID moreParams
     (37) moreParams -> . empty
-    (111) empty -> .
+    (112) empty -> .
 
     TO_COMA         shift and go to state 96
-    TO_PARCIERRA    reduce using rule 111 (empty -> .)
+    TO_PARCIERRA    reduce using rule 112 (empty -> .)
 
     empty                          shift and go to state 97
-    moreParams                     shift and go to state 196
-
-state 180
-
-    (14) arrayCreate -> TO_CORABRE TO_NUM TO_CORCIERRA TO_CORABRE . TO_NUM TO_CORCIERRA
-
-    TO_NUM          shift and go to state 197
-
+    moreParams                     shift and go to state 197
 
 state 181
 
-    (100) anotherExp -> OP_MAS exp .
+    (14) arrayCreate -> TO_CORABRE TO_NUM TO_CORCIERRA TO_CORABRE . TO_NUM TO_CORCIERRA
 
-    TO_PARCIERRA    reduce using rule 100 (anotherExp -> OP_MAS exp .)
-    OP_DOBLEIGUAL   reduce using rule 100 (anotherExp -> OP_MAS exp .)
-    OP_DIFDE        reduce using rule 100 (anotherExp -> OP_MAS exp .)
-    OP_MENORQUE     reduce using rule 100 (anotherExp -> OP_MAS exp .)
-    OP_MENOROIGUAL  reduce using rule 100 (anotherExp -> OP_MAS exp .)
-    OP_MAYORQUE     reduce using rule 100 (anotherExp -> OP_MAS exp .)
-    OP_MAYOROIGUAL  reduce using rule 100 (anotherExp -> OP_MAS exp .)
-    PR_interseccion reduce using rule 100 (anotherExp -> OP_MAS exp .)
-    PR_union        reduce using rule 100 (anotherExp -> OP_MAS exp .)
-    TO_UWU          reduce using rule 100 (anotherExp -> OP_MAS exp .)
-    PR_return       reduce using rule 100 (anotherExp -> OP_MAS exp .)
-    PR_draw         reduce using rule 100 (anotherExp -> OP_MAS exp .)
-    PR_circle       reduce using rule 100 (anotherExp -> OP_MAS exp .)
-    PR_square       reduce using rule 100 (anotherExp -> OP_MAS exp .)
-    PR_size         reduce using rule 100 (anotherExp -> OP_MAS exp .)
-    PR_color        reduce using rule 100 (anotherExp -> OP_MAS exp .)
-    ID              reduce using rule 100 (anotherExp -> OP_MAS exp .)
-    PR_kameForw     reduce using rule 100 (anotherExp -> OP_MAS exp .)
-    PR_kameBack     reduce using rule 100 (anotherExp -> OP_MAS exp .)
-    PR_kameRot      reduce using rule 100 (anotherExp -> OP_MAS exp .)
-    PR_loop         reduce using rule 100 (anotherExp -> OP_MAS exp .)
-    PR_if           reduce using rule 100 (anotherExp -> OP_MAS exp .)
-    PR_var          reduce using rule 100 (anotherExp -> OP_MAS exp .)
-    TO_COMA         reduce using rule 100 (anotherExp -> OP_MAS exp .)
-    TO_CORCIERRA    reduce using rule 100 (anotherExp -> OP_MAS exp .)
+    TO_NUM          shift and go to state 198
 
 
 state 182
-
-    (101) anotherExp -> OP_MENOS exp .
-
-    TO_PARCIERRA    reduce using rule 101 (anotherExp -> OP_MENOS exp .)
-    OP_DOBLEIGUAL   reduce using rule 101 (anotherExp -> OP_MENOS exp .)
-    OP_DIFDE        reduce using rule 101 (anotherExp -> OP_MENOS exp .)
-    OP_MENORQUE     reduce using rule 101 (anotherExp -> OP_MENOS exp .)
-    OP_MENOROIGUAL  reduce using rule 101 (anotherExp -> OP_MENOS exp .)
-    OP_MAYORQUE     reduce using rule 101 (anotherExp -> OP_MENOS exp .)
-    OP_MAYOROIGUAL  reduce using rule 101 (anotherExp -> OP_MENOS exp .)
-    PR_interseccion reduce using rule 101 (anotherExp -> OP_MENOS exp .)
-    PR_union        reduce using rule 101 (anotherExp -> OP_MENOS exp .)
-    TO_UWU          reduce using rule 101 (anotherExp -> OP_MENOS exp .)
-    PR_return       reduce using rule 101 (anotherExp -> OP_MENOS exp .)
-    PR_draw         reduce using rule 101 (anotherExp -> OP_MENOS exp .)
-    PR_circle       reduce using rule 101 (anotherExp -> OP_MENOS exp .)
-    PR_square       reduce using rule 101 (anotherExp -> OP_MENOS exp .)
-    PR_size         reduce using rule 101 (anotherExp -> OP_MENOS exp .)
-    PR_color        reduce using rule 101 (anotherExp -> OP_MENOS exp .)
-    ID              reduce using rule 101 (anotherExp -> OP_MENOS exp .)
-    PR_kameForw     reduce using rule 101 (anotherExp -> OP_MENOS exp .)
-    PR_kameBack     reduce using rule 101 (anotherExp -> OP_MENOS exp .)
-    PR_kameRot      reduce using rule 101 (anotherExp -> OP_MENOS exp .)
-    PR_loop         reduce using rule 101 (anotherExp -> OP_MENOS exp .)
-    PR_if           reduce using rule 101 (anotherExp -> OP_MENOS exp .)
-    PR_var          reduce using rule 101 (anotherExp -> OP_MENOS exp .)
-    TO_COMA         reduce using rule 101 (anotherExp -> OP_MENOS exp .)
-    TO_CORCIERRA    reduce using rule 101 (anotherExp -> OP_MENOS exp .)
-
-
-state 183
 
     (108) fact -> TO_PARABRE megaExp TO_PARCIERRA .
 
@@ -3725,7 +4079,69 @@ state 183
     TO_COMA         reduce using rule 108 (fact -> TO_PARABRE megaExp TO_PARCIERRA .)
 
 
+state 183
+
+    (100) anotherExp -> OP_MAS exp .
+
+    TO_PARCIERRA    reduce using rule 100 (anotherExp -> OP_MAS exp .)
+    OP_DOBLEIGUAL   reduce using rule 100 (anotherExp -> OP_MAS exp .)
+    OP_DIFDE        reduce using rule 100 (anotherExp -> OP_MAS exp .)
+    OP_MENORQUE     reduce using rule 100 (anotherExp -> OP_MAS exp .)
+    OP_MENOROIGUAL  reduce using rule 100 (anotherExp -> OP_MAS exp .)
+    OP_MAYORQUE     reduce using rule 100 (anotherExp -> OP_MAS exp .)
+    OP_MAYOROIGUAL  reduce using rule 100 (anotherExp -> OP_MAS exp .)
+    PR_interseccion reduce using rule 100 (anotherExp -> OP_MAS exp .)
+    PR_union        reduce using rule 100 (anotherExp -> OP_MAS exp .)
+    TO_UWU          reduce using rule 100 (anotherExp -> OP_MAS exp .)
+    PR_return       reduce using rule 100 (anotherExp -> OP_MAS exp .)
+    PR_draw         reduce using rule 100 (anotherExp -> OP_MAS exp .)
+    PR_circle       reduce using rule 100 (anotherExp -> OP_MAS exp .)
+    PR_square       reduce using rule 100 (anotherExp -> OP_MAS exp .)
+    PR_size         reduce using rule 100 (anotherExp -> OP_MAS exp .)
+    PR_color        reduce using rule 100 (anotherExp -> OP_MAS exp .)
+    ID              reduce using rule 100 (anotherExp -> OP_MAS exp .)
+    PR_kameForw     reduce using rule 100 (anotherExp -> OP_MAS exp .)
+    PR_kameBack     reduce using rule 100 (anotherExp -> OP_MAS exp .)
+    PR_kameRot      reduce using rule 100 (anotherExp -> OP_MAS exp .)
+    PR_loop         reduce using rule 100 (anotherExp -> OP_MAS exp .)
+    PR_if           reduce using rule 100 (anotherExp -> OP_MAS exp .)
+    PR_var          reduce using rule 100 (anotherExp -> OP_MAS exp .)
+    TO_COMA         reduce using rule 100 (anotherExp -> OP_MAS exp .)
+    TO_CORCIERRA    reduce using rule 100 (anotherExp -> OP_MAS exp .)
+
+
 state 184
+
+    (101) anotherExp -> OP_MENOS exp .
+
+    TO_PARCIERRA    reduce using rule 101 (anotherExp -> OP_MENOS exp .)
+    OP_DOBLEIGUAL   reduce using rule 101 (anotherExp -> OP_MENOS exp .)
+    OP_DIFDE        reduce using rule 101 (anotherExp -> OP_MENOS exp .)
+    OP_MENORQUE     reduce using rule 101 (anotherExp -> OP_MENOS exp .)
+    OP_MENOROIGUAL  reduce using rule 101 (anotherExp -> OP_MENOS exp .)
+    OP_MAYORQUE     reduce using rule 101 (anotherExp -> OP_MENOS exp .)
+    OP_MAYOROIGUAL  reduce using rule 101 (anotherExp -> OP_MENOS exp .)
+    PR_interseccion reduce using rule 101 (anotherExp -> OP_MENOS exp .)
+    PR_union        reduce using rule 101 (anotherExp -> OP_MENOS exp .)
+    TO_UWU          reduce using rule 101 (anotherExp -> OP_MENOS exp .)
+    PR_return       reduce using rule 101 (anotherExp -> OP_MENOS exp .)
+    PR_draw         reduce using rule 101 (anotherExp -> OP_MENOS exp .)
+    PR_circle       reduce using rule 101 (anotherExp -> OP_MENOS exp .)
+    PR_square       reduce using rule 101 (anotherExp -> OP_MENOS exp .)
+    PR_size         reduce using rule 101 (anotherExp -> OP_MENOS exp .)
+    PR_color        reduce using rule 101 (anotherExp -> OP_MENOS exp .)
+    ID              reduce using rule 101 (anotherExp -> OP_MENOS exp .)
+    PR_kameForw     reduce using rule 101 (anotherExp -> OP_MENOS exp .)
+    PR_kameBack     reduce using rule 101 (anotherExp -> OP_MENOS exp .)
+    PR_kameRot      reduce using rule 101 (anotherExp -> OP_MENOS exp .)
+    PR_loop         reduce using rule 101 (anotherExp -> OP_MENOS exp .)
+    PR_if           reduce using rule 101 (anotherExp -> OP_MENOS exp .)
+    PR_var          reduce using rule 101 (anotherExp -> OP_MENOS exp .)
+    TO_COMA         reduce using rule 101 (anotherExp -> OP_MENOS exp .)
+    TO_CORCIERRA    reduce using rule 101 (anotherExp -> OP_MENOS exp .)
+
+
+state 185
 
     (106) anotherTerm -> OP_RESID term .
 
@@ -3758,7 +4174,7 @@ state 184
     TO_CORCIERRA    reduce using rule 106 (anotherTerm -> OP_RESID term .)
 
 
-state 185
+state 186
 
     (104) anotherTerm -> OP_MULT term .
 
@@ -3791,7 +4207,7 @@ state 185
     TO_CORCIERRA    reduce using rule 104 (anotherTerm -> OP_MULT term .)
 
 
-state 186
+state 187
 
     (105) anotherTerm -> OP_DIV term .
 
@@ -3824,7 +4240,7 @@ state 186
     TO_CORCIERRA    reduce using rule 105 (anotherTerm -> OP_DIV term .)
 
 
-state 187
+state 188
 
     (94) anotherMega -> opLogico megaExp .
 
@@ -3846,7 +4262,7 @@ state 187
     TO_COMA         reduce using rule 94 (anotherMega -> opLogico megaExp .)
 
 
-state 188
+state 189
 
     (97) maybeRel -> opRelacional exp .
 
@@ -3870,7 +4286,7 @@ state 188
     TO_COMA         reduce using rule 97 (maybeRel -> opRelacional exp .)
 
 
-state 189
+state 190
 
     (45) loop3 -> TO_LLAABRE bloque TO_LLACIERRA .
 
@@ -3890,33 +4306,48 @@ state 189
     PR_var          reduce using rule 45 (loop3 -> TO_LLAABRE bloque TO_LLACIERRA .)
 
 
-state 190
+state 191
 
     (17) arrayIndex -> TO_CORABRE exp TO_CORCIERRA TO_CORABRE . exp TO_CORCIERRA
     (99) exp -> . term anotherExp
     (103) term -> . fact anotherTerm
     (108) fact -> . TO_PARABRE megaExp TO_PARCIERRA
     (109) fact -> . ID arrayIndex
-    (110) fact -> . val
+    (110) fact -> . funcCall
+    (111) fact -> . val
+    (60) funcCall -> . funcCall1 funcCall2
+    (61) funcCall -> . PR_draw TO_PARABRE megaExp TO_PARCIERRA
+    (62) funcCall -> . PR_circle TO_PARABRE exp TO_PARCIERRA
+    (63) funcCall -> . PR_square TO_PARABRE exp TO_PARCIERRA
+    (64) funcCall -> . PR_size TO_PARABRE exp TO_PARCIERRA
+    (65) funcCall -> . PR_color TO_PARABRE colorChoice TO_PARCIERRA
     (2) val -> . TO_NUM
     (3) val -> . TO_FLOT
     (4) val -> . PR_true
     (5) val -> . PR_false
     (6) val -> . ID
+    (66) funcCall1 -> . ID TO_PARABRE
 
-    TO_PARABRE      shift and go to state 119
-    ID              shift and go to state 120
+    TO_PARABRE      shift and go to state 116
+    ID              shift and go to state 118
+    PR_draw         shift and go to state 37
+    PR_circle       shift and go to state 41
+    PR_square       shift and go to state 52
+    PR_size         shift and go to state 42
+    PR_color        shift and go to state 40
     TO_NUM          shift and go to state 117
-    TO_FLOT         shift and go to state 116
-    PR_true         shift and go to state 115
-    PR_false        shift and go to state 113
+    TO_FLOT         shift and go to state 113
+    PR_true         shift and go to state 112
+    PR_false        shift and go to state 115
 
-    term                           shift and go to state 112
+    term                           shift and go to state 119
     val                            shift and go to state 114
-    exp                            shift and go to state 198
-    fact                           shift and go to state 121
+    funcCall                       shift and go to state 120
+    funcCall1                      shift and go to state 55
+    exp                            shift and go to state 199
+    fact                           shift and go to state 122
 
-state 191
+state 192
 
     (85) compara1 -> PR_if TO_PARABRE megaExp TO_PARCIERRA TO_LLAABRE .
 
@@ -3936,14 +4367,14 @@ state 191
     PR_var          reduce using rule 85 (compara1 -> PR_if TO_PARABRE megaExp TO_PARCIERRA TO_LLAABRE .)
 
 
-state 192
+state 193
 
     (80) moreParamVals -> TO_COMA unParam moreParamVals .
 
     TO_PARCIERRA    reduce using rule 80 (moreParamVals -> TO_COMA unParam moreParamVals .)
 
 
-state 193
+state 194
 
     (89) checkElse -> PR_else TO_LLAABRE .
 
@@ -3963,14 +4394,14 @@ state 193
     PR_var          reduce using rule 89 (checkElse -> PR_else TO_LLAABRE .)
 
 
-state 194
+state 195
 
     (90) doElse -> bloque . TO_LLACIERRA
 
-    TO_LLACIERRA    shift and go to state 199
+    TO_LLACIERRA    shift and go to state 200
 
 
-state 195
+state 196
 
     (87) maybeElse -> checkElse doElse .
 
@@ -3990,28 +4421,28 @@ state 195
     PR_var          reduce using rule 87 (maybeElse -> checkElse doElse .)
 
 
-state 196
+state 197
 
     (36) moreParams -> TO_COMA tipo ID moreParams .
 
     TO_PARCIERRA    reduce using rule 36 (moreParams -> TO_COMA tipo ID moreParams .)
 
 
-state 197
-
-    (14) arrayCreate -> TO_CORABRE TO_NUM TO_CORCIERRA TO_CORABRE TO_NUM . TO_CORCIERRA
-
-    TO_CORCIERRA    shift and go to state 200
-
-
 state 198
 
-    (17) arrayIndex -> TO_CORABRE exp TO_CORCIERRA TO_CORABRE exp . TO_CORCIERRA
+    (14) arrayCreate -> TO_CORABRE TO_NUM TO_CORCIERRA TO_CORABRE TO_NUM . TO_CORCIERRA
 
     TO_CORCIERRA    shift and go to state 201
 
 
 state 199
+
+    (17) arrayIndex -> TO_CORABRE exp TO_CORCIERRA TO_CORABRE exp . TO_CORCIERRA
+
+    TO_CORCIERRA    shift and go to state 202
+
+
+state 200
 
     (90) doElse -> bloque TO_LLACIERRA .
 
@@ -4031,7 +4462,7 @@ state 199
     PR_var          reduce using rule 90 (doElse -> bloque TO_LLACIERRA .)
 
 
-state 200
+state 201
 
     (14) arrayCreate -> TO_CORABRE TO_NUM TO_CORCIERRA TO_CORABRE TO_NUM TO_CORCIERRA .
 
@@ -4053,7 +4484,7 @@ state 200
     PR_if           reduce using rule 14 (arrayCreate -> TO_CORABRE TO_NUM TO_CORCIERRA TO_CORABRE TO_NUM TO_CORCIERRA .)
 
 
-state 201
+state 202
 
     (17) arrayIndex -> TO_CORABRE exp TO_CORCIERRA TO_CORABRE exp TO_CORCIERRA .
 
@@ -4150,33 +4581,33 @@ WARNING: shift/reduce conflict for PR_kameRot in state 57 resolved as shift
 WARNING: shift/reduce conflict for PR_loop in state 57 resolved as shift
 WARNING: shift/reduce conflict for PR_if in state 57 resolved as shift
 WARNING: shift/reduce conflict for PR_var in state 57 resolved as shift
-WARNING: shift/reduce conflict for TO_UWU in state 127 resolved as shift
-WARNING: shift/reduce conflict for PR_return in state 127 resolved as shift
-WARNING: shift/reduce conflict for PR_draw in state 127 resolved as shift
-WARNING: shift/reduce conflict for PR_circle in state 127 resolved as shift
-WARNING: shift/reduce conflict for PR_square in state 127 resolved as shift
-WARNING: shift/reduce conflict for PR_size in state 127 resolved as shift
-WARNING: shift/reduce conflict for PR_color in state 127 resolved as shift
-WARNING: shift/reduce conflict for ID in state 127 resolved as shift
-WARNING: shift/reduce conflict for PR_kameForw in state 127 resolved as shift
-WARNING: shift/reduce conflict for PR_kameBack in state 127 resolved as shift
-WARNING: shift/reduce conflict for PR_kameRot in state 127 resolved as shift
-WARNING: shift/reduce conflict for PR_loop in state 127 resolved as shift
-WARNING: shift/reduce conflict for PR_if in state 127 resolved as shift
-WARNING: shift/reduce conflict for PR_var in state 127 resolved as shift
-WARNING: shift/reduce conflict for TO_UWU in state 177 resolved as shift
-WARNING: shift/reduce conflict for PR_return in state 177 resolved as shift
-WARNING: shift/reduce conflict for PR_draw in state 177 resolved as shift
-WARNING: shift/reduce conflict for PR_circle in state 177 resolved as shift
-WARNING: shift/reduce conflict for PR_square in state 177 resolved as shift
-WARNING: shift/reduce conflict for PR_size in state 177 resolved as shift
-WARNING: shift/reduce conflict for PR_color in state 177 resolved as shift
-WARNING: shift/reduce conflict for ID in state 177 resolved as shift
-WARNING: shift/reduce conflict for PR_kameForw in state 177 resolved as shift
-WARNING: shift/reduce conflict for PR_kameBack in state 177 resolved as shift
-WARNING: shift/reduce conflict for PR_kameRot in state 177 resolved as shift
-WARNING: shift/reduce conflict for PR_loop in state 177 resolved as shift
-WARNING: shift/reduce conflict for PR_if in state 177 resolved as shift
-WARNING: shift/reduce conflict for PR_var in state 177 resolved as shift
-WARNING: reduce/reduce conflict in state 120 resolved using rule (val -> ID)
-WARNING: rejected rule (empty -> <empty>) in state 120
+WARNING: shift/reduce conflict for TO_UWU in state 128 resolved as shift
+WARNING: shift/reduce conflict for PR_return in state 128 resolved as shift
+WARNING: shift/reduce conflict for PR_draw in state 128 resolved as shift
+WARNING: shift/reduce conflict for PR_circle in state 128 resolved as shift
+WARNING: shift/reduce conflict for PR_square in state 128 resolved as shift
+WARNING: shift/reduce conflict for PR_size in state 128 resolved as shift
+WARNING: shift/reduce conflict for PR_color in state 128 resolved as shift
+WARNING: shift/reduce conflict for ID in state 128 resolved as shift
+WARNING: shift/reduce conflict for PR_kameForw in state 128 resolved as shift
+WARNING: shift/reduce conflict for PR_kameBack in state 128 resolved as shift
+WARNING: shift/reduce conflict for PR_kameRot in state 128 resolved as shift
+WARNING: shift/reduce conflict for PR_loop in state 128 resolved as shift
+WARNING: shift/reduce conflict for PR_if in state 128 resolved as shift
+WARNING: shift/reduce conflict for PR_var in state 128 resolved as shift
+WARNING: shift/reduce conflict for TO_UWU in state 178 resolved as shift
+WARNING: shift/reduce conflict for PR_return in state 178 resolved as shift
+WARNING: shift/reduce conflict for PR_draw in state 178 resolved as shift
+WARNING: shift/reduce conflict for PR_circle in state 178 resolved as shift
+WARNING: shift/reduce conflict for PR_square in state 178 resolved as shift
+WARNING: shift/reduce conflict for PR_size in state 178 resolved as shift
+WARNING: shift/reduce conflict for PR_color in state 178 resolved as shift
+WARNING: shift/reduce conflict for ID in state 178 resolved as shift
+WARNING: shift/reduce conflict for PR_kameForw in state 178 resolved as shift
+WARNING: shift/reduce conflict for PR_kameBack in state 178 resolved as shift
+WARNING: shift/reduce conflict for PR_kameRot in state 178 resolved as shift
+WARNING: shift/reduce conflict for PR_loop in state 178 resolved as shift
+WARNING: shift/reduce conflict for PR_if in state 178 resolved as shift
+WARNING: shift/reduce conflict for PR_var in state 178 resolved as shift
+WARNING: reduce/reduce conflict in state 118 resolved using rule (val -> ID)
+WARNING: rejected rule (empty -> <empty>) in state 118

@@ -10,14 +10,13 @@ PROG{
 			}
 			#uwu
 		}
-		RET z
+		RET x
 		#uwu
 	}
 	MAIN{
 
-
-		move(a:21, z:15+2.5, y:15)
-		resultado2 = resultado2 + 1
+		VAR NUM testmainvar
+		resultado2 = move(x:21, z:15+2.5, y:15) + 1
 		#uwu
 
 	}

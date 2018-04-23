@@ -1,0 +1,25 @@
+PROG{
+
+	FUNC NUM fact(NUM n){
+
+		IF(n<=1){
+			RET 1
+			#uwu
+		}
+
+		ELSE{
+			RET fact(n:n-1)*n
+			#uwu
+		}
+		
+		#uwu
+	}
+
+	MAIN{
+
+		KAMEF = fact(n:7)
+
+		#uwu
+
+	}
+}

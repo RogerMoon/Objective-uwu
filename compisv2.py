@@ -17,26 +17,32 @@ pilaO = []
 quad = []
 pJumps = []
 pIterator = []
+pReturnTo = []
+pFunc = []
+pVar = []
 contQuads = 0
 contParam = 0
 funcToCall = ''
 currentQuad = 0
+memFunc = 30000
+
 
 
 actual_scope = 'global'
 
-dir_func[actual_scope] = { 'type' : 'void', 'scope' : {}, 'numParams' : 0, 'quadStart' : -1}
+dir_func[actual_scope] = { 'type' : 'VOID', 'scope' : {}, 'numParams' : 0, 'quadStart' : -1}
 
 
 
 #direcciones
-nextAvailable = {'gNum':1000,'gFlot':2000,'gBool':3000,
-		   		'tNum':4000,'tFlot':5000,'tBool':6000 }
+nextAvailable = {'gNum':1000,'gFlot':5000,'gBool':10000,
+		   		'tNum':15000,'tFlot':20000,'tBool':25000 }
 
 # memoria = {'gNum':{},'gFlot':{},'gBool':{},
 # 		   'tNum':{},'tFlot':{},'tBool':{} }
 
 memoria = {}
+
 
 
 
@@ -74,6 +80,14 @@ def nextGlobal(result_type):
 		print('Es una funcion')
 
 
+def add_pFunc(id):
+	pFunc.append(id)
+
+def add_pVar(num):
+	pVar.append(num)
+
+def add_pilaReturn(quad):
+	pReturnTo.append(quad)
 
 def add_pilaO(id):
     pilaO.append(id)
@@ -86,6 +100,18 @@ def add_pType(type):
 
 def add_pJumps(quad):
 	pJumps.append(quad)
+
+def pop_pFunc():
+    if (len(pFunc) > 0):
+        return pFunc.pop()
+
+def pop_pVar():
+    if (len(pVar) > 0):
+        return pVar.pop()
+
+def pop_pilaReturn():
+	if(len(pReturnTo) > 0):
+		return pReturnTo.pop()
 
 def pop_pilaO():
     if (len(pilaO) > 0):
@@ -126,6 +152,20 @@ def top_pIterator():
 		return temp
 	else:
 		return -1
+def top_pFunc():
+    if (len(pFunc) > 0):
+        temp = pop_pFunc()
+        add_pFunc(temp)
+        return temp
+    else:
+        return -1
+def top_pVar():
+    if (len(pVar) > 0):
+        temp = pop_pVar()
+        add_pVar(temp)
+        return temp
+    else:
+        return -1
 
 
 def add_quad(operator,leftOperand,rightOperand,result):
@@ -367,13 +407,14 @@ def p_var(p):
 	if not p[3] in dir_func[actual_scope]['scope']:
 		varAddress = 0
 
-		if actual_scope=='global':
-			varAddress= nextGlobal(p[2])
+		if actual_scope == 'global':
+			varAddress = nextGlobal(p[2])
 
-		dir_func[actual_scope]['scope'][p[3]] = {'type' : p[2], 'address':varAddress}
-		memoria[varAddress] = 0
+			dir_func[actual_scope]['scope'][p[3]] = {'type' : p[2], 'address':varAddress}
+			memoria[varAddress] = 0
+		else:
+			dir_func[actual_scope]['scope'][p[3]] = {'type' : p[2]}
 	else:
-
 		print('Variable ' + p[3] + ' ya declarada')
 		sys.exit()
 
@@ -454,6 +495,12 @@ def p_func11(p):
 
 	if not p[3] in dir_func:
 		global actual_scope
+		
+		if p[2] != 'VOID':
+			varAddress = nextGlobal(p[2])
+			dir_func['global']['scope'][p[3]] = {'type' : p[2], 'address':varAddress }
+			memoria[varAddress] = 0
+
 		actual_scope = p[3]
 		dir_func[p[3]] = { 'type' : p[2], 'scope' : {}, 'numParams' : 0, 'quadStart' : contQuads }
 	else:
@@ -486,15 +533,16 @@ def p_moreParams(p):
 	if len(p) > 2:
 		dir_func[actual_scope]['scope'][p[3]] = {'type' : p[2]}
 		dir_func[actual_scope]['numParams'] = dir_func[actual_scope]['numParams'] + 1
+
 def p_mainBlock(p):
 	'mainBlock : mainBlock1 bloque TO_LLACIERRA'
 
 def p_mainBlock1(p):
 	'mainBlock1 : PR_main TO_LLAABRE'
-	actual_scope = 'main'
-	dir_func[p[1]] = {'type' : 'void', 'scope' : {}}
+	global actual_scope
+	actual_scope = p[1]
+	dir_func[p[1]] = {'type' : 'VOID', 'scope' : {}}
 	updateQuad(0,'result', contQuads)
-	#print(dir_func.get('move'))
 
 def p_opLogico(p):
 	'''opLogico : PR_interseccion 
@@ -583,8 +631,7 @@ def p_funcCall(p):
 def p_funcCall1(p):
 	'funcCall1 : ID TO_PARABRE'
 	if p[1] in dir_func:
-		print('si existo')
-		add_quad('ERA',p[1],'','')
+		add_quad('ERA','',p[1],'')
 		global funcToCall
 		funcToCall = p[1]
 	else:
@@ -593,8 +640,16 @@ def p_funcCall1(p):
 
 def p_funcCall2(p):
 	'funcCall2 : paramVals TO_PARCIERRA'
+	global contParam
 	if contParam == dir_func[funcToCall].get('numParams'):
 		add_quad('GOSUB',funcToCall,'','')
+		if dir_func[funcToCall].get('type') != 'VOID':
+			nextT = nextTemp(dir_func[funcToCall].get('type'))
+			add_quad('=','',funcToCall,'(' + str(nextT) + ')') 
+			memoria[nextT] = 0
+			add_pilaO('(' + str(nextT) + ')')
+			add_pType(dir_func[funcToCall].get('type'))
+		contParam = 0
 	else:
 		print('Error en el numero de parametros de ' + funcToCall)
 		sys.exit()
@@ -622,7 +677,7 @@ def p_moreParamVals(p):
 				 	 | empty'''
 
 def p_unParam(p):
-	'unParam : ID TO_DOSPTOS  megaExp'
+	'unParam : ID TO_DOSPTOS megaExp'
 	global funcToCall
 	val = pop_pilaO()
 	valType = pop_pType()
@@ -635,7 +690,8 @@ def p_unParam(p):
 	if result != 'error':
 		global contParam
 		contParam = contParam + 1
-		print('Aqui es memoria')
+		#print('Aqui es memoria')
+
 		add_quad('PARAM', val, '',funcToCall + ':' + p[1])
 
 	else:
@@ -645,6 +701,14 @@ def p_unParam(p):
 
 def p_return(p):
 	'return : PR_return megaExp'
+	rightOperand = pop_pilaO()
+	rOP_type = pop_pType()
+	result_type = semantic_check(dir_func[actual_scope].get('type'),rOP_type,'=')
+	if result_type != 'error':
+		add_quad('RET','',rightOperand,'')
+	else:
+		print('Error de tipo al retornar en la funcion ' + actual_scope)
+		sys.exit()
 
 def p_comparacion(p):
 	'comparacion : compara1 compara2'
@@ -829,7 +893,8 @@ def p_anotherTerm(p):
 
 def p_fact(p):
 	'''fact : TO_PARABRE megaExp TO_PARCIERRA 
-			| ID arrayIndex 
+			| ID arrayIndex
+			| funcCall 
 			| val'''
 	
 
@@ -891,15 +956,101 @@ def maqVirtual():
 		operation = executeQuad.get('operator')
 
 		if operation == 'GOTO':
+
+			if currentQuad == 0:
+
+				global memFunc
+				dicTemp = {}
+				ogMem = memFunc
+				
+				for var in dir_func['MAIN']['scope']:
+					dir_func['MAIN']['scope'][var]['address'] = memFunc
+					dicTemp[var] = memFunc
+					memoria[memFunc] = 0
+					memFunc = memFunc + 1
+
+				memFunc = ogMem + 1000
+				add_pFunc('MAIN')
+				add_pVar(dicTemp)
+
 			currentQuad = executeQuad.get('result')
 
 		elif operation == 'GOTOF':
+
 			mem = executeQuad.get('leftOperand')
 			val = retrieveValueAt(mem)
+
 			if not val:
 				currentQuad = executeQuad.get('result')
 			else:
 				currentQuad = currentQuad + 1
+
+		elif operation == 'GOSUB':
+			func = executeQuad.get('leftOperand')
+			dicVars = top_pVar()
+
+			for var in dicVars:
+				dir_func[func]['scope'][var]['address'] = dicVars.get(var)
+
+			add_pilaReturn(currentQuad + 1)
+			currentQuad = dir_func[func].get('quadStart')
+
+		elif operation == 'ERA':
+
+			global currentQuad
+			global memFunc
+
+			right = executeQuad.get('rightOperand')
+			
+			dicTemp = {}
+			ogMem = memFunc
+				
+			for var in dir_func[right]['scope']:
+				dicTemp[var] = memFunc
+				memoria[memFunc] = 0
+				memFunc = memFunc + 1
+
+			memFunc = ogMem + 1000
+			add_pFunc(right)
+			add_pVar(dicTemp)
+			currentQuad = currentQuad + 1
+
+		elif operation == 'PARAM':
+
+			global currentQuad
+
+			left = retrieveValueAt(executeQuad.get('leftOperand'))
+			func, var = executeQuad.get('result').split(":")
+
+			dicVars = top_pVar()
+			memoria[dicVars.get(var)] = left
+
+			currentQuad = currentQuad + 1
+
+		elif operation == 'ENDPROC':
+
+			global currentQuad
+			pop_pVar()
+			pop_pFunc()
+
+			dicVars = top_pVar()
+			func = top_pFunc()
+
+			if func != 'MAIN':
+				for var in dicVars:
+					dir_func[func]['scope'][var]['address'] = dicVars.get(var)
+			
+			currentQuad = pop_pilaReturn()
+
+
+		elif operation == 'RET':
+
+			global currentQuad
+
+			right = retrieveValueAt(executeQuad.get('rightOperand'))
+			memoria[dir_func['global']['scope'][top_pFunc()].get('address')] = right
+
+			currentQuad = currentQuad + 1 
 
 		elif operation == 'KAMEF':
 			right = executeQuad.get('rightOperand')
