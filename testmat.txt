@@ -1,0 +1,40 @@
+PROG{
+
+	VAR NUM res2[3,2]
+	VAR NUM x
+
+	MAIN{
+
+		VAR NUM a
+		a = 1
+
+		VAR NUM b
+		b = 1
+
+		VAR NUM c
+		c = 1
+
+
+
+		LOOP(3)
+		{
+			LOOP(2){
+
+				ARR res2[a,b] = c
+				b = b + 1
+				c = c + 1
+				#uwu
+			}
+
+			a = a + 1
+			b = 1
+			#uwu
+		}
+
+		x = 150
+
+		KAMEF = x
+		#uwu
+
+	}
+}

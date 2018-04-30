@@ -6,11 +6,20 @@ import turtle
 wn = turtle.Screen()
 tur = turtle.Turtle()
 tur.shape("turtle")
+#tur.speed(0)
+# tur.penup()
+# tur.left(270)
+# tur.forward(270)
+# tur.right(270)
+# tur.backward(330)
+# tur.pendown()
 
+
+# Inicializacion de diccionarios,variables
+# y listas necesarias para el funcionamiento
+# completo del lenguaje
 aprobado = True
-
 dir_func = {}
-
 pOper = []
 pType = []
 pilaO = []
@@ -20,33 +29,39 @@ pIterator = []
 pReturnTo = []
 pFunc = []
 pVar = []
+pArr =[]
 contQuads = 0
 contParam = 0
 funcToCall = ''
 currentQuad = 0
 memFunc = 30000
+Dim = 0
+R = 1
+toDim = ''
+axuDim = 0
 
-
-
+# Inicilizacion del scope global
 actual_scope = 'global'
 
+# Inicializacion del directorio de funciones vacio
 dir_func[actual_scope] = { 'type' : 'VOID', 'scope' : {}, 'numParams' : 0, 'quadStart' : -1}
 
 
 
-#direcciones
+# Declaracion de direcciones para variables
+# globales y temporales de los tipos disponibles
 nextAvailable = {'gNum':1000,'gFlot':5000,'gBool':10000,
 		   		'tNum':15000,'tFlot':20000,'tBool':25000 }
 
-# memoria = {'gNum':{},'gFlot':{},'gBool':{},
-# 		   'tNum':{},'tFlot':{},'tBool':{} }
 
+# Inicializacion de la memoria vacia
 memoria = {}
 
 
 
 
-
+# Funcion que en base a un tipo de resultado
+# regresa el siguiente valor de memoria disponible
 def nextTemp(result_type):
 	if result_type == 'NUM':
 		availableTemp = nextAvailable['tNum']
@@ -61,6 +76,8 @@ def nextTemp(result_type):
 		nextAvailable['tBool'] = availableTemp + 1
 		return availableTemp
 
+# Funcion que en base a un tipo de resultado
+# regresa el siguiente valor de memoria disponible
 def nextGlobal(result_type):
 	global actual_scope
 	if actual_scope =='global':
@@ -79,6 +96,9 @@ def nextGlobal(result_type):
 	else:
 		print('Es una funcion')
 
+# Funciones para agregar valores a pilas variadas
+def add_pArr(id):
+	pArr.append(id)
 
 def add_pFunc(id):
 	pFunc.append(id)
@@ -100,6 +120,15 @@ def add_pType(type):
 
 def add_pJumps(quad):
 	pJumps.append(quad)
+
+def add_pIterator(iterator):
+	pIterator.append(iterator)
+
+# funciones para sacar el ultimo elemento de 
+# pilas variadas
+def pop_pArr():
+    if (len(pArr) > 0):
+        return pArr.pop()
 
 def pop_pFunc():
     if (len(pFunc) > 0):
@@ -129,6 +158,21 @@ def pop_pJumps():
 	if (len(pJumps) > 0):
 		return pJumps.pop()
 
+def pop_pIterator():
+	if (len(pIterator) > 0):
+		return pIterator.pop()
+
+
+# Funciones para regresar el tope de 
+# diferentes pilas para su uso
+
+def top_pArr():
+    if (len(pArr) > 0):
+        temp = pop_pArr()
+        add_pArr(temp)
+        return temp
+    else:
+        return -1
 
 def top_pOper():
     if (len(pOper) > 0):
@@ -138,12 +182,6 @@ def top_pOper():
     else:
         return -1
 
-def add_pIterator(iterator):
-	pIterator.append(iterator)
-
-def pop_pIterator():
-	if (len(pIterator) > 0):
-		return pIterator.pop()
 
 def top_pIterator():
 	if (len(pIterator) > 0):
@@ -168,6 +206,8 @@ def top_pVar():
         return -1
 
 
+# Funcion que agrega al diccionario de cuadruplos
+# el cuadruplo que recibe
 def add_quad(operator,leftOperand,rightOperand,result):
 	quad.append({'operator':operator,'leftOperand':leftOperand,'rightOperand':rightOperand,'result':result})
 	global contQuads
@@ -175,12 +215,17 @@ def add_quad(operator,leftOperand,rightOperand,result):
 
 add_quad('GOTO', '','','')
 
+# Funcion que actualiza las casillas 
+# que se agregan en blanco a la 
+# lista de cuadruplos
 def updateQuad(i, llave, val):
 	(quad[i])[llave] = val
 
 
 
-
+# Funcion que checa que las operaciones
+# que se intentan agregar a los
+# cuadruplos existan en el cubo semantico
 def semantic_check(lOP_type,rOP_type,oper):
     if lOP_type in sem_cube:
         if rOP_type in sem_cube[lOP_type]:
@@ -188,6 +233,8 @@ def semantic_check(lOP_type,rOP_type,oper):
                 return sem_cube[lOP_type][rOP_type][oper]
     return 'error'
 
+# Funcion que checa si lo que se recibe
+# es un numero
 def is_number(s):
     try:
         float(s)
@@ -195,6 +242,7 @@ def is_number(s):
     except ValueError:
         return False
 
+# Declaracion del cubo semantico
 sem_cube = {'NUM' : 	{ 'NUM' : { '+': 'NUM',
                                     '-': 'NUM',
                                     '/': 'FLOT',
@@ -211,7 +259,6 @@ sem_cube = {'NUM' : 	{ 'NUM' : { '+': 'NUM',
                                     '-': 'FLOT',
                                     '/': 'FLOT',
                                     '*': 'FLOT',
-                                    '%': 'FLOT',
                                     '<': 'BOOL',
                                     '>': 'BOOL',
                                     '<=': 'BOOL',
@@ -223,7 +270,6 @@ sem_cube = {'NUM' : 	{ 'NUM' : { '+': 'NUM',
                                     '-': 'FLOT',
                                     '/': 'FLOT',
                                     '*': 'FLOT',
-                                    '%': 'FLOT',
                                     '<': 'BOOL',
                                     '>': 'BOOL',
                                     '<=': 'BOOL',
@@ -235,7 +281,6 @@ sem_cube = {'NUM' : 	{ 'NUM' : { '+': 'NUM',
                                     '-': 'FLOT',
                                     '/': 'FLOT',
                                     '*': 'FLOT',
-                                    '%': 'FLOT',
                                     '<': 'BOOL',
                                     '>': 'BOOL',
                                     '<=': 'BOOL',
@@ -250,7 +295,7 @@ sem_cube = {'NUM' : 	{ 'NUM' : { '+': 'NUM',
 
 
 
-
+# Lista de las palabras reservadas del lenguaje
 reserved = {
 	  'PROG' : 'PR_program',
 	  'VAR' : 'PR_var',
@@ -260,9 +305,11 @@ reserved = {
 	  'KAMEF' : 'PR_kameForw',
 	  'KAMEB' : 'PR_kameBack',
 	  'KAMER' : 'PR_kameRot',
+	  'SPEED' : 'PR_speed',
 	  'DRAW' : 'PR_draw',
 	  'CIRCLE' : 'PR_circle', 
 	  'SQUARE' : 'PR_square',
+	  'ARR': 'PR_arreglo',
 	  'IF' : 'PR_if' ,
 	  'ELSE' : 'PR_else',
 	  'LOOP' : 'PR_loop',
@@ -291,6 +338,7 @@ reserved = {
 
 }
 
+# Diccionario de los tokens del lenguaje
 tokens = [
 	'OP_MAS', 'OP_MENOS', 'OP_MULT','OP_DIV', 'OP_RESID',
 	'OP_DOBLEIGUAL','OP_IGUAL', 'OP_DIFDE', 'OP_MENORQUE', 'OP_MENOROIGUAL',
@@ -300,7 +348,8 @@ tokens = [
 	'TO_DIGIT', 'TO_NUM', 'TO_FLOT', 'ID', 'TO_COMA', 'TO_UWU','TO_DOSPTOS'
 
 ]
-#tokens
+
+# Declaracion del valor de tokens para el lenguaje
 t_OP_MAS = r'\+'
 t_OP_MENOS = r'\-'
 t_OP_MULT = r'\*'
@@ -331,7 +380,7 @@ t_TO_DOSPTOS = r'\:'
 tokens = tokens + list(reserved.values())
 
 
-
+# Regla para procesar nombres de ID
 def t_ID(t):
     r'[a-zA-Z][a-zA-Z0-9]*'
     t.type = reserved.get(t.value,'ID')
@@ -340,9 +389,8 @@ def t_ID(t):
 # Caracteres ignorados
 t_ignore = ' \t\n'
 
+# Funcion para checar la sintaxis del lenguaje
 def t_error(t):
-	
-
     global aprobado
     aprobado = False
     print("Caracter ilegal '%s'" % t.value[0])
@@ -352,22 +400,63 @@ def t_error(t):
 # Construye el lexer
 lex.lex()
 
+# Definicion de inicio de programa
 def p_prog(p):
 	'prog : PR_program TO_LLAABRE declare mainBlock TO_LLACIERRA'
-	print(dir_func)
-	for q in quad: print q
+	#print(dir_func)
+	#for q in quad: print q
 	#print(dir_func.get('move'))
+	for q in quad: print q
 	
 def p_val(p):
-	'''val : TO_NUM
+	'''val :  TO_NUM
 			| TO_FLOT
 			| PR_true
 			| PR_false
-			| ID'''
-	
-	if p[1] == 'TRUE' or p[1] == 'FALSE':
+			| ID 
+			| PR_arreglo firstIndex moreDimIndex TO_CORCIERRA'''
+
+
+	if len(p) > 2:
+		arreglo = pop_pArr()
+		varscope = ''
+
+		try:
+			dimensiones = dir_func[actual_scope]['scope'][arreglo.get('name')]['dim']
+			varscope = actual_scope
+		except KeyError:
+			dimensiones = dir_func['global']['scope'][arreglo.get('name')]['dim']
+			varscope = 'global'
+		else:
+			print("Error la variable no existe")
+			sys.exit()
+
+		if arreglo.get('currentDim') != len(dimensiones) + 1 and len(dimensiones)!=1: 
+			print('Error, faltan dimensiones en el arreglo')
+			sys.exit()
+
+		nextT = nextTemp('NUM')
+		memoria[nextT]= 0
+		temp1 = '(' + str(nextT) + ')'
+		aux = pop_pilaO()
+		rand = pop_pType()
+		add_quad('+', aux, dimensiones[len(dimensiones)-1].get('Val'),temp1)
+		nextT = nextTemp('NUM')
+		memoria[nextT]= 0
+		temp2 = '[' + str(nextT) + ']'
+		chorizo = varscope+'/'+arreglo.get('name')
+		add_quad('DIRBASE',temp1,chorizo,temp2)
+		add_pilaO(temp2)
+		add_pType(dir_func[varscope]['scope'][arreglo.get('name')].get('type'))
+
+	elif p[1] == 'TRUE':
 		add_pType('BOOL')
-		add_pilaO(p[1])
+		add_pilaO(True)
+
+	elif p[1] == 'FALSE':
+		add_pType('BOOL')
+		add_pilaO(False)
+
 	elif not is_number(p[1]):
 		try:
 			varscope = dir_func[actual_scope]['scope'][p[1]]
@@ -403,35 +492,77 @@ def p_decFunc(p):
 
 
 def p_var(p):
-	'var : PR_var tipo ID arrayCreate'
-	if not p[3] in dir_func[actual_scope]['scope']:
-		varAddress = 0
+ 	'var : var1 arrayCreate'
 
-		if actual_scope == 'global':
-			varAddress = nextGlobal(p[2])
+ 	if actual_scope == 'global':
+ 		varAddress = nextGlobal(dir_func[actual_scope]['scope'][p[1]].get('type'))
+ 		dir_func[actual_scope]['scope'][p[1]]['address'] = varAddress
+ 		memoria[varAddress] = 0
 
-			dir_func[actual_scope]['scope'][p[3]] = {'type' : p[2], 'address':varAddress}
-			memoria[varAddress] = 0
-		else:
-			dir_func[actual_scope]['scope'][p[3]] = {'type' : p[2]}
-	else:
-		print('Variable ' + p[3] + ' ya declarada')
-		sys.exit()
+ 		if p[2] == 1:
+ 			cant = 1
+ 			for i in dir_func[actual_scope]['scope'][p[1]]['dim']:
+ 				cant = cant * i.get('Lim')
+ 			for i in range(cant-1):
+ 				varAddress = nextGlobal(dir_func[actual_scope]['scope'][p[1]].get('type'))
+ 				memoria[varAddress] = 0
 
+def p_var1(p):
+ 	'var1 :  PR_var tipo ID'
+ 	if not p[3] in dir_func[actual_scope]['scope']:
+ 		varAddress = 0
+ 		dir_func[actual_scope]['scope'][p[3]] = {'type' : p[2], 'address':123,'dim' : []}
+ 		p[0] = p[3]
+ 		global toDim
+ 		toDim = p[3]
+		
 
-	#print(dir_func.get(actual_scope))
+ 	else:
+ 		print('Variable ' + p[3] + ' ya declarada')
+ 		sys.exit()
+
 	
 
 
 def p_arrayCreate(p):
-	'''arrayCreate : TO_CORABRE TO_NUM TO_CORCIERRA 
-				   | TO_CORABRE TO_NUM TO_CORCIERRA TO_CORABRE TO_NUM TO_CORCIERRA 
-				   | empty'''
+ 	'''arrayCreate : firstCreate moreDimCreate TO_CORCIERRA 
+ 				   | empty'''
+ 	if len(p) > 2:
+ 		mDim = 0
+ 		Suma = 0
+ 		global R
+ 		for i in range(0, len(dir_func[actual_scope]['scope'][toDim]['dim'])):
+ 			mDim = R / (dir_func[actual_scope]['scope'][toDim]['dim'][i].get('Lim'))
+ 			R = mDim
+ 			Suma = Suma + mDim
+ 			if i < len(dir_func[actual_scope]['scope'][toDim]['dim']) -1 :
+ 				dir_func[actual_scope]['scope'][toDim]['dim'][i]['Val'] = mDim
+ 			else:
+ 				dir_func[actual_scope]['scope'][toDim]['dim'][i]['Val'] = Suma * -1
+ 		p[0] = 1
 
-def p_arrayIndex(p):
-	'''arrayIndex : TO_CORABRE exp TO_CORCIERRA 
-				  | TO_CORABRE exp TO_CORCIERRA TO_CORABRE exp TO_CORCIERRA 
-				  | empty'''
+ 	else:
+ 		p[0] = 0
+
+
+def p_firstCreate(p):
+ 	'firstCreate : TO_CORABRE TO_NUM'
+ 	dicAux = {'Lim' : int(p[2]), 'Val' : 0}
+ 	dir_func[actual_scope]['scope'][toDim]['dim'].append(dicAux)
+ 	global R
+ 	R = R * int(p[2])
+
+
+def p_moreDimCreate(p):
+ 	'''moreDimCreate : TO_COMA TO_NUM moreDimCreate
+ 					 | empty'''
+ 	if len(p) > 2:
+ 		dicAux = {'Lim' : int(p[2]), 'Val' : 0}
+ 		dir_func[actual_scope]['scope'][toDim]['dim'].append(dicAux)
+ 		global R
+ 		R = R * int(p[2])
+
+
 def p_tipo(p):
 	'''tipo : PR_num 
 			| PR_flot
@@ -444,13 +575,47 @@ def p_assign(p):
 	rightOperand = pop_pilaO()
 	rOP_type = pop_pType()
 
-	if varia == 'KAMER' or varia == 'KAMEF' or varia == 'KAMEB':
+	if varia == 'KAMER' or varia == 'KAMEF' or varia == 'KAMEB' or varia == 'SPEED':
 		result_check = semantic_check('FLOT',rOP_type,'=')
 		if result_check != 'error':
 			add_quad(varia,'',rightOperand,'')
 		else:
 			print('Error de tipo al intentar mover a la tortuga')
 			sys.exit()
+
+	elif varia[0] == '[':
+		arreglo = pop_pArr()
+		try:
+			varscope = dir_func[actual_scope]['scope'][arreglo.get('name')]
+
+			if arreglo.get('currentDim') != len(dimensiones) + 1 and len(dimensiones)!=1: 
+				print('Error, faltan dimensiones en el arreglo')
+				sys.exit()
+
+			result_check = semantic_check(varscope.get('type'),rOP_type,'=')
+			if result_check != 'error':
+				add_quad('=','',rightOperand, varia)
+			else:
+				print("Error de tipos al asignar")
+				sys.exit()
+		except KeyError:
+			varscope = dir_func['global']['scope'][arreglo.get('name')]
+			result_check = semantic_check(varscope.get('type'),rOP_type,'=')
+			if result_check != 'error':
+				add_quad('=','',rightOperand, varia)
+			else:
+				print("Error de tipos al asignar")
+				sys.exit()
+		else:
+			print('Error, la variable no existe en el scope')
+			sys.exit()
+			# result_check = semantic_check(varscope.get('type'),rOP_type,'=')
+			# if result_check != 'error':
+			# 	add_quad('=','',rightOperand,varia)
+			# else:
+			# 	print("Error de tipos al asignar")
+			# 	sys.exit()
+
 	else:
 		try:
 			varscope = dir_func[actual_scope]['scope'][varia]
@@ -471,16 +636,161 @@ def p_assign(p):
 				sys.exit()
 
 		
-		
-
 def p_assignTo(p):
-	'''assignTo : ID arrayIndex
+	'''assignTo : ID
+				| PR_arreglo firstIndex moreDimIndex TO_CORCIERRA
 				| PR_kameForw
 				| PR_kameBack
-				| PR_kameRot'''
+				| PR_kameRot
+				| PR_speed'''
 
-	p[0] = p[1]
+	if len(p) > 2:
+		arreglo = top_pArr()
+		varscope = ''
 
+		try:
+			dimensiones = dir_func[actual_scope]['scope'][arreglo.get('name')]['dim']
+			varscope = actual_scope
+		except KeyError:
+			dimensiones = dir_func['global']['scope'][arreglo.get('name')]['dim']
+			varscope = 'global'
+		else:
+			print("Error la variable no existe")
+			sys.exit()
+
+		nextT = nextTemp('NUM')
+		memoria[nextT]= 0
+		temp1 = '(' + str(nextT) + ')'
+		aux = pop_pilaO()
+		rand = pop_pType()
+		add_quad('+', aux, dimensiones[len(dimensiones)-1].get('Val'),temp1)
+		nextT = nextTemp('NUM')
+		memoria[nextT]= 0
+		temp2 = '[' + str(nextT) + ']'
+		chorizo = varscope+'/'+arreglo.get('name')
+		add_quad('DIRBASE',temp1,chorizo,temp2)
+		add_pilaO(temp2)
+		add_pType(dir_func[varscope]['scope'][arreglo.get('name')].get('type'))
+		p[0] = temp2
+
+	else:
+		p[0] = p[1]
+
+def p_firstIndex(p):
+	'firstIndex : ID TO_CORABRE exp'
+
+	varscope = ''
+
+	try:
+		dimensiones = dir_func[actual_scope]['scope'][p[1]]['dim']
+		varscope = actual_scope
+	except KeyError:
+		dimensiones = dir_func['global']['scope'][p[1]]['dim']
+		varscope = 'global'
+	else:
+		print("Error la variable no existe")
+		sys.exit()
+
+	if len(dimensiones) > 0:
+		add_pArr( {'name':p[1],'currentDim':1} )
+
+		index = pop_pilaO()
+		indexType = pop_pType()
+		result_type = semantic_check(indexType, 'NUM', '=')
+
+		if result_type != 'error':
+			add_quad('VER',index, dimensiones[0].get('Lim'),'')
+
+			if len(dimensiones) > 1:
+				nextT = nextTemp('NUM')
+				memoria[nextT]= 0
+				temp1 = '(' + str(nextT) + ')'
+				add_quad('*', index, dimensiones[0].get('Val'),temp1)
+				add_pilaO(temp1)
+				add_pType('NUM')
+			else:
+				add_pType(indexType)
+				add_pilaO(index)
+
+		else:
+			print('Error, usa un NUM para el indice de un arreglo')
+			sys.exit()
+	else:
+		print('Error, la variable '+p[1]+' no es dimensionada')
+		sys.exit()
+
+def p_moreDimIndex(p):
+	'''moreDimIndex : unaDim moreDimIndex
+					 | empty'''
+
+def p_unaDim(p):
+	'unaDim : TO_COMA exp'
+	
+	if len(p) > 2:
+		
+		varscope = ''
+		arreglo = top_pArr()
+
+		try:
+			dimensiones = dir_func[actual_scope]['scope'][arreglo.get('name')]['dim']
+			varscope = actual_scope
+		except KeyError:
+			dimensiones = dir_func['global']['scope'][arreglo.get('name')]['dim']
+			varscope = 'global'
+		else:
+			print("Error la variable no existe")
+			sys.exit()
+
+		index = pop_pilaO()
+		indexType = pop_pType()
+		result_type = semantic_check(indexType, 'NUM', '=')
+
+		if result_type != 'error':
+			add_quad('VER',index, dimensiones[arreglo.get('currentDim')].get('Lim'),'')
+
+			if arreglo.get('currentDim') < len(dimensiones)-1:
+				nextT = nextTemp('NUM')
+				memoria[nextT]= 0
+				temp1 = '(' + str(nextT) + ')'
+				add_quad('*', index, dimensiones[arreglo.get('currentDim')].get('Val'),temp1)
+				add_pilaO(temp1)
+				add_pType('NUM')
+			else:
+				add_pilaO(index)
+				add_pType(indexType)
+
+			nextT = nextTemp('NUM')
+			memoria[nextT]= 0
+			temp1 = '(' + str(nextT) + ')'
+			aux1 = pop_pilaO()
+			aux2 = pop_pilaO()
+			random = pop_pType()
+			random = pop_pType()
+			add_quad('+', aux1, aux2, temp1)
+			add_pilaO(temp1)
+			add_pType('NUM')
+
+			auxArreglo = pop_pArr()
+			auxArreglo['currentDim'] = auxArreglo.get('currentDim') + 1
+			add_pArr(auxArreglo)
+
+				# add_quad('+', index, dimensiones[0].get('Val'),temp1)
+				# nextT = nextTemp('NUM')
+				# memoria[nextT]= 0
+				# temp2 = '(' + str(nextT) + ')'
+				# chorizo = actual_scope+'/'+ top_pArr()
+				# add_quad('DIRBASE',temp1,chorizo,temp2)
+				# add_pilaO(temp2)
+				# add_pType(dir_func[varscope]['scope'][top_pArr()].get('type'))
+				
+		else:
+			print('Error, usa un NUM para el indice de un arreglo')
+			sys.exit()
+
+# def p_arrayIndex(p):
+# 	'''arrayIndex : TO_CORABRE exp TO_CORCIERRA 
+# 				  | TO_CORABRE exp TO_CORCIERRA TO_CORABRE exp TO_CORCIERRA 
+# 				  | empty'''
 
 def p_func(p):
 	'func : func1 func2'
@@ -524,14 +834,14 @@ def p_params(p):
 	'''params : tipo ID moreParams
 			  | empty'''
 	if len (p) > 2:
-		dir_func[actual_scope]['scope'][p[2]] = {'type' : p[1]}
+		dir_func[actual_scope]['scope'][p[2]] = {'type' : p[1], 'dim':[]}
 		dir_func[actual_scope]['numParams'] = dir_func[actual_scope]['numParams'] + 1
 
 def p_moreParams(p):
 	'''moreParams : TO_COMA tipo ID moreParams 
 			  | empty'''
 	if len(p) > 2:
-		dir_func[actual_scope]['scope'][p[3]] = {'type' : p[2]}
+		dir_func[actual_scope]['scope'][p[3]] = {'type' : p[2], 'dim':[]}
 		dir_func[actual_scope]['numParams'] = dir_func[actual_scope]['numParams'] + 1
 
 def p_mainBlock(p):
@@ -623,11 +933,25 @@ def p_funcCall(p):
 				| PR_size TO_PARABRE exp TO_PARCIERRA 
 				| PR_color TO_PARABRE colorChoice TO_PARCIERRA '''
 	if len(p) == 5:
-		rightOperand = pop_pilaO()
-		rOP_type = pop_pType()
-		if(p[1] != 'DRAW' or p[1] != 'COLOR'):
+		if(p[1] != 'DRAW' and p[1] != 'COLOR'):
+			rightOperand = pop_pilaO()
+			rOP_type = pop_pType()
 			result_check = semantic_check('FLOT',rOP_type,'=')
-			add_quad(p[1],'',rightOperand,'')
+			if rightOperand >= 0:
+				add_quad(p[1],'',rightOperand,'')
+			else:
+				print('Error, no se pueden usar numeros negativos para Kame-Chan uwu')
+				sys.exit()
+
+		elif p[1] == 'COLOR':
+			add_quad('COLOR','','',p[3])
+
+		elif p[1] == 'DRAW':
+			rightOperand = pop_pilaO()
+			rOP_type = pop_pType()
+			result_check = semantic_check('BOOL',rOP_type,'=')
+			add_quad('DRAW','','',rightOperand)
+
 def p_funcCall1(p):
 	'funcCall1 : ID TO_PARABRE'
 	if p[1] in dir_func:
@@ -667,6 +991,7 @@ def p_colorChoice(p):
 				   | PR_yellow 
 				   | PR_white 
 				   | PR_black'''
+	p[0] = p[1]
 
 def p_paramVals(p):
 	'''paramVals : unParam moreParamVals 
@@ -868,7 +1193,9 @@ def p_term(p):
 		leftOperand = pop_pilaO()
 		lOP_type = pop_pType()
 		operator = pop_pOper()
+
 		result_type = semantic_check(lOP_type, rOP_type, operator)
+
 		if result_type != 'error':
 			nextT = nextTemp(result_type)
 			#cont de termporales
@@ -893,7 +1220,6 @@ def p_anotherTerm(p):
 
 def p_fact(p):
 	'''fact : TO_PARABRE megaExp TO_PARCIERRA 
-			| ID arrayIndex
 			| funcCall 
 			| val'''
 	
@@ -915,8 +1241,14 @@ def retrieveValueAt(address):
 	if not isinstance(address,basestring):
 		return address
 
+
+
 	if address[0]=='(':
 		address = int(address[1:len(address)-1])
+
+	elif address[0] == '[':
+		address = retrieveValueAt( ( address.replace('[','(') ).replace(']',')') )
+
 	else:
 		for func in dir_func:
 			if address in dir_func.get(func).get('scope').keys():
@@ -936,12 +1268,19 @@ def translateString(address):
 
 	if address[0]=='(':
 		address = int(address[1:len(address)-1])
+
+	elif address[0]=='[':
+		address = retrieveValueAt( ( address.replace('[','(') ).replace(']',')') )
+
 	else:
 		for func in dir_func:
 			if address in dir_func.get(func).get('scope').keys():
 				address = dir_func.get(func).get('scope').get(address).get('address')
 
 	if not address in memoria.keys():
+		for r in memoria:
+			print (str(r)+':'+str(memoria.get(r)))
+		print(address)
 		print('Variable no inicializada')
 		sys.exit()
 	
@@ -968,6 +1307,14 @@ def maqVirtual():
 					dicTemp[var] = memFunc
 					memoria[memFunc] = 0
 					memFunc = memFunc + 1
+
+					if len(dir_func['MAIN']['scope'][var]['dim']) > 0:
+                                                cant = 1
+                                                for i in dir_func['MAIN']['scope'][var]['dim']:
+                                                	cant = cant * i.get('Lim')
+						for i in range(cant-1):
+							memoria[memFunc] = 0
+							memFunc = memFunc + 1
 
 				memFunc = ogMem + 1000
 				add_pFunc('MAIN')
@@ -997,7 +1344,6 @@ def maqVirtual():
 
 		elif operation == 'ERA':
 
-			global currentQuad
 			global memFunc
 
 			right = executeQuad.get('rightOperand')
@@ -1009,6 +1355,14 @@ def maqVirtual():
 				dicTemp[var] = memFunc
 				memoria[memFunc] = 0
 				memFunc = memFunc + 1
+                                
+				if len(dir_func[right]['scope'][var]['dim']) > 0:
+                                        cant = 1
+					for i in dir_func[right]['scope'][var]['dim']:
+						cant = cant * i.get('Lim')
+					for i in range(cant-1):
+						memoria[memFunc] = 0
+						memFunc = memFunc + 1
 
 			memFunc = ogMem + 1000
 			add_pFunc(right)
@@ -1016,8 +1370,6 @@ def maqVirtual():
 			currentQuad = currentQuad + 1
 
 		elif operation == 'PARAM':
-
-			global currentQuad
 
 			left = retrieveValueAt(executeQuad.get('leftOperand'))
 			func, var = executeQuad.get('result').split(":")
@@ -1029,7 +1381,6 @@ def maqVirtual():
 
 		elif operation == 'ENDPROC':
 
-			global currentQuad
 			pop_pVar()
 			pop_pFunc()
 
@@ -1045,12 +1396,34 @@ def maqVirtual():
 
 		elif operation == 'RET':
 
-			global currentQuad
-
 			right = retrieveValueAt(executeQuad.get('rightOperand'))
 			memoria[dir_func['global']['scope'][top_pFunc()].get('address')] = right
 
 			currentQuad = currentQuad + 1 
+
+		elif operation == 'VER':
+			left = executeQuad.get('leftOperand')
+			right = executeQuad.get('rightOperand')
+			leftval = retrieveValueAt(left)
+			rightval = retrieveValueAt(right)
+
+			if not(leftval >= 1 and leftval <= rightval):
+				print('Error el indice se sale del limite')
+				sys.exit()
+			currentQuad = currentQuad + 1
+
+		elif operation == 'DIRBASE':
+			left = executeQuad.get('leftOperand')
+			right = executeQuad.get('rightOperand')
+			leftval = retrieveValueAt(left)
+			cosas= right.split('/')
+			result = executeQuad.get('result')
+			result = result.replace('[','(')
+			result = result.replace(']',')')
+			result = translateString(result)
+			memoria[result] = leftval + dir_func[cosas[0]]['scope'][cosas[1]].get('address')
+
+			currentQuad = currentQuad + 1
 
 		elif operation == 'KAMEF':
 			right = executeQuad.get('rightOperand')
@@ -1069,6 +1442,16 @@ def maqVirtual():
 			rightval = retrieveValueAt(right)
 			tur.left(float(rightval))
 			currentQuad = currentQuad + 1
+
+		elif operation == 'SPEED':
+			right = executeQuad.get('rightOperand')
+			rightval = retrieveValueAt(right)
+			if rightval < 0 or rightval > 10:
+				print('Error, la velocidad solo puede tener un rango entre 0 a 10')
+				sys.exit()
+			else:
+				tur.speed(float(rightval))
+				currentQuad = currentQuad + 1
 
 		elif operation == 'CIRCLE':
 			right = executeQuad.get('rightOperand')
@@ -1113,6 +1496,29 @@ def maqVirtual():
 			tur.pendown()
 			currentQuad = currentQuad + 1
 
+		elif operation == 'SIZE':
+			right = executeQuad.get('rightOperand')
+			rightval = retrieveValueAt(right)
+			tur.pensize(rightval*5)
+			currentQuad = currentQuad + 1
+
+		elif operation == 'DRAW':
+			right = executeQuad.get('result')
+			rightval = retrieveValueAt(right)
+
+			if rightval:
+				tur.pendown()
+			else:
+				tur.penup()
+			currentQuad = currentQuad + 1
+
+		elif operation == 'COLOR':
+			right = executeQuad.get('result')
+			tur.color(right)
+
+			currentQuad = currentQuad + 1	
+
+
 		elif operation == '+':
 			left = executeQuad.get('leftOperand')
 			right = executeQuad.get('rightOperand')
@@ -1149,11 +1555,21 @@ def maqVirtual():
 			memoria[result] = leftval / rightval 
 			currentQuad = currentQuad + 1
 
+		elif operation == '%':
+			left = executeQuad.get('leftOperand')
+			right = executeQuad.get('rightOperand')
+			leftval = retrieveValueAt(left)
+			rightval = retrieveValueAt(right)
+			result = translateString(executeQuad.get('result'))
+			memoria[result] = leftval % rightval 
+			currentQuad = currentQuad + 1
+
 		elif operation == '=':
 			right = executeQuad.get('rightOperand')
 			rightval = retrieveValueAt(right)
 			result = translateString(executeQuad.get('result'))
 			memoria[result] = rightval
+			
 			currentQuad = currentQuad + 1
 
 		elif operation == '<':
@@ -1236,9 +1652,12 @@ f = open(archivo, 'r')
 s = f.read()
 parser.parse(s)
 maqVirtual()
+
 for r in memoria:
 	print (str(r)+':'+str(memoria.get(r)))
 
+
+print(dir_func)
 
 if aprobado == True:
 	

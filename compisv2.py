@@ -618,7 +618,7 @@ def p_assignTo(p):
 # 		dimensiones = dir_func['global']['scope'][p[1]]['dim']
 # 		varscope = 'global'
 # 	else:
-# 		print("Error")
+# 		print("Error la variable no existe")
 # 		sys.exit()
 
 # 	if len(dimensiones) > 0:
