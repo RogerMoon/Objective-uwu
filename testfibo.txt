@@ -15,7 +15,12 @@ PROG{
 			}
 
 			ELSE{
-				RET fibo(n:n-1) + fibo(n:n-2)
+				VAR NUM t1
+				VAR NUM t2
+
+				t1 = fibo(n:n-1)
+				t2 = fibo(n:n-2)
+				RET  t1 + t2
 				#uwu
 			}
 
@@ -29,7 +34,7 @@ PROG{
 
 	MAIN{
 
-		KAMEF = fibo(n:10)*10
+		KAMEF = fibo(n:6)*10
 
 		#uwu
 

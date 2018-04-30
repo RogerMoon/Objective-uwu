@@ -1,7 +1,0 @@
-PROG{
-
-	MAIN{
-		#uwu
-
-	}
-}

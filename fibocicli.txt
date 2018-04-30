@@ -27,7 +27,7 @@ PROG{
 			t2 = nextTerm
 			resp = t2
 			KAMEF = 20
-			CIRCLE(resp*2)
+			CIRCLE(resp*10)
 
 			#uwu
 		}

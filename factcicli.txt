@@ -6,21 +6,18 @@ PROG{
 	MAIN{
 
 		numero = 5
+		temp = 1
+		res = 1
+
 		LOOP(numero)
 		{
 
-			IF(numero <= 1)
-			{
-				CIRCLE(1)
-				#uwu
-			}
-			ELSE
-			{
-				temp = numero * numero
-				res = res + temp
-				numero = numero - 1
-				#uwu
-			}
+			res = res * temp
+			temp = temp + 1
+
+			CIRCLE(res)
+
+			KAMEF = 20
 
 			#uwu
 		}

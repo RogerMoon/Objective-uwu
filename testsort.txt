@@ -1,0 +1,69 @@
+PROG{
+
+	VAR NUM res2[10]
+	VAR NUM x
+
+	MAIN{
+
+		x = 1
+		LOOP(10){
+			ARR res2[x] = 11-x
+			x = x + 1
+			#uwu
+		}
+
+		VAR NUM a
+		VAR NUM b
+		VAR NUM aux
+
+		a = 1
+
+		LOOP(10){
+			SQUARE(ARR res2[a] * 5)
+			KAMEF = 10
+			a = a + 1
+
+			#uwu
+		}
+
+		a = 1
+
+		LOOP(10){
+			b = a + 1
+			LOOP(10-a){
+				IF(ARR res2[a] > ARR res2[b]){
+					aux = ARR res2[a]
+					ARR res2[a] = ARR res2[b]
+					ARR res2[b] = aux
+
+					#uwu
+				}
+				 b = b + 1
+				 #uwu
+			}
+
+			a = a + 1
+			#uwu
+		}
+
+		a = 1
+
+		KAMER = 90
+		DRAW(FALSE)
+		KAMEF = 200
+		KAMER = 90
+		DRAW(TRUE)
+		COLOR(VIOLET)
+
+		LOOP(10){
+			SQUARE(ARR res2[a] * 5)
+			KAMEF = 10
+			a = a + 1
+
+			#uwu
+		}
+
+		#uwu
+
+	}
+}

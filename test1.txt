@@ -1,6 +1,0 @@
-PROG{
-    VAR NUM nombre 
-	MAIN{
-
-	}
-} 

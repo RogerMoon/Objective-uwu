@@ -1,5 +1,5 @@
 PROG{
-	VAR NUM arreglo[5,4]
+	
 	FUNC NUM fact(NUM n){
 		IF(n<=1){
 			RET 1

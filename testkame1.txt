@@ -2,9 +2,12 @@ PROG{
 
 	MAIN{
 
+		SIZE(5)
 		KAMEF = 100
 		SQUARE(50)
-		CIRCLE(100)	
+		CIRCLE(100)
+		SQUARE(220)
+
 
 		#uwu
 

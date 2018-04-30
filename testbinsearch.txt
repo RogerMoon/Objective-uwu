@@ -1,0 +1,117 @@
+PROG{
+
+	VAR NUM res2[10]
+	VAR NUM x
+
+	FUNC NUM binsearch(NUM key, NUM bottom, NUM top)
+	{
+		IF( bottom > top)
+		{
+			RET 0
+			#uwu
+		}
+
+		ELSE
+		{
+			VAR NUM mid
+			VAR NUM pivot
+
+			mid = (top + bottom)/2
+
+			pivot = ARR res2[mid]
+			
+			IF(pivot == key)
+			{
+				RET mid
+				#uwu
+			}
+			ELSE
+			{
+				IF(key < pivot){
+					RET binsearch(key:key, bottom:bottom, top:mid-1)
+					#uwu
+				}
+
+				ELSE{
+					RET binsearch(key:key, bottom:mid+1, top:top)
+					#uwu
+				}
+				#uwu
+			}
+
+			#uwu
+		}
+		#uwu
+	}
+
+	MAIN{
+
+		VAR NUM a
+		VAR NUM b
+		VAR NUM aux
+		ARR res2[1] = 3 
+		ARR res2[2] = 9 
+		ARR res2[3] = 7 
+		ARR res2[4] =15 
+		ARR res2[5] = 30
+		ARR res2[6] = 28
+		ARR res2[7] = 42 
+		ARR res2[8] = 69
+		ARR res2[9] = 10
+		ARR res2[10] = 7
+
+		SPEED = 0
+
+		a = 1
+		b = 1
+		LOOP(10){
+			SQUARE(ARR res2[a] * 5)
+			KAMEF = 10
+			a = a + 1
+
+			#uwu
+		}
+
+		a = 1
+
+		LOOP(10){
+			b = a + 1
+			LOOP(10-a){
+				IF(ARR res2[a] > ARR res2[b]){
+					aux = ARR res2[a]
+					ARR res2[a] = ARR res2[b]
+					ARR res2[b] = aux
+
+					#uwu
+				}
+				 b = b + 1
+				 #uwu
+			}
+
+			a = a + 1
+			#uwu
+		}
+
+		a = 1
+
+		KAMER = 90
+		DRAW(FALSE)
+		KAMEF = 200
+		KAMER = 90
+		DRAW(TRUE)
+		COLOR(VIOLET)
+
+		LOOP(10){
+			SQUARE(ARR res2[a] * 5)
+			KAMEF = 10
+			a = a + 1
+
+			#uwu
+		}
+
+		CIRCLE(binsearch(key:28,bottom:1,top:10)*10)
+
+		#uwu
+
+	}
+}

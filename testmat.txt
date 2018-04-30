@@ -1,6 +1,6 @@
 PROG{
 
-	VAR NUM res2[3,2]
+	VAR NUM res2[3,2,5]
 	VAR NUM x
 
 	MAIN{
@@ -14,15 +14,25 @@ PROG{
 		VAR NUM c
 		c = 1
 
+		VAR NUM d
+		d = 1
+
 
 
 		LOOP(3)
 		{
 			LOOP(2){
 
-				ARR res2[a,b] = c
+				LOOP(5){
+					ARR res2[a,b,c] = d
+					d = d + 1
+					c = c + 1
+
+					#uwu
+				}
+
 				b = b + 1
-				c = c + 1
+				c = 1				
 				#uwu
 			}
 
@@ -31,7 +41,7 @@ PROG{
 			#uwu
 		}
 
-		x = 150
+		x = 150 * ARR res2[2,2,3]
 
 		KAMEF = x
 		#uwu

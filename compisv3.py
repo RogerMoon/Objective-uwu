@@ -403,10 +403,14 @@ lex.lex()
 # Definicion de inicio de programa
 def p_prog(p):
 	'prog : PR_program TO_LLAABRE declare mainBlock TO_LLACIERRA'
-	#print(dir_func)
+	print(dir_func)
 	#for q in quad: print q
 	#print(dir_func.get('move'))
-	for q in quad: print q
+	a = 0
+	for q in quad:
+		print a
+		print q
+		a = a + 1
 	
 def p_val(p):
 	'''val :  TO_NUM
@@ -431,7 +435,7 @@ def p_val(p):
 			print("Error la variable no existe")
 			sys.exit()
 
-		if arreglo.get('currentDim') != len(dimensiones) + 1 and len(dimensiones)!=1: 
+		if arreglo.get('currentDim') != len(dimensiones) and len(dimensiones)!=1:
 			print('Error, faltan dimensiones en el arreglo')
 			sys.exit()
 
@@ -554,14 +558,18 @@ def p_firstCreate(p):
 
 
 def p_moreDimCreate(p):
- 	'''moreDimCreate : TO_COMA TO_NUM moreDimCreate
+ 	'''moreDimCreate : unaDimCreate moreDimCreate
  					 | empty'''
- 	if len(p) > 2:
+ 	
+
+def p_unaDimCreate(p):
+	'unaDimCreate : TO_COMA TO_NUM'
+
+	if len(p) > 2:
  		dicAux = {'Lim' : int(p[2]), 'Val' : 0}
  		dir_func[actual_scope]['scope'][toDim]['dim'].append(dicAux)
  		global R
  		R = R * int(p[2])
-
 
 def p_tipo(p):
 	'''tipo : PR_num 
@@ -588,7 +596,7 @@ def p_assign(p):
 		try:
 			varscope = dir_func[actual_scope]['scope'][arreglo.get('name')]
 
-			if arreglo.get('currentDim') != len(dimensiones) + 1 and len(dimensiones)!=1: 
+			if arreglo.get('currentDim') != len(dimensiones) and len(dimensiones)!=1: 
 				print('Error, faltan dimensiones en el arreglo')
 				sys.exit()
 
@@ -1408,6 +1416,9 @@ def maqVirtual():
 			rightval = retrieveValueAt(right)
 
 			if not(leftval >= 1 and leftval <= rightval):
+				print(currentQuad)
+				for r in memoria:
+					print (str(r)+':'+str(memoria.get(r)))
 				print('Error el indice se sale del limite')
 				sys.exit()
 			currentQuad = currentQuad + 1
@@ -1499,7 +1510,7 @@ def maqVirtual():
 		elif operation == 'SIZE':
 			right = executeQuad.get('rightOperand')
 			rightval = retrieveValueAt(right)
-			tur.pensize(rightval*5)
+			tur.pensize(rightval)
 			currentQuad = currentQuad + 1
 
 		elif operation == 'DRAW':

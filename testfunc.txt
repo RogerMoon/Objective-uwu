@@ -14,7 +14,7 @@ PROG{
 	MAIN{
 
 		VAR NUM testmainvar
-		resultado2 = move(x:21, z:15+2.5, y:15) + 1
+		resultado2 = move(x:21, z:15+2.5, y:15) + (1+5)/2
 		#uwu
 
 	}
