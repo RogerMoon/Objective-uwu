@@ -1,0 +1,37 @@
+PROG{
+	VAR NUM num1
+	VAR NUM t1
+	VAR NUM t2
+	VAR NUM nextTerm
+	VAR NUM resp
+	MAIN{
+		COLOR(GREEN)
+		t1 = 0
+		t2 = 1
+		num1 = 6
+
+		IF(num1 == 0)
+		{
+			resp = t1
+			#uwu
+		}
+		ELSE{
+			resp = t2
+			#uwu
+		}
+
+		LOOP(num1-1)
+		{
+			nextTerm = t1 + t2
+			t1 = t2
+			t2 = nextTerm
+			resp = t2
+			KAMEF = 20
+			CIRCLE(resp*2)
+
+			#uwu
+		}
+		#uwu
+
+	}
+}

@@ -3,13 +3,11 @@ PROG{
 	VAR NUM resultado2
 	FUNC NUM move(NUM x, FLOT y, FLOT z){
 
-		IF(x>y){
 			LOOP(4+1){
 				z=1
 				#uwu
 			}
-			#uwu
-		}
+
 		RET x
 		#uwu
 	}

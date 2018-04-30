@@ -1,0 +1,32 @@
+PROG{
+	
+	VAR NUM numero
+	VAR NUM res
+	VAR NUM temp
+	MAIN{
+
+		numero = 5
+		LOOP(numero)
+		{
+
+			IF(numero <= 1)
+			{
+				CIRCLE(1)
+				#uwu
+			}
+			ELSE
+			{
+				temp = numero * numero
+				res = res + temp
+				numero = numero - 1
+				#uwu
+			}
+
+			#uwu
+		}
+	
+		KAMEF = res
+		#uwu
+		
+	}
+}

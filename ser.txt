@@ -1,0 +1,40 @@
+PROG{
+	FUNC VOID sierpinski(NUM largo, NUM deep){
+
+		IF(deep == 0)
+		{
+			VAR NUM range
+			range = 5
+			LOOP(range)
+			{
+				KAMEF = largo
+				KAMER = 120
+				range = range - 1
+				#uwu
+			}
+			#uwu
+		}
+		ELSE
+		{
+			sierpinski(largo:largo/2, deep:deep-1)
+			KAMEF = largo/2
+			sierpinski(largo:largo/2, deep:deep-1)
+			KAMEB = largo/2
+			KAMER = 60
+			KAMEF = largo/2
+			KAMER = 300
+			sierpinski(largo:largo/2, deep:deep-1)
+			KAMER = 60
+			KAMEB = largo/2
+			KAMER = 300
+			#uwu
+		}
+		#uwu
+	}
+	MAIN{
+		SPEED = 0
+		sierpinski(largo:200, deep:3)
+		#uwu
+
+	}
+}
