@@ -617,12 +617,6 @@ def p_assign(p):
 		else:
 			print('Error, la variable no existe en el scope')
 			sys.exit()
-			# result_check = semantic_check(varscope.get('type'),rOP_type,'=')
-			# if result_check != 'error':
-			# 	add_quad('=','',rightOperand,varia)
-			# else:
-			# 	print("Error de tipos al asignar")
-			# 	sys.exit()
 
 	else:
 		try:
@@ -782,23 +776,11 @@ def p_unaDim(p):
 			auxArreglo['currentDim'] = auxArreglo.get('currentDim') + 1
 			add_pArr(auxArreglo)
 
-				# add_quad('+', index, dimensiones[0].get('Val'),temp1)
-				# nextT = nextTemp('NUM')
-				# memoria[nextT]= 0
-				# temp2 = '(' + str(nextT) + ')'
-				# chorizo = actual_scope+'/'+ top_pArr()
-				# add_quad('DIRBASE',temp1,chorizo,temp2)
-				# add_pilaO(temp2)
-				# add_pType(dir_func[varscope]['scope'][top_pArr()].get('type'))
 				
 		else:
 			print('Error, usa un NUM para el indice de un arreglo')
 			sys.exit()
 
-# def p_arrayIndex(p):
-# 	'''arrayIndex : TO_CORABRE exp TO_CORCIERRA 
-# 				  | TO_CORABRE exp TO_CORCIERRA TO_CORABRE exp TO_CORCIERRA 
-# 				  | empty'''
 
 def p_func(p):
 	'func : func1 func2'
