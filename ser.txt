@@ -39,7 +39,7 @@ PROG{
 		KAMEF = 250
 		KAMER = 90
 		DRAW(TRUE)
-		sierpinski(largo:400, deep:4)
+		sierpinski(largo:400, deep:6)
 		#uwu
 
 	}

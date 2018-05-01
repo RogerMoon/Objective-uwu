@@ -3,16 +3,11 @@ import ply.yacc as yacc
 import sys
 import turtle
 
+#Inicializacion de variables para manejar la tortuga
 wn = turtle.Screen()
 tur = turtle.Turtle()
 tur.shape("turtle")
-#tur.speed(0)
-# tur.penup()
-# tur.left(270)
-# tur.forward(270)
-# tur.right(270)
-# tur.backward(330)
-# tur.pendown()
+
 
 
 # Inicializacion de diccionarios,variables
@@ -408,10 +403,15 @@ def p_prog(p):
 	#print(dir_func.get('move'))
 	a = 0
 	for q in quad:
-		print a
+		#print a
 		print q
 		a = a + 1
-	
+
+# Definicion de regla de valor
+# En caso de que lo que se lea sea de largo mayor a 2 (un arreglo)
+# valida que exista la variable dimesionada, de ser asi 
+# se agrega el arreglo al directorio asi como sus tipos a las pilas
+
 def p_val(p):
 	'''val :  TO_NUM
 			| TO_FLOT
@@ -511,6 +511,7 @@ def p_var(p):
  				varAddress = nextGlobal(dir_func[actual_scope]['scope'][p[1]].get('type'))
  				memoria[varAddress] = 0
 
+# Regla que da de alta una variable, en caso de ya estar declarada muestra el error
 def p_var1(p):
  	'var1 :  PR_var tipo ID'
  	if not p[3] in dir_func[actual_scope]['scope']:
@@ -527,7 +528,8 @@ def p_var1(p):
 
 	
 
-
+# Regla para crear arreglos con x numero de dimensiones,
+# Agrega el arreglo asi como sus calculos correspondientes
 def p_arrayCreate(p):
  	'''arrayCreate : firstCreate moreDimCreate TO_CORCIERRA 
  				   | empty'''
@@ -549,6 +551,7 @@ def p_arrayCreate(p):
  		p[0] = 0
 
 
+#agrega arreglo al directorio junto con sus dimensiones
 def p_firstCreate(p):
  	'firstCreate : TO_CORABRE TO_NUM'
  	dicAux = {'Lim' : int(p[2]), 'Val' : 0}
@@ -577,6 +580,10 @@ def p_tipo(p):
 			| PR_bool '''
 	p[0] = p[1]
 
+
+# revisa el valor y de ser uno de los KAMER hace un
+# result check para revizar el tipo asi como que
+# la asignacion sea correcta
 def p_assign(p):
 	'assign : assignTo OP_IGUAL megaExp'
 	varia = p[1]
@@ -637,7 +644,10 @@ def p_assign(p):
 				print("Error de tipos al asignar")
 				sys.exit()
 
-		
+# lleva acabo la asegnacion de arreglos
+# en caso que el largo de p sea mayor a 2
+# asi como generar el cuadruplo de la dirbase
+
 def p_assignTo(p):
 	'''assignTo : ID
 				| PR_arreglo firstIndex moreDimIndex TO_CORCIERRA
@@ -677,6 +687,8 @@ def p_assignTo(p):
 
 	else:
 		p[0] = p[1]
+
+# 
 
 def p_firstIndex(p):
 	'firstIndex : ID TO_CORABRE exp'
@@ -725,6 +737,9 @@ def p_moreDimIndex(p):
 	'''moreDimIndex : unaDim moreDimIndex
 					 | empty'''
 
+# regla para mas de una dimension en arreglo
+# reviza que los tipos y los numeros de dimensiones
+# sean correctos 
 def p_unaDim(p):
 	'unaDim : TO_COMA exp'
 	
@@ -790,6 +805,7 @@ def p_func1(p):
 	'func1 : func11 func12'
 
 
+# Reviza que la funcion no este declarada para declararla
 def p_func11(p):
 	'func11 : PR_function decideType ID TO_PARABRE'
 
@@ -827,6 +843,7 @@ def p_params(p):
 		dir_func[actual_scope]['scope'][p[2]] = {'type' : p[1], 'dim':[]}
 		dir_func[actual_scope]['numParams'] = dir_func[actual_scope]['numParams'] + 1
 
+# parametros de funciones declarados
 def p_moreParams(p):
 	'''moreParams : TO_COMA tipo ID moreParams 
 			  | empty'''
@@ -837,6 +854,7 @@ def p_moreParams(p):
 def p_mainBlock(p):
 	'mainBlock : mainBlock1 bloque TO_LLACIERRA'
 
+# Agrega al dir de funciones la funcion main
 def p_mainBlock1(p):
 	'mainBlock1 : PR_main TO_LLAABRE'
 	global actual_scope
@@ -852,7 +870,7 @@ def p_opLogico(p):
 		#print(pOper)
 		
 
-
+#Realiza operaciones correspondientes a los loops
 def p_loop(p):
 	'loop : loop1 loop2 loop3'
 	fin = pop_pJumps()
@@ -915,6 +933,9 @@ def p_estructura(p):
 				  | decVar'''
 
 
+# Genera los cuadrupos de las funciones especiales
+# del lenguaje para cada operacion 
+
 def p_funcCall(p):
 	'''funcCall : funcCall1 funcCall2
 				| PR_draw TO_PARABRE megaExp TO_PARCIERRA 
@@ -942,6 +963,7 @@ def p_funcCall(p):
 			result_check = semantic_check('BOOL',rOP_type,'=')
 			add_quad('DRAW','','',rightOperand)
 
+# crea el ERA de la funcion correspondiente
 def p_funcCall1(p):
 	'funcCall1 : ID TO_PARABRE'
 	if p[1] in dir_func:
@@ -952,6 +974,7 @@ def p_funcCall1(p):
 		print('Error la funcion ' + p[1] + ' no existe')
 		sys.exit()	
 
+# crea el gosub de la funcion correspondientes asi como los parametros
 def p_funcCall2(p):
 	'funcCall2 : paramVals TO_PARCIERRA'
 	global contParam
@@ -1113,7 +1136,7 @@ def p_anotherMega(p):
 def p_superExp(p):
 	'superExp : exp maybeRel'
 
-
+# Regla de agregar operadores relacionales
 def p_maybeRel(p):
 	'''maybeRel : opRelacional exp 
 				| empty'''
@@ -1138,6 +1161,8 @@ def p_maybeRel(p):
 			print('Error de tipo en una comparacion')
 			sys.exit()
 
+
+# Regla de agregar operadores de + y -
 def p_exp(p):
 	'exp : term anotherExp'
 
@@ -1173,6 +1198,7 @@ def p_anotherExp(p):
 		add_pOper(p[1])		
 
 
+# Regla de agregar operadores relacionales * / %
 def p_term(p):
 	'term : fact anotherTerm'
 
@@ -1226,6 +1252,9 @@ def p_error(p):
     sys.exit()
 
 
+# Funcion que basado en un numero
+# de direccion de memoria regresa
+# el valor correspondiente
 def retrieveValueAt(address):
 	
 	if not isinstance(address,basestring):
@@ -1250,6 +1279,10 @@ def retrieveValueAt(address):
 		sys.exit()
 	
 	return memoria.get(address)
+
+# Funcion que transforma un string (1800)
+# en un numero 1800 para que pueda ser accesado
+# el valor correspondiente
 
 def translateString(address):
 	
@@ -1276,6 +1309,13 @@ def translateString(address):
 	
 	return address
 
+
+
+# Funcion de maquina virtual
+# ejecuta el codigo que esta dentro
+# de los cuadruplos y lo despliega
+# como output grafico que puede ver
+# el usuario que esta programando
 def maqVirtual():
 	
 	global currentQuad
@@ -1646,10 +1686,11 @@ s = f.read()
 parser.parse(s)
 maqVirtual()
 
+#print de memoria
 for r in memoria:
 	print (str(r)+':'+str(memoria.get(r)))
 
-
+#print de directorio de funciones
 print(dir_func)
 
 if aprobado == True:
