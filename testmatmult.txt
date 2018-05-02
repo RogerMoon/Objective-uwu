@@ -1,0 +1,86 @@
+PROG{
+	
+	VAR NUM matriz1[2,3]
+	VAR NUM matriz2[3,4]
+	VAR NUM resultado[2,4]
+
+	MAIN{
+
+		VAR NUM a
+		VAR NUM r1
+		VAR NUM r2
+		VAR NUM c1
+		VAR NUM c2
+
+		r1 = 1
+		r2 = 1
+		c1 = 1
+		c2 = 1
+		a = 1
+
+		LOOP(2){
+			LOOP(3){
+				ARR matriz1[r1,c1] = a
+				a = a + 1
+				c1 = c1 + 1
+				#uwu
+			}
+
+			r1 = r1+1
+			c1 = 1
+			#uwu
+		}
+
+		a = 1
+
+		LOOP(3){
+			LOOP(4){
+				ARR matriz2[r2,c2] = a
+				a = a + 1
+				c2 = c2 + 1
+				#uwu
+			}
+
+			r2 = r2+1
+			c2 = 1
+			#uwu
+		}
+
+		r1= 1
+		c2= 1
+		r2= 1
+
+		LOOP(2){
+			LOOP(4){
+				ARR resultado[r1,c2] = 0
+				c2 = c2+1
+				#uwu
+			}
+			c2= 1
+			r1= r1+1
+			#uwu
+		}
+
+		r1= 1
+		c2= 1
+		r2= 1
+
+		LOOP(2){
+			LOOP(4){
+				LOOP(3){
+					ARR resultado[r1,c2] = ARR resultado[r1,c2] + ARR matriz1[r1,r2] * ARR matriz2[r2,c2]
+					r2 = r2 +1
+					#uwu
+				}
+				r2 = 1
+				c2 = c2 +1
+				#uwu
+			}
+			c2= 1
+			r1= r1+1
+			#uwu
+		}
+
+		#uwu
+	}
+}
